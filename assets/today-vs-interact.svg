@@ -8,43 +8,32 @@
   <!-- Divider -->
   <line x1="490" y1="14" x2="490" y2="338" stroke="#cccccc" stroke-width="0.6"/>
 
-  <!-- TODAY (LEFT) -->
+  <!-- ================= CENTRALIZED (LEFT) ================= -->
   <text x="245" y="28" text-anchor="middle" font-size="15" font-weight="600" fill="#111111">Centralized</text>
   <line x1="20" y1="40" x2="470" y2="40" stroke="#cccccc" stroke-width="0.5"/>
 
-  <!-- 1 central controller -->
   <rect x="145" y="50" width="200" height="48" rx="10" fill="#8B3A2A" stroke="#c0614a" stroke-width="0.8"/>
   <text x="245" y="74" text-anchor="middle" font-size="14" font-weight="600" fill="#f4c8bc" dominant-baseline="central">1 central controller</text>
 
-  <!-- Arrows to all 5 actors -->
   <line x1="245" y1="98" x2="57"  y2="132" stroke="#888" stroke-width="0.7" marker-end="url(#arr)"/>
   <line x1="245" y1="98" x2="150" y2="132" stroke="#888" stroke-width="0.7" marker-end="url(#arr)"/>
   <line x1="245" y1="98" x2="243" y2="132" stroke="#888" stroke-width="0.7" marker-end="url(#arr)"/>
   <line x1="245" y1="98" x2="336" y2="132" stroke="#888" stroke-width="0.7" marker-end="url(#arr)"/>
   <line x1="245" y1="98" x2="429" y2="132" stroke="#888" stroke-width="0.7" marker-end="url(#arr)"/>
 
-  <!-- 5 ACTORS: 2 arms + 3 AGVs (no belt) -->
   <rect x="22"  y="132" width="70" height="42" rx="8" fill="#f0f0f0" stroke="#bbbbbb" stroke-width="0.5"/>
   <text x="57"  y="153" text-anchor="middle" font-size="12" fill="#111111" dominant-baseline="central">Arm 1</text>
-
   <rect x="115" y="132" width="70" height="42" rx="8" fill="#f0f0f0" stroke="#bbbbbb" stroke-width="0.5"/>
   <text x="150" y="153" text-anchor="middle" font-size="12" fill="#111111" dominant-baseline="central">Arm 2</text>
-
   <rect x="208" y="132" width="70" height="42" rx="8" fill="#f0f0f0" stroke="#bbbbbb" stroke-width="0.5"/>
   <text x="243" y="153" text-anchor="middle" font-size="12" fill="#111111" dominant-baseline="central">AGV 1</text>
-
   <rect x="301" y="132" width="70" height="42" rx="8" fill="#f0f0f0" stroke="#bbbbbb" stroke-width="0.5"/>
   <text x="336" y="153" text-anchor="middle" font-size="12" fill="#111111" dominant-baseline="central">AGV 2</text>
-
   <rect x="394" y="132" width="70" height="42" rx="8" fill="#f0f0f0" stroke="#bbbbbb" stroke-width="0.5"/>
   <text x="429" y="153" text-anchor="middle" font-size="12" fill="#111111" dominant-baseline="central">AGV 3</text>
 
-  <!-- No peer arrows - actors cannot communicate -->
-
-  <!-- All actors label -->
   <text x="245" y="192" text-anchor="middle" font-size="11" fill="#111111" font-style="italic">All actors</text>
 
-  <!-- Summary box -->
   <rect x="22" y="222" width="446" height="116" rx="8" fill="none" stroke="#aaaaaa" stroke-width="0.8"/>
   <text x="245" y="248" text-anchor="middle" font-size="12" fill="#111111">All decisions bottleneck through one central controller</text>
   <text x="245" y="268" text-anchor="middle" font-size="12" fill="#111111">No actor can communicate with each other</text>
@@ -52,60 +41,66 @@
   <text x="245" y="308" text-anchor="middle" font-size="12" fill="#111111">No dedicated intelligence</text>
   <text x="245" y="328" text-anchor="middle" font-size="11" fill="#888888">Deadlocks on the unplanned: too many state combinations to pre-program</text>
 
-  <!-- INTER.act (RIGHT) -->
-  <text x="741" y="28" text-anchor="middle" font-size="15" font-weight="600" fill="#111111">INTER.act</text>
+  <!-- ================= INTER.act (RIGHT) — decentralized mesh on a shared bus ================= -->
+  <text x="735" y="28" text-anchor="middle" font-size="15" font-weight="600" fill="#111111">INTER.act</text>
   <line x1="510" y1="40" x2="960" y2="40" stroke="#cccccc" stroke-width="0.5"/>
 
-  <!-- Observer -->
-  <rect x="606" y="48" width="270" height="60" rx="10" fill="#0f5c4a" stroke="#1a9e7e" stroke-width="0.8"/>
-  <text x="741" y="68" text-anchor="middle" font-size="14" font-weight="600" fill="#9be8d0" dominant-baseline="central">Observer (emergent)</text>
-  <text x="741" y="88" text-anchor="middle" font-size="11" fill="#6fcfb5" dominant-baseline="central">sets goal · observes · intervenes only on deadlock</text>
+  <!-- Observer: small, sets the goal only — NOT a command hub -->
+  <rect x="792" y="46" width="168" height="28" rx="8" fill="#eafaf3" stroke="#1a9e7e" stroke-width="0.8"/>
+  <text x="876" y="60" text-anchor="middle" font-size="10.5" fill="#0f5c4a" dominant-baseline="central">observer · sets goal only</text>
+  <path d="M832 74 C 800 110, 760 150, 735 184" fill="none" stroke="#9ccdbf" stroke-width="0.9" stroke-dasharray="2 3"/>
+  <text x="772" y="120" text-anchor="middle" font-size="9" fill="#5aa491">goal in</text>
 
-  <!-- ONE-WAY arrows: observer -> each actor brain -->
-  <line x1="660" y1="108" x2="545" y2="132" stroke="#888" stroke-width="0.7" marker-end="url(#arr)"/>
-  <line x1="700" y1="108" x2="643" y2="132" stroke="#888" stroke-width="0.7" marker-end="url(#arr)"/>
-  <line x1="741" y1="108" x2="741" y2="132" stroke="#888" stroke-width="0.7" marker-end="url(#arr)"/>
-  <line x1="782" y1="108" x2="839" y2="132" stroke="#888" stroke-width="0.7" marker-end="url(#arr)"/>
-  <line x1="822" y1="108" x2="937" y2="132" stroke="#888" stroke-width="0.7" marker-end="url(#arr)"/>
+  <!-- peer mesh: arced cross-links (non-adjacent) -->
+  <path d="M545 104 C 605 80, 681 80, 741 104" fill="none" stroke="#9b96ef" stroke-width="0.8" stroke-dasharray="3 2"/>
+  <path d="M741 104 C 801 80, 877 80, 937 104" fill="none" stroke="#9b96ef" stroke-width="0.8" stroke-dasharray="3 2"/>
+  <path d="M643 104 C 700 86, 782 86, 839 104" fill="none" stroke="#9b96ef" stroke-width="0.8" stroke-dasharray="3 2"/>
 
-  <!-- 5 ACTOR BRAINS: 2 arms + 3 AGVs (no belt) -->
-  <rect x="510" y="132" width="70" height="52" rx="9" fill="#231f6e" stroke="#5b52cc" stroke-width="0.8"/>
-  <text x="545" y="151" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff" dominant-baseline="central">Brain 1</text>
-  <text x="545" y="170" text-anchor="middle" font-size="10" fill="#9b96ef" dominant-baseline="central">Arm 1</text>
+  <!-- 5 ACTOR BRAINS: 2 arms + 3 AGVs -->
+  <rect x="510" y="104" width="70" height="50" rx="9" fill="#231f6e" stroke="#5b52cc" stroke-width="0.8"/>
+  <text x="545" y="122" text-anchor="middle" font-size="11.5" font-weight="600" fill="#ffffff" dominant-baseline="central">Brain</text>
+  <text x="545" y="140" text-anchor="middle" font-size="10" fill="#9b96ef" dominant-baseline="central">Arm 1</text>
 
-  <rect x="608" y="132" width="70" height="52" rx="9" fill="#231f6e" stroke="#5b52cc" stroke-width="0.8"/>
-  <text x="643" y="151" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff" dominant-baseline="central">Brain 2</text>
-  <text x="643" y="170" text-anchor="middle" font-size="10" fill="#9b96ef" dominant-baseline="central">Arm 2</text>
+  <rect x="608" y="104" width="70" height="50" rx="9" fill="#231f6e" stroke="#5b52cc" stroke-width="0.8"/>
+  <text x="643" y="122" text-anchor="middle" font-size="11.5" font-weight="600" fill="#ffffff" dominant-baseline="central">Brain</text>
+  <text x="643" y="140" text-anchor="middle" font-size="10" fill="#9b96ef" dominant-baseline="central">Arm 2</text>
 
-  <rect x="706" y="132" width="70" height="52" rx="9" fill="#231f6e" stroke="#5b52cc" stroke-width="0.8"/>
-  <text x="741" y="151" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff" dominant-baseline="central">Brain 3</text>
-  <text x="741" y="170" text-anchor="middle" font-size="10" fill="#9b96ef" dominant-baseline="central">AGV 1</text>
+  <rect x="706" y="104" width="70" height="50" rx="9" fill="#231f6e" stroke="#5b52cc" stroke-width="0.8"/>
+  <text x="741" y="122" text-anchor="middle" font-size="11.5" font-weight="600" fill="#ffffff" dominant-baseline="central">Brain</text>
+  <text x="741" y="140" text-anchor="middle" font-size="10" fill="#9b96ef" dominant-baseline="central">AGV 1</text>
 
-  <rect x="804" y="132" width="70" height="52" rx="9" fill="#231f6e" stroke="#5b52cc" stroke-width="0.8"/>
-  <text x="839" y="151" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff" dominant-baseline="central">Brain 4</text>
-  <text x="839" y="170" text-anchor="middle" font-size="10" fill="#9b96ef" dominant-baseline="central">AGV 2</text>
+  <rect x="804" y="104" width="70" height="50" rx="9" fill="#231f6e" stroke="#5b52cc" stroke-width="0.8"/>
+  <text x="839" y="122" text-anchor="middle" font-size="11.5" font-weight="600" fill="#ffffff" dominant-baseline="central">Brain</text>
+  <text x="839" y="140" text-anchor="middle" font-size="10" fill="#9b96ef" dominant-baseline="central">AGV 2</text>
 
-  <rect x="902" y="132" width="70" height="52" rx="9" fill="#231f6e" stroke="#5b52cc" stroke-width="0.8"/>
-  <text x="937" y="151" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff" dominant-baseline="central">Brain 5</text>
-  <text x="937" y="170" text-anchor="middle" font-size="10" fill="#9b96ef" dominant-baseline="central">AGV 3</text>
+  <rect x="902" y="104" width="70" height="50" rx="9" fill="#231f6e" stroke="#5b52cc" stroke-width="0.8"/>
+  <text x="937" y="122" text-anchor="middle" font-size="11.5" font-weight="600" fill="#ffffff" dominant-baseline="central">Brain</text>
+  <text x="937" y="140" text-anchor="middle" font-size="10" fill="#9b96ef" dominant-baseline="central">AGV 3</text>
 
-  <!-- PEER arrows - all actors communicate directly -->
-  <line x1="580" y1="158" x2="608" y2="158" stroke="#888" stroke-width="0.8" stroke-dasharray="3 2" marker-start="url(#arr)" marker-end="url(#arr)"/>
-  <line x1="678" y1="158" x2="706" y2="158" stroke="#888" stroke-width="0.8" stroke-dasharray="3 2" marker-start="url(#arr)" marker-end="url(#arr)"/>
-  <line x1="776" y1="158" x2="804" y2="158" stroke="#888" stroke-width="0.8" stroke-dasharray="3 2" marker-start="url(#arr)" marker-end="url(#arr)"/>
-  <line x1="874" y1="158" x2="902" y2="158" stroke="#888" stroke-width="0.8" stroke-dasharray="3 2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <!-- adjacent peer links (bidirectional) -->
+  <line x1="580" y1="129" x2="608" y2="129" stroke="#9b96ef" stroke-width="0.9" stroke-dasharray="3 2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <line x1="678" y1="129" x2="706" y2="129" stroke="#9b96ef" stroke-width="0.9" stroke-dasharray="3 2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <line x1="776" y1="129" x2="804" y2="129" stroke="#9b96ef" stroke-width="0.9" stroke-dasharray="3 2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <line x1="874" y1="129" x2="902" y2="129" stroke="#9b96ef" stroke-width="0.9" stroke-dasharray="3 2" marker-start="url(#arr)" marker-end="url(#arr)"/>
 
-  <!-- All actors label -->
-  <text x="741" y="198" text-anchor="middle" font-size="11" fill="#9b96ef" font-style="italic">All actors</text>
+  <!-- brain -> shared bus connectors -->
+  <line x1="545" y1="154" x2="545" y2="184" stroke="#bdb8ee" stroke-width="0.8"/>
+  <line x1="643" y1="154" x2="643" y2="184" stroke="#bdb8ee" stroke-width="0.8"/>
+  <line x1="741" y1="154" x2="741" y2="184" stroke="#bdb8ee" stroke-width="0.8"/>
+  <line x1="839" y1="154" x2="839" y2="184" stroke="#bdb8ee" stroke-width="0.8"/>
+  <line x1="937" y1="154" x2="937" y2="184" stroke="#bdb8ee" stroke-width="0.8"/>
+
+  <!-- SHARED MESSAGE BUS -->
+  <rect x="515" y="184" width="445" height="22" rx="11" fill="#f3f3fb" stroke="#5b52cc" stroke-width="0.9"/>
+  <text x="735" y="195" text-anchor="middle" font-size="11" font-weight="600" fill="#4b44b0" dominant-baseline="central">shared message bus</text>
 
   <!-- Caption -->
-  <text x="741" y="218" text-anchor="middle" font-size="11" fill="#111111">all actors communicate directly · no routing through observer</text>
+  <text x="735" y="224" text-anchor="middle" font-size="11" fill="#111111">Actors coordinate directly over a shared bus - no controller routes them</text>
 
   <!-- Summary box -->
-  <rect x="502" y="234" width="458" height="114" rx="8" fill="none" stroke="#aaaaaa" stroke-width="0.8"/>
-  <text x="731" y="258" text-anchor="middle" font-size="12" fill="#111111">Every actor reasons independently</text>
-  <text x="731" y="278" text-anchor="middle" font-size="12" fill="#111111">Any actor can negotiate directly with each other</text>
-  <text x="731" y="298" text-anchor="middle" font-size="12" fill="#111111">Chains self-assemble through peer requests</text>
-  <text x="731" y="318" text-anchor="middle" font-size="12" fill="#111111">Observer sets goal, observes - steps in only on deadlock</text>
-  <text x="731" y="338" text-anchor="middle" font-size="12" fill="#111111">No routing through observer</text>
+  <rect x="502" y="236" width="458" height="102" rx="8" fill="none" stroke="#aaaaaa" stroke-width="0.8"/>
+  <text x="731" y="260" text-anchor="middle" font-size="12" fill="#111111">Every actor reasons independently</text>
+  <text x="731" y="281" text-anchor="middle" font-size="12" fill="#111111">Actors negotiate directly with each other on the bus</text>
+  <text x="731" y="302" text-anchor="middle" font-size="12" fill="#111111">Chains self-assemble through peer requests</text>
+  <text x="731" y="323" text-anchor="middle" font-size="12" fill="#111111">Observer only sets the goal - it does not route work</text>
 </svg>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>INTER.act - Review Party 3</title>
+    <title>INTER.act - Combined Presentation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -1014,7 +1014,7 @@
           <div class="intro-warehouse reveal" aria-hidden="true">
             <div class="intro-warehouse-frame">
               <img
-                src="assets/warehouse.GIF"
+                src="assets/warehouse.gif"
                 alt="Autonomous warehouse floor"
               />
               <span class="intro-warehouse-glass"></span>
@@ -1066,7 +1066,7 @@
         <h2 class="reveal">
           This is the <span class="green">real system</span>.
         </h2>
-        <p class="lede reveal">goal &rarr; bid &rarr; claim &rarr; execute</p>
+        <p class="lede reveal">goal &rarr; bid &rarr; plan route &rarr; work</p>
 
         <div
           class="reveal"
@@ -1093,7 +1093,7 @@
               margin: 0 auto;
               max-height: clamp(220px, 42vh, 330px);
             "
-            aria-label="System diagram: a plain-English goal is dispatched onto a message bus where actors announce, bid and claim; arms and AGVs execute; when one AGV faults, another actor re-claims its task."
+            aria-label="System diagram: a plain-English goal is dispatched onto a message bus where actors announce, bid and claim; the winner plans a route and the arms and AGVs do the work."
           >
             <defs>
               <marker
@@ -1433,7 +1433,7 @@
               </text>
             </g>
 
-            <!-- AGV-2 - FAULT -->
+            <!-- AGV-2 green -->
             <g>
               <rect
                 x="655"
@@ -1441,10 +1441,9 @@
                 width="140"
                 height="70"
                 rx="10"
-                fill="#fff5f5"
-                stroke="#cf222e"
+                fill="#fafbfc"
+                stroke="#2da44e"
                 stroke-width="2"
-                stroke-dasharray="6 3"
               />
               <text
                 x="725"
@@ -1453,7 +1452,7 @@
                 font-family="'Space Grotesk',sans-serif"
                 font-size="13"
                 font-weight="600"
-                fill="#cf222e"
+                fill="#2da44e"
               >
                 AGV 2
               </text>
@@ -1463,17 +1462,10 @@
                 text-anchor="middle"
                 font-family="'JetBrains Mono',monospace"
                 font-size="9"
-                fill="#cf222e"
+                fill="#7a8087"
               >
-                crashed mid-task
+                green &middot; 20-50kg
               </text>
-              <circle cx="795" cy="208" r="14" fill="#cf222e" />
-              <path
-                d="M789 202 L801 214 M801 202 L789 214"
-                stroke="#ffffff"
-                stroke-width="2"
-                stroke-linecap="round"
-              />
             </g>
 
             <!-- AGV-3 amber -->
@@ -1511,36 +1503,17 @@
               </text>
             </g>
 
-            <!-- RECOVERY: AGV-3 re-claims AGV-2's task -->
-            <path
-              d="M905 282 C 905 320, 725 320, 725 298"
-              fill="none"
-              stroke="#2da44e"
-              stroke-width="2"
-              stroke-dasharray="5 3"
-            />
-            <path d="M725 284 L718 298 L732 298 Z" fill="#2da44e" />
-            <rect
-              x="599"
-              y="330"
-              width="252"
-              height="26"
-              rx="13"
-              fill="#f0fff5"
-              stroke="#2da44e"
-              stroke-width="1"
-            />
-            <text
-              x="725"
-              y="347"
-              text-anchor="middle"
-              font-family="'JetBrains Mono',monospace"
-              font-size="10"
-              font-weight="700"
-              fill="#2da44e"
-            >
-              RECOVERY &middot; another actor re-claims
-            </text>
+            <!-- functioning pipeline: bid -> plan route (A*) -> work -->
+            <g font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700">
+              <rect x="298" y="312" width="116" height="30" rx="15" fill="#f0fff5" stroke="#2da44e" stroke-width="1.2" />
+              <text x="356" y="331" text-anchor="middle" fill="#2da44e">bid</text>
+              <line x1="418" y1="327" x2="448" y2="327" stroke="#9aa0a6" stroke-width="1.4" marker-end="url(#d4-dim)" />
+              <rect x="452" y="312" width="160" height="30" rx="15" fill="#eef4fb" stroke="#3b6ea5" stroke-width="1.2" />
+              <text x="532" y="331" text-anchor="middle" fill="#3b6ea5">plan route &middot; A*</text>
+              <line x1="616" y1="327" x2="646" y2="327" stroke="#9aa0a6" stroke-width="1.4" marker-end="url(#d4-dim)" />
+              <rect x="650" y="312" width="116" height="30" rx="15" fill="#fff7ed" stroke="#d97706" stroke-width="1.2" />
+              <text x="708" y="331" text-anchor="middle" fill="#b45309">work</text>
+            </g>
           </svg>
         </div>
 
@@ -1552,7 +1525,7 @@
             margin-top: 0.6rem;
           "
         >
-          Watch <span class="green">another actor</span> react to failure.
+          Type a goal - actors <span class="green">bid, plan a route, and do the work</span>.
         </p>
 
         <a
@@ -2077,6 +2050,14 @@
                 qwen-14b
               </text>
             </g>
+
+            <!-- peer-to-peer mesh: actors coordinate directly with each other -->
+            <path d="M152 316 C 205 294, 269 294, 322 316" fill="none" stroke="#5b52cc" stroke-width="1.3" stroke-dasharray="4 3" opacity="0.85" />
+            <path d="M322 316 C 375 294, 439 294, 492 316" fill="none" stroke="#5b52cc" stroke-width="1.3" stroke-dasharray="4 3" opacity="0.85" />
+            <path d="M492 316 C 545 294, 609 294, 662 316" fill="none" stroke="#5b52cc" stroke-width="1.3" stroke-dasharray="4 3" opacity="0.85" />
+            <path d="M662 316 C 715 294, 779 294, 832 316" fill="none" stroke="#5b52cc" stroke-width="1.3" stroke-dasharray="4 3" opacity="0.85" />
+            <path d="M152 316 C 270 274, 374 274, 492 316" fill="none" stroke="#5b52cc" stroke-width="1.1" stroke-dasharray="3 3" opacity="0.5" />
+            <path d="M492 316 C 610 274, 714 274, 832 316" fill="none" stroke="#5b52cc" stroke-width="1.1" stroke-dasharray="3 3" opacity="0.5" />
 
             <!-- actor-to-actor diamonds between actors -->
             <path d="M237 338 l6 6 l-6 6 l-6 -6 z" fill="#5b52cc" />
