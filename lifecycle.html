@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INTER.act - Lifecycle deep dive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Standalone deep-dive page reachable from the hidden hotspot on
+     presentation.html slide 6 ("5 lifecycle states" stat).
+     Single back link returns the viewer to the presentation. -->
+<section class="slide">
+    <header class="chrome">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="path">~/Inter-Act/lifecycle</span>
+        <span class="branch">
+            <a href="presentation.html">← back to presentation</a>
+        </span>
+    </header>
+
+    <div class="slide-content">
+        <p class="eyebrow reveal">Resilience · deep dive</p>
+        <h2 class="section-title reveal">
+            Every station shares <span style="color:var(--magenta);">one heartbeat</span>
+        </h2>
+
+        <p class="reveal muted" style="max-width:78ch;">
+            Arm or shuttle or belt - under the hood, every station is the same kind
+            of object: a <kbd>Module</kbd> with five life stages. That uniformity is
+            why the simulator can fail and recover any piece without special cases.
+        </p>
+
+        <div class="state-graph reveal">
+            <span class="state-node idle">idle</span>
+            <span class="state-arrow">→</span>
+            <span class="state-node busy">busy</span>
+            <span class="state-arrow">→</span>
+            <span class="state-node drain">draining</span>
+            <span class="state-arrow">⤳</span>
+            <span class="state-node failed">failed</span>
+            <span class="state-arrow">→</span>
+            <span class="state-node recover">recovering</span>
+            <span class="state-arrow">→</span>
+            <span class="state-node idle">idle</span>
+        </div>
+
+        <div class="grid-3 reveal">
+            <div class="card red">
+                <div class="icon">⚠</div>
+                <h3>Detect</h3>
+                <p>Backend pings every container every 2 s. Three missed beats and
+                the station is marked <em>failed</em>; downstream stations halt
+                automatically.</p>
+            </div>
+            <div class="card violet">
+                <div class="icon">⏱</div>
+                <h3>Grace window</h3>
+                <p>Recovery isn't instant. A two-second timer holds the station
+                in <em>recovering</em> while the container settles, so the UI
+                never lies about readiness.</p>
+            </div>
+            <div class="card cyan">
+                <div class="icon">↺</div>
+                <h3>Resume in place</h3>
+                <p>Once the container reports <em>idle</em>, the line keeps moving.
+                Any in-flight part is re-queued, not dropped - race-tested.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+/* Esc / Backspace / ← arrow → back to presentation */
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' || e.key === 'Backspace' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        location.href = 'presentation.html';
+    }
+});
+</script>
+</body>
+</html>

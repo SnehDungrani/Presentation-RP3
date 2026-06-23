@@ -1,0 +1,2398 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>INTER.act - Combined Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Combined-only: scroll-snap + progress bar + nav dots */
+      html {
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+      }
+      body {
+        overflow-y: auto;
+      }
+      .slide {
+        scroll-snap-align: start;
+      }
+      .reveal {
+        animation: none;
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.7s var(--ease),
+          transform 0.7s var(--ease);
+      }
+      .slide.visible .reveal {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .slide.visible .reveal:nth-child(1) {
+        transition-delay: 0.05s;
+      }
+      .slide.visible .reveal:nth-child(2) {
+        transition-delay: 0.15s;
+      }
+      .slide.visible .reveal:nth-child(3) {
+        transition-delay: 0.25s;
+      }
+      .slide.visible .reveal:nth-child(4) {
+        transition-delay: 0.35s;
+      }
+      .slide.visible .reveal:nth-child(5) {
+        transition-delay: 0.45s;
+      }
+      .slide.visible .reveal:nth-child(6) {
+        transition-delay: 0.55s;
+      }
+      .slide.visible .reveal:nth-child(7) {
+        transition-delay: 0.65s;
+      }
+
+      .progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 2px;
+        background: var(--green);
+        z-index: 1000;
+        transition: width 0.2s linear;
+        box-shadow: 0 0 8px var(--green-glow);
+      }
+      .nav-dots {
+        position: fixed;
+        right: clamp(0.6rem, 1.5vw, 1.5rem);
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        z-index: 100;
+      }
+      .nav-dots button {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--border-bright);
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        transition: all 0.3s var(--ease);
+      }
+      .nav-dots button.active {
+        background: var(--green);
+        box-shadow: 0 0 12px var(--green-glow);
+        transform: scale(1.3);
+      }
+      /* Hide chrome navigation links inside combined view */
+      .slide .chrome .branch a {
+        display: none;
+      }
+
+      /* Architecture slide fit */
+      #arch-slide-fix .slide-content {
+        justify-content: flex-start;
+        gap: clamp(0.6rem, 1.5vh, 1.2rem);
+        padding-top: clamp(1.5rem, 4.5vh, 3rem) !important;
+      }
+      #arch-slide-fix .section-title {
+        margin-bottom: 0.2rem;
+      }
+      #arch-slide-fix .arch {
+        padding: 0.5rem 1rem;
+      }
+      #arch-slide-fix .arch-svg {
+        max-height: clamp(180px, 34vh, 340px);
+      }
+      #arch-slide-fix .arch.diagram-frame {
+        cursor: pointer;
+        position: relative;
+      }
+      #arch-slide-fix .arch-callout {
+        margin-top: 0;
+        padding: 0.8rem 1.2rem !important;
+        font-size: clamp(0.75rem, 1.1vw, 0.9rem) !important;
+        line-height: 1.4 !important;
+      }
+
+      /* Goal slide fit */
+      #goal-slide-fix .slide-content {
+        margin-top: clamp(1.5rem, 4vh, 2.5rem);
+        justify-content: flex-start;
+        gap: clamp(0.4rem, 1vw, 0.8rem);
+      }
+      #goal-slide-fix .section-title {
+        margin-bottom: 0.2rem;
+      }
+      #goal-slide-fix p.muted {
+        font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+        line-height: 1.5;
+        max-width: 72ch !important;
+      }
+      #goal-slide-fix .diagram-frame {
+        margin-top: 0.5rem;
+        max-height: clamp(300px, 55vh, 520px);
+      }
+      #goal-slide-fix .diagram-frame object,
+      #goal-slide-fix .diagram-frame img {
+        max-height: clamp(280px, 52vh, 480px);
+      }
+      #goal-slide-fix .arch-callout {
+        margin-top: 0.3rem;
+        padding: 0.6rem 1rem !important;
+        font-size: clamp(0.72rem, 1vw, 0.88rem) !important;
+        line-height: 1.45 !important;
+      }
+
+      /* Built slide fit */
+      #built-slide-fix .slide-content {
+        justify-content: flex-start;
+        gap: clamp(0.4rem, 1vh, 0.8rem);
+        padding-top: clamp(1.5rem, 4vh, 2.5rem);
+      }
+      #built-slide-fix .section-title {
+        margin-bottom: 0.2rem;
+      }
+      #built-slide-fix .arch-callout {
+        margin-top: 0.2rem !important;
+        padding: 0.6rem 1rem !important;
+        font-size: clamp(0.7rem, 0.9vw, 0.85rem) !important;
+      }
+
+      /* Fix legend wrapping */
+      .arch-legend-item {
+        white-space: nowrap;
+      }
+
+      /* Lightbox refinement */
+      .lightbox {
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 2rem !important;
+        overflow-y: auto !important;
+      }
+      .lightbox object,
+      .lightbox img {
+        width: 98vw !important;
+        max-width: none !important;
+        height: auto !important;
+        max-height: 94vh !important;
+        object-fit: contain !important;
+        transform: none !important;
+        margin: 0 auto !important;
+        background: white;
+        border-radius: 4px;
+      }
+      .lightbox .close-hint {
+        z-index: 10001 !important;
+        background: rgba(255, 255, 255, 0.2) !important;
+        border: 1px solid rgba(255, 255, 255, 0.5) !important;
+        color: #ffffff !important;
+        padding: 0.5rem 1rem !important;
+        border-radius: 6px !important;
+        opacity: 1 !important;
+        display: block !important;
+        pointer-events: auto !important;
+      }
+      .arch-lightbox-inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+      }
+      .arch-lightbox-inner svg {
+        background: white;
+        border-radius: 4px;
+      }
+
+      /* ===========================================
+         INTRODUCTION SLIDE (Imagine - warehouse base)
+         =========================================== */
+      .intro-slide .slide-content {
+        justify-content: flex-start;
+        gap: clamp(0.5rem, 1.2vw, 1rem);
+        overflow: visible;
+      }
+
+      .intro-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: clamp(2rem, 5vw, 5rem);
+        align-items: center;
+        flex: 0 1 auto;
+        min-height: 0;
+        overflow: visible;
+        margin-top: clamp(0.5rem, 2vh, 1.5rem);
+      }
+      @media (max-width: 720px) {
+        .intro-grid {
+          grid-template-columns: 1fr;
+        }
+        .intro-warehouse {
+          order: -1;
+          justify-content: center;
+        }
+        .intro-warehouse-frame {
+          margin-left: auto;
+          margin-right: auto;
+        }
+      }
+
+      .intro-story {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(0.5rem, 1.1vw, 0.9rem);
+      }
+      .intro-story p {
+        font-size: clamp(0.8rem, 1.25vw, 1.05rem);
+        line-height: 1.55;
+        color: var(--text-secondary);
+        max-width: 65ch;
+      }
+      .intro-story p strong {
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+      .intro-story p .green-accent {
+        color: var(--green);
+        font-weight: 600;
+      }
+
+      .intro-traits {
+        list-style: none;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(0.3rem, 0.8vw, 0.6rem);
+        margin-top: calc(0.5 * var(--element-gap));
+      }
+      .intro-traits li {
+        font-family: var(--font-mono);
+        font-size: var(--small-size);
+        color: var(--text-secondary);
+        padding: 0.5em 0.7em;
+        background: var(--bg-panel);
+        border: 1px solid var(--border);
+        border-left: 2px solid var(--green);
+        border-radius: 4px;
+        line-height: 1.4;
+      }
+
+      .intro-pivot {
+        font-family: var(--font-display);
+        font-size: clamp(0.9rem, 1.4vw, 1.15rem);
+        line-height: 1.45;
+        color: var(--text-primary);
+        margin-top: calc(0.5 * var(--element-gap));
+        padding-left: clamp(0.6rem, 1.2vw, 1rem);
+        border-left: 3px solid var(--green);
+      }
+
+      /* ----- Porthole-framed warehouse image ----- */
+      .intro-warehouse {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -1rem;
+        justify-self: center;
+        padding: clamp(1.5rem, 4vw, 3rem);
+        aspect-ratio: 1;
+        max-height: 100%;
+        min-height: 0;
+        overflow: visible;
+      }
+
+      .intro-warehouse-frame {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        max-width: clamp(240px, 32vw, 420px);
+        max-height: clamp(240px, 32vw, 420px);
+        aspect-ratio: 1;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 50%;
+        box-shadow:
+          inset 0 0 0 5px rgba(255, 255, 255, 0.55),
+          inset 0 0 32px rgba(0, 0, 0, 0.28),
+          0 0 0 1.5px rgba(45, 164, 78, 0.55),
+          0 0 60px rgba(45, 164, 78, 0.22),
+          0 18px 36px rgba(0, 0, 0, 0.18);
+        z-index: 2;
+      }
+      .intro-warehouse-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        border-radius: 50%;
+        filter: contrast(1.04) saturate(0.95);
+      }
+      .intro-warehouse-glass {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 30% 25%,
+          rgba(255, 255, 255, 0.32) 0%,
+          rgba(255, 255, 255, 0.08) 22%,
+          transparent 38%
+        );
+        pointer-events: none;
+        z-index: 3;
+      }
+
+      /* Peer-mesh decoration: 8 actor nodes around the warehouse,
+         connected by faint chord lines. Reinforces the INTER.act
+         coordination metaphor instead of planet-orbit imagery. */
+      .intro-warehouse-mesh {
+        position: absolute;
+        inset: -34px;
+        pointer-events: none;
+        z-index: 1;
+        overflow: visible;
+      }
+      .intro-warehouse-mesh circle.node {
+        fill: var(--green);
+        filter: drop-shadow(0 0 4px rgba(45, 164, 78, 0.7));
+      }
+      .intro-warehouse-mesh circle.node.pulse {
+        animation: mesh-pulse 2.4s var(--ease) infinite;
+        transform-box: fill-box;
+        transform-origin: center;
+      }
+      .intro-warehouse-mesh circle.node.pulse-2 {
+        animation-delay: 0.8s;
+      }
+      .intro-warehouse-mesh circle.node.pulse-3 {
+        animation-delay: 1.6s;
+      }
+      .intro-warehouse-mesh line.chord {
+        stroke: rgba(45, 164, 78, 0.28);
+        stroke-width: 0.5;
+        stroke-dasharray: 2 2;
+      }
+      .intro-warehouse-mesh circle.ring {
+        fill: none;
+        stroke: rgba(45, 164, 78, 0.22);
+        stroke-width: 0.4;
+        stroke-dasharray: 1 3;
+      }
+      @keyframes mesh-pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.85;
+        }
+        50% {
+          transform: scale(1.6);
+          opacity: 1;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .intro-warehouse-mesh circle.node.pulse {
+          animation: none;
+        }
+      }
+
+      /* Demo-slide factory row */
+      .demo-factory .node .label,
+      .demo-factory .node .role {
+        white-space: nowrap;
+      }
+
+      /* ==========================================================
+         SLIDE 2 - INTRODUCTION
+         ========================================================== */
+      .intro-page .slide-content {
+        justify-content: center;
+        gap: clamp(1rem, 2vw, 1.5rem);
+      }
+      .intro-page .lede {
+        font-size: clamp(1rem, 1.55vw, 1.25rem);
+        line-height: 1.6;
+        color: var(--text-primary);
+        max-width: 88ch;
+        font-weight: 400;
+      }
+      .intro-page .lede strong {
+        color: var(--green);
+        font-weight: 700;
+      }
+      .intro-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(0.7rem, 1.6vw, 1.2rem);
+        margin-top: var(--element-gap);
+      }
+      @media (max-width: 800px) {
+        .intro-cards {
+          grid-template-columns: 1fr;
+        }
+      }
+      .intro-card {
+        padding: 0.85em 1.05em;
+        background: var(--bg-panel);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4em;
+      }
+      .intro-card.problem {
+        border-left: 3px solid var(--magenta);
+      }
+      .intro-card.walk {
+        border-left: 3px solid var(--green);
+      }
+      .intro-card .label {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-dim);
+      }
+      .intro-card.problem .label {
+        color: var(--magenta);
+      }
+      .intro-card.walk .label {
+        color: var(--green);
+      }
+      .intro-card p {
+        font-size: clamp(0.88rem, 1.25vw, 1rem);
+        line-height: 1.55;
+        color: var(--text-secondary);
+        margin: 0;
+      }
+      .intro-card p strong {
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+      .intro-card ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.35em 1em;
+      }
+      .intro-card ul li {
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        color: var(--text-secondary);
+        position: relative;
+        padding-left: 1em;
+        line-height: 1.45;
+      }
+      .intro-card ul li::before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: var(--green);
+      }
+      .intro-card ul li em {
+        font-style: italic;
+        color: var(--text-dim);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="progress-bar" id="progress"></div>
+    <nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+
+    <!-- ============ SLIDE 1 - TITLE COVER (KEEP RP1 identity) ============ -->
+    <section class="slide title-cover">
+      <header class="chrome">
+        <span class="dot r"></span><span class="dot y"></span
+        ><span class="dot g"></span>
+        <span class="path">~/Inter-Act/01-title</span>
+        <span class="branch"></span>
+      </header>
+
+      <div class="slide-content">
+        <div class="hero-banner">
+          <img
+            src="assets/Main DIgitech Banner.png"
+            alt="Digital Technologies - Zukunft. Digital. Nachhaltig."
+          />
+        </div>
+
+        <div class="cover-body">
+          <div class="cover-main">
+            <div class="cover-left">
+              <div class="term">SoSe 2026 · Review Party 3</div>
+              <div class="product">Inter.act</div>
+              <div
+                class="dim"
+                style="
+                  font-family: var(--font-mono);
+                  font-size: var(--small-size);
+                  margin-top: 0.4rem;
+                "
+              >
+                Decentralized multi-agent coordination for warehouse transport
+              </div>
+            </div>
+            <div class="brand-row">
+              <img src="assets/IN3 logo.png" alt="IN3" />
+              <span class="x">x</span>
+              <img src="assets/Aisune logo.png" alt="AiSuNe Foundation" />
+            </div>
+          </div>
+
+          <div class="partners-strip">
+            <div class="partners-left">
+              <img
+                src="assets/Ostfalia & clausthal logo.png"
+                alt="Ostfalia · TU Clausthal"
+              />
+            </div>
+            <div class="partners-right">
+              <span>digitecstudieren.de</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-number" style="color: #888">
+        01<span class="of"> / 10</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 2 - THE PROBLEM (complexity -> deadlock) ============ -->
+    <section class="slide" id="goal-slide-fix">
+      <header class="chrome">
+        <span class="dot r"></span><span class="dot y"></span
+        ><span class="dot g"></span>
+        <span class="path">~/Inter-Act/02-problem</span>
+        <span class="branch"></span>
+      </header>
+
+      <div class="slide-content">
+        <p class="eyebrow reveal">The problem</p>
+        <h2 class="section-title reveal">The real limit of central control</h2>
+
+        <p class="reveal muted" style="max-width: 80ch">
+          Central control works until the situation is one nobody
+          pre-programmed.
+        </p>
+
+        <div
+          class="diagram-frame reveal"
+          id="diagramFrame"
+          role="button"
+          tabindex="0"
+          aria-label="Click to enlarge diagram"
+        >
+          <span class="zoom-hint">click to zoom &#10530;</span>
+          <object
+            type="image/svg+xml"
+            data="assets/today-vs-interact.svg"
+            aria-label="Today versus INTER.act architecture diagram"
+          >
+            <img
+              src="assets/today-vs-interact.svg"
+              alt="Today versus INTER.act"
+            />
+          </object>
+        </div>
+
+        <div class="arch-callout reveal">
+          The number of state combinations grows faster than any developer can
+          enumerate. When the unplanned happens, a deterministic central
+          controller <strong>deadlocks</strong> - and cannot recover itself.
+        </div>
+      </div>
+
+      <div class="slide-number">02<span class="of"> / 10</span></div>
+    </section>
+
+    <!-- ============ SLIDE 3 - WHAT YOU ARE ABOUT TO SEE (orientation) ============ -->
+    <section class="slide intro-slide">
+      <header class="chrome">
+        <span class="dot r"></span><span class="dot y"></span
+        ><span class="dot g"></span>
+        <span class="path">~/Inter-Act/03-orientation</span>
+        <span class="branch"></span>
+      </header>
+
+      <div class="slide-content">
+        <div class="intro-grid">
+          <div class="intro-story reveal">
+            <p class="eyebrow">What you are about to see</p>
+            <h2 class="section-title" style="margin: 0 0 0.3rem">
+              Watch the <span style="color: var(--green)">actors</span>, not a
+              controller
+            </h2>
+            <p>
+              A plain-English goal goes in. Autonomous actors -
+              <strong>robotic arms and AGVs</strong> - bid for the work on a
+              shared message bus.
+              <strong>No central controller decides who does what.</strong>
+            </p>
+            <p>
+              Kill an actor mid-run and no controller steps in to fix it.
+              <span class="green-accent"
+                >Another actor notices on the message bus and negotiates to take
+                the task over.</span
+              >
+            </p>
+            <ul class="intro-traits">
+              <li>goal in<br />(plain English)</li>
+              <li>bid &amp; claim<br />on a shared bus</li>
+              <li>execute<br />actor to actor</li>
+              <li>fault injected<br />watch the actors</li>
+            </ul>
+            <p class="intro-pivot reveal">Let's run it.</p>
+          </div>
+
+          <div class="intro-warehouse reveal" aria-hidden="true">
+            <div class="intro-warehouse-frame">
+              <img
+                src="assets/warehouse.gif"
+                alt="Autonomous warehouse floor"
+              />
+              <span class="intro-warehouse-glass"></span>
+              <svg
+                class="intro-warehouse-mesh"
+                viewBox="0 0 200 200"
+                aria-hidden="true"
+              >
+                <circle class="ring" cx="100" cy="100" r="98" />
+                <line class="chord" x1="100" y1="2" x2="195.7" y2="138.6" />
+                <line class="chord" x1="195.7" y1="61.4" x2="4.3" y2="138.6" />
+                <line class="chord" x1="198" y1="100" x2="30.7" y2="30.7" />
+                <line
+                  class="chord"
+                  x1="169.3"
+                  y1="169.3"
+                  x2="30.7"
+                  y2="169.3"
+                />
+                <line class="chord" x1="100" y1="198" x2="4.3" y2="61.4" />
+                <circle class="node pulse" cx="100" cy="2" r="3" />
+                <circle class="node" cx="169.3" cy="30.7" r="2.4" />
+                <circle class="node pulse-2" cx="198" cy="100" r="3" />
+                <circle class="node" cx="169.3" cy="169.3" r="2.4" />
+                <circle class="node pulse-3" cx="100" cy="198" r="3" />
+                <circle class="node" cx="30.7" cy="169.3" r="2.4" />
+                <circle class="node pulse" cx="2" cy="100" r="3" />
+                <circle class="node" cx="30.7" cy="30.7" r="2.4" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-number">03<span class="of"> / 10</span></div>
+    </section>
+
+    <!-- ============ SLIDE 4 - LIVE DEMO (SHOW, early) ============ -->
+    <section class="slide">
+      <header class="chrome">
+        <span class="dot r"></span><span class="dot y"></span
+        ><span class="dot g"></span>
+        <span class="path">~/Inter-Act/04-demo</span>
+        <span class="branch"></span>
+      </header>
+
+      <div class="slide-content demo-focal">
+        <p class="eyebrow reveal">Live demo</p>
+        <h2 class="reveal">
+          This is the <span class="green">real system</span>.
+        </h2>
+        <p class="lede reveal">goal &rarr; bid &rarr; claim &rarr; execute</p>
+
+        <div
+          class="reveal"
+          style="
+            max-width: 1140px;
+            width: 100%;
+            margin: 0.6rem auto 0;
+            padding: clamp(1rem, 2vw, 1.6rem);
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+          "
+        >
+          <svg
+            viewBox="0 0 1080 362"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            preserveAspectRatio="xMidYMid meet"
+            style="
+              width: 100%;
+              height: auto;
+              display: block;
+              margin: 0 auto;
+              max-height: clamp(220px, 42vh, 330px);
+            "
+            aria-label="System diagram: a plain-English goal is dispatched onto a message bus where actors announce, bid and claim; arms and AGVs execute; when one AGV faults, another actor re-claims its task."
+          >
+            <defs>
+              <marker
+                id="d4-dim"
+                viewBox="0 0 10 10"
+                refX="9"
+                refY="5"
+                markerWidth="6"
+                markerHeight="6"
+                orient="auto"
+              >
+                <path d="M0 0L10 5L0 10z" fill="#9aa0a6" />
+              </marker>
+              <marker
+                id="d4-r"
+                viewBox="0 0 10 10"
+                refX="9"
+                refY="5"
+                markerWidth="7"
+                markerHeight="7"
+                orient="auto"
+              >
+                <path d="M0 0L10 5L0 10z" fill="#2da44e" />
+              </marker>
+            </defs>
+
+            <!-- GOAL pill -->
+            <rect
+              x="288"
+              y="16"
+              width="284"
+              height="48"
+              rx="24"
+              fill="#f0fff5"
+              stroke="#2da44e"
+              stroke-width="2"
+            />
+            <circle
+              cx="318"
+              cy="40"
+              r="9"
+              fill="none"
+              stroke="#2da44e"
+              stroke-width="2"
+            />
+            <circle cx="318" cy="40" r="3" fill="#2da44e" />
+            <text
+              x="340"
+              y="36"
+              font-family="'JetBrains Mono',monospace"
+              font-size="10"
+              fill="#7a8087"
+            >
+              GOAL
+            </text>
+            <text
+              x="340"
+              y="53"
+              font-family="'Space Grotesk',sans-serif"
+              font-size="13"
+              font-weight="600"
+              fill="#1f2328"
+            >
+              move objects I &#8594; O
+            </text>
+
+            <!-- arrow GOAL -> DISPATCH -->
+            <line
+              x1="572"
+              y1="40"
+              x2="606"
+              y2="40"
+              stroke="#9aa0a6"
+              stroke-width="1.6"
+              marker-end="url(#d4-dim)"
+            />
+
+            <!-- DISPATCH button -->
+            <rect
+              x="612"
+              y="16"
+              width="170"
+              height="48"
+              rx="24"
+              fill="#1f2328"
+            />
+            <text
+              x="697"
+              y="45"
+              text-anchor="middle"
+              font-family="'Space Grotesk',sans-serif"
+              font-size="14"
+              font-weight="600"
+              fill="#ffffff"
+            >
+              Dispatch &#9658;
+            </text>
+
+            <!-- dispatch / goal -> bus -->
+            <path
+              d="M697 64 L697 84 L540 84 L540 100"
+              fill="none"
+              stroke="#9aa0a6"
+              stroke-width="1.6"
+              marker-end="url(#d4-dim)"
+            />
+
+            <!-- MESSAGE BUS bar -->
+            <rect
+              x="70"
+              y="104"
+              width="940"
+              height="46"
+              rx="10"
+              fill="#fafbfc"
+              stroke="#2da44e"
+              stroke-width="1.8"
+            />
+            <text
+              x="96"
+              y="132"
+              font-family="'Space Grotesk',sans-serif"
+              font-size="13"
+              font-weight="700"
+              fill="#2da44e"
+            >
+              MESSAGE BUS
+            </text>
+            <g font-family="'JetBrains Mono',monospace" font-size="10">
+              <rect
+                x="560"
+                y="116"
+                width="92"
+                height="22"
+                rx="11"
+                fill="#f0fff5"
+                stroke="#2da44e"
+                stroke-width="1"
+              />
+              <text x="606" y="131" text-anchor="middle" fill="#2da44e">
+                announce
+              </text>
+              <rect
+                x="664"
+                y="116"
+                width="64"
+                height="22"
+                rx="11"
+                fill="#fdf6e3"
+                stroke="#8a6300"
+                stroke-width="1"
+              />
+              <text x="696" y="131" text-anchor="middle" fill="#8a6300">
+                bid
+              </text>
+              <rect
+                x="740"
+                y="116"
+                width="72"
+                height="22"
+                rx="11"
+                fill="#f0fff5"
+                stroke="#2da44e"
+                stroke-width="1"
+              />
+              <text x="776" y="131" text-anchor="middle" fill="#2da44e">
+                claim
+              </text>
+            </g>
+
+            <!-- bus -> actors connectors -->
+            <line
+              x1="145"
+              y1="150"
+              x2="145"
+              y2="208"
+              stroke="#cbd1d6"
+              stroke-width="1.3"
+            />
+            <line
+              x1="325"
+              y1="150"
+              x2="325"
+              y2="208"
+              stroke="#cbd1d6"
+              stroke-width="1.3"
+            />
+            <line
+              x1="545"
+              y1="150"
+              x2="545"
+              y2="208"
+              stroke="#cbd1d6"
+              stroke-width="1.3"
+            />
+            <line
+              x1="725"
+              y1="150"
+              x2="725"
+              y2="208"
+              stroke="#cbd1d6"
+              stroke-width="1.3"
+            />
+            <line
+              x1="905"
+              y1="150"
+              x2="905"
+              y2="208"
+              stroke="#cbd1d6"
+              stroke-width="1.3"
+            />
+
+            <!-- arms (green) -->
+            <g>
+              <rect
+                x="75"
+                y="208"
+                width="140"
+                height="70"
+                rx="10"
+                fill="#fafbfc"
+                stroke="#2da44e"
+                stroke-width="2"
+              />
+              <text
+                x="145"
+                y="238"
+                text-anchor="middle"
+                font-family="'Space Grotesk',sans-serif"
+                font-size="13"
+                font-weight="600"
+                fill="#2da44e"
+              >
+                Arm
+              </text>
+              <text
+                x="145"
+                y="257"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="9"
+                fill="#7a8087"
+              >
+                on-device brain
+              </text>
+            </g>
+            <g>
+              <rect
+                x="255"
+                y="208"
+                width="140"
+                height="70"
+                rx="10"
+                fill="#fafbfc"
+                stroke="#2da44e"
+                stroke-width="2"
+              />
+              <text
+                x="325"
+                y="238"
+                text-anchor="middle"
+                font-family="'Space Grotesk',sans-serif"
+                font-size="13"
+                font-weight="600"
+                fill="#2da44e"
+              >
+                Arm
+              </text>
+              <text
+                x="325"
+                y="257"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="9"
+                fill="#7a8087"
+              >
+                on-device brain
+              </text>
+            </g>
+
+            <!-- ACTOR TOPOLOGY label, sits in the gap between the arms and the AGVs -->
+            <text
+              x="435"
+              y="240"
+              text-anchor="middle"
+              letter-spacing="1"
+              font-family="'JetBrains Mono',monospace"
+              font-size="9"
+              fill="#9aa0a6"
+            >
+              ACTOR
+            </text>
+            <text
+              x="435"
+              y="253"
+              text-anchor="middle"
+              letter-spacing="1"
+              font-family="'JetBrains Mono',monospace"
+              font-size="9"
+              fill="#9aa0a6"
+            >
+              TOPOLOGY
+            </text>
+
+            <!-- AGV-1 blue -->
+            <g>
+              <rect
+                x="475"
+                y="208"
+                width="140"
+                height="70"
+                rx="10"
+                fill="#fafbfc"
+                stroke="#2f6feb"
+                stroke-width="2"
+              />
+              <text
+                x="545"
+                y="238"
+                text-anchor="middle"
+                font-family="'Space Grotesk',sans-serif"
+                font-size="13"
+                font-weight="600"
+                fill="#2f6feb"
+              >
+                AGV 1
+              </text>
+              <text
+                x="545"
+                y="257"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="9"
+                fill="#7a8087"
+              >
+                blue &middot; 10-20kg
+              </text>
+            </g>
+
+            <!-- AGV-2 - FAULT -->
+            <g>
+              <rect
+                x="655"
+                y="208"
+                width="140"
+                height="70"
+                rx="10"
+                fill="#fff5f5"
+                stroke="#cf222e"
+                stroke-width="2"
+                stroke-dasharray="6 3"
+              />
+              <text
+                x="725"
+                y="238"
+                text-anchor="middle"
+                font-family="'Space Grotesk',sans-serif"
+                font-size="13"
+                font-weight="600"
+                fill="#cf222e"
+              >
+                AGV 2
+              </text>
+              <text
+                x="725"
+                y="257"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="9"
+                fill="#cf222e"
+              >
+                crashed mid-task
+              </text>
+              <circle cx="795" cy="208" r="14" fill="#cf222e" />
+              <path
+                d="M789 202 L801 214 M801 202 L789 214"
+                stroke="#ffffff"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </g>
+
+            <!-- AGV-3 amber -->
+            <g>
+              <rect
+                x="835"
+                y="208"
+                width="140"
+                height="70"
+                rx="10"
+                fill="#fafbfc"
+                stroke="#8a6300"
+                stroke-width="2"
+              />
+              <text
+                x="905"
+                y="238"
+                text-anchor="middle"
+                font-family="'Space Grotesk',sans-serif"
+                font-size="13"
+                font-weight="600"
+                fill="#8a6300"
+              >
+                AGV 3
+              </text>
+              <text
+                x="905"
+                y="257"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="9"
+                fill="#7a8087"
+              >
+                yellow &middot; 50-80kg
+              </text>
+            </g>
+
+            <!-- RECOVERY: AGV-3 re-claims AGV-2's task -->
+            <path
+              d="M905 282 C 905 320, 725 320, 725 298"
+              fill="none"
+              stroke="#2da44e"
+              stroke-width="2"
+              stroke-dasharray="5 3"
+            />
+            <path d="M725 284 L718 298 L732 298 Z" fill="#2da44e" />
+            <rect
+              x="599"
+              y="330"
+              width="252"
+              height="26"
+              rx="13"
+              fill="#f0fff5"
+              stroke="#2da44e"
+              stroke-width="1"
+            />
+            <text
+              x="725"
+              y="347"
+              text-anchor="middle"
+              font-family="'JetBrains Mono',monospace"
+              font-size="10"
+              font-weight="700"
+              fill="#2da44e"
+            >
+              RECOVERY &middot; another actor re-claims
+            </text>
+          </svg>
+        </div>
+
+        <p
+          class="reveal"
+          style="
+            font-family: var(--font-display);
+            font-weight: 600;
+            margin-top: 0.6rem;
+          "
+        >
+          Watch <span class="green">another actor</span> react to failure.
+        </p>
+
+        <a
+          class="demo-btn reveal"
+          href="http://localhost:8080/"
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="pulse"></span>
+          Live Demo &rarr;
+        </a>
+        <span class="url reveal"
+          >http://localhost:8080/ &nbsp;·&nbsp; recorded fallback ready if the
+          live system is unavailable</span
+        >
+      </div>
+
+      <div class="slide-number">04<span class="of"> / 10</span></div>
+    </section>
+
+    <!-- ============ SLIDE 5 - ARCHITECTURE EVOLUTION (EXPLAIN) ============ -->
+    <section class="slide" id="arch-slide-fix">
+      <header class="chrome">
+        <span class="dot r"></span><span class="dot y"></span
+        ><span class="dot g"></span>
+        <span class="path">~/Inter-Act/05-architecture</span>
+        <span class="branch"></span>
+      </header>
+
+      <div class="slide-content">
+        <p class="eyebrow reveal">
+          Architecture <span style="color: var(--text-dim)">·</span>
+          <span style="color: var(--amber)">current state (hybrid)</span>
+        </p>
+        <h2 class="section-title reveal">
+          Centralized intent, decentralized execution
+        </h2>
+
+        <div
+          class="arch reveal diagram-frame"
+          id="archFrame"
+          role="button"
+          tabindex="0"
+          aria-label="Click to enlarge architecture diagram"
+        >
+          <span class="zoom-hint">click to zoom &#10530;</span>
+          <svg
+            class="arch-svg"
+            viewBox="0 0 1000 472"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            style="max-height: clamp(250px, 52vh, 440px)"
+            aria-label="Authority flow: the operator sets a goal; a centralized interpreter (QwQ-32B) and MasterAnnouncer announce an auction on the shared message bus; five containerized actors (arm-1, agv-1, agv-2, agv-3, arm-2) on qwen-14b execute and recover actor-to-actor; the 0.5B narrator writes operator bubbles only."
+          >
+            <defs>
+              <marker
+                id="af-d"
+                viewBox="0 0 10 10"
+                refX="9"
+                refY="5"
+                markerWidth="6"
+                markerHeight="6"
+                orient="auto"
+              >
+                <path d="M0 0L10 5L0 10z" fill="#3a3f45" />
+              </marker>
+              <marker
+                id="af-t"
+                viewBox="0 0 10 10"
+                refX="9"
+                refY="5"
+                markerWidth="6.5"
+                markerHeight="6.5"
+                orient="auto"
+              >
+                <path d="M0 0L10 5L0 10z" fill="#0f9b8e" />
+              </marker>
+            </defs>
+
+            <!-- Operator -->
+            <rect
+              x="360"
+              y="6"
+              width="280"
+              height="42"
+              rx="9"
+              fill="#ffffff"
+              stroke="#3a3f45"
+              stroke-width="1.8"
+            />
+            <text
+              x="500"
+              y="25"
+              text-anchor="middle"
+              font-family="'Space Grotesk',sans-serif"
+              font-size="13"
+              font-weight="700"
+              fill="#1f2328"
+            >
+              Operator
+            </text>
+            <text
+              x="500"
+              y="40"
+              text-anchor="middle"
+              font-family="'JetBrains Mono',monospace"
+              font-size="9"
+              fill="#7a8087"
+            >
+              sets goal &middot; reads narration
+            </text>
+            <line
+              x1="500"
+              y1="48"
+              x2="500"
+              y2="71"
+              stroke="#3a3f45"
+              stroke-width="1.6"
+              marker-end="url(#af-d)"
+            />
+
+            <!-- CENTRALIZED band -->
+            <rect
+              x="150"
+              y="72"
+              width="560"
+              height="122"
+              rx="12"
+              fill="#eef4fb"
+              stroke="#bcd4ee"
+              stroke-width="1.2"
+            />
+            <text
+              x="166"
+              y="91"
+              font-family="'JetBrains Mono',monospace"
+              font-size="9"
+              letter-spacing="1"
+              fill="#3b6ea5"
+            >
+              CENTRALIZED &middot; strategic
+            </text>
+            <rect
+              x="208"
+              y="98"
+              width="444"
+              height="38"
+              rx="8"
+              fill="#ffffff"
+              stroke="#3b6ea5"
+              stroke-width="1.6"
+            />
+            <text
+              x="430"
+              y="121"
+              text-anchor="middle"
+              font-family="'Space Grotesk',sans-serif"
+              font-size="12"
+              font-weight="600"
+              fill="#3b6ea5"
+            >
+              Goal interpreter &middot; QwQ-32B
+            </text>
+            <line
+              x1="430"
+              y1="136"
+              x2="430"
+              y2="146"
+              stroke="#3b6ea5"
+              stroke-width="1.4"
+              marker-end="url(#af-d)"
+            />
+            <rect
+              x="208"
+              y="148"
+              width="444"
+              height="38"
+              rx="8"
+              fill="#ffffff"
+              stroke="#3b6ea5"
+              stroke-width="1.6"
+            />
+            <text
+              x="430"
+              y="171"
+              text-anchor="middle"
+              font-family="'Space Grotesk',sans-serif"
+              font-size="12"
+              font-weight="600"
+              fill="#3b6ea5"
+            >
+              MasterAnnouncer &middot; new-task auction
+            </text>
+
+            <!-- Backend infra (dashed) -->
+            <rect
+              x="730"
+              y="80"
+              width="212"
+              height="106"
+              rx="10"
+              fill="#fafbfc"
+              stroke="#9aa0a6"
+              stroke-width="1.2"
+              stroke-dasharray="5 3"
+            />
+            <text
+              x="836"
+              y="118"
+              text-anchor="middle"
+              font-family="'JetBrains Mono',monospace"
+              font-size="10"
+              fill="#7a8087"
+            >
+              Backend infra
+            </text>
+            <text
+              x="836"
+              y="136"
+              text-anchor="middle"
+              font-family="'JetBrains Mono',monospace"
+              font-size="9"
+              fill="#9aa0a6"
+            >
+              REST &middot; WebSocket
+            </text>
+            <text
+              x="836"
+              y="150"
+              text-anchor="middle"
+              font-family="'JetBrains Mono',monospace"
+              font-size="9"
+              fill="#9aa0a6"
+            >
+              health &middot; Docker registry
+            </text>
+
+            <!-- announce -> bus -->
+            <line
+              x1="430"
+              y1="194"
+              x2="430"
+              y2="220"
+              stroke="#3a3f45"
+              stroke-width="1.6"
+              marker-end="url(#af-d)"
+            />
+            <text
+              x="440"
+              y="212"
+              font-family="'JetBrains Mono',monospace"
+              font-size="9"
+              fill="#7a8087"
+            >
+              announce
+            </text>
+
+            <!-- Shared message bus -->
+            <rect
+              x="60"
+              y="222"
+              width="880"
+              height="40"
+              rx="10"
+              fill="#fafbfc"
+              stroke="#2da44e"
+              stroke-width="1.8"
+            />
+            <text
+              x="500"
+              y="247"
+              text-anchor="middle"
+              font-family="'Space Grotesk',sans-serif"
+              font-size="12"
+              font-weight="700"
+              fill="#2da44e"
+            >
+              Shared message bus
+              <tspan
+                font-family="'JetBrains Mono',monospace"
+                font-weight="400"
+                font-size="10"
+                fill="#7a8087"
+              >
+                &middot; announce &middot; bid &middot; claim &middot; heartbeat
+                &middot; orphan
+              </tspan>
+            </text>
+
+            <!-- DECENTRALIZED band -->
+            <rect
+              x="60"
+              y="286"
+              width="880"
+              height="182"
+              rx="12"
+              fill="#eef7f0"
+              stroke="#bfe2c8"
+              stroke-width="1.2"
+            />
+            <text
+              x="76"
+              y="305"
+              font-family="'JetBrains Mono',monospace"
+              font-size="9"
+              letter-spacing="1"
+              fill="#2f8f55"
+            >
+              DECENTRALIZED &middot; tactical execution + recovery
+            </text>
+
+            <!-- fan-out (teal) bus -> actors -->
+            <line
+              x1="500"
+              y1="262"
+              x2="152"
+              y2="316"
+              stroke="#0f9b8e"
+              stroke-width="1.3"
+              marker-end="url(#af-t)"
+            />
+            <line
+              x1="500"
+              y1="262"
+              x2="322"
+              y2="316"
+              stroke="#0f9b8e"
+              stroke-width="1.3"
+              marker-end="url(#af-t)"
+            />
+            <line
+              x1="500"
+              y1="262"
+              x2="492"
+              y2="316"
+              stroke="#0f9b8e"
+              stroke-width="1.3"
+              marker-end="url(#af-t)"
+            />
+            <line
+              x1="500"
+              y1="262"
+              x2="662"
+              y2="316"
+              stroke="#0f9b8e"
+              stroke-width="1.3"
+              marker-end="url(#af-t)"
+            />
+            <line
+              x1="500"
+              y1="262"
+              x2="832"
+              y2="316"
+              stroke="#0f9b8e"
+              stroke-width="1.3"
+              marker-end="url(#af-t)"
+            />
+
+            <!-- 5 actor containers: arm-1, agv-1, agv-2, agv-3, arm-2 -->
+            <g>
+              <rect
+                x="77"
+                y="316"
+                width="150"
+                height="56"
+                rx="9"
+                fill="#fff7ed"
+                stroke="#d97706"
+                stroke-width="2"
+              />
+              <text
+                x="152"
+                y="340"
+                text-anchor="middle"
+                font-family="'Space Grotesk',sans-serif"
+                font-size="12"
+                font-weight="600"
+                fill="#b45309"
+              >
+                arm-1
+              </text>
+              <text
+                x="152"
+                y="357"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="9"
+                fill="#7a8087"
+              >
+                qwen-14b
+              </text>
+            </g>
+            <g>
+              <rect
+                x="247"
+                y="316"
+                width="150"
+                height="56"
+                rx="9"
+                fill="#f3f3fb"
+                stroke="#5b52cc"
+                stroke-width="2"
+              />
+              <text
+                x="322"
+                y="340"
+                text-anchor="middle"
+                font-family="'Space Grotesk',sans-serif"
+                font-size="12"
+                font-weight="600"
+                fill="#4b44b0"
+              >
+                agv-1
+              </text>
+              <text
+                x="322"
+                y="357"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="9"
+                fill="#7a8087"
+              >
+                qwen-14b
+              </text>
+            </g>
+            <g>
+              <rect
+                x="417"
+                y="316"
+                width="150"
+                height="56"
+                rx="9"
+                fill="#f3f3fb"
+                stroke="#5b52cc"
+                stroke-width="2"
+              />
+              <text
+                x="492"
+                y="340"
+                text-anchor="middle"
+                font-family="'Space Grotesk',sans-serif"
+                font-size="12"
+                font-weight="600"
+                fill="#4b44b0"
+              >
+                agv-2
+              </text>
+              <text
+                x="492"
+                y="357"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="9"
+                fill="#7a8087"
+              >
+                qwen-14b
+              </text>
+            </g>
+            <g>
+              <rect
+                x="587"
+                y="316"
+                width="150"
+                height="56"
+                rx="9"
+                fill="#f3f3fb"
+                stroke="#5b52cc"
+                stroke-width="2"
+              />
+              <text
+                x="662"
+                y="340"
+                text-anchor="middle"
+                font-family="'Space Grotesk',sans-serif"
+                font-size="12"
+                font-weight="600"
+                fill="#4b44b0"
+              >
+                agv-3
+              </text>
+              <text
+                x="662"
+                y="357"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="9"
+                fill="#7a8087"
+              >
+                qwen-14b
+              </text>
+            </g>
+            <g>
+              <rect
+                x="757"
+                y="316"
+                width="150"
+                height="56"
+                rx="9"
+                fill="#fff7ed"
+                stroke="#d97706"
+                stroke-width="2"
+              />
+              <text
+                x="832"
+                y="340"
+                text-anchor="middle"
+                font-family="'Space Grotesk',sans-serif"
+                font-size="12"
+                font-weight="600"
+                fill="#b45309"
+              >
+                arm-2
+              </text>
+              <text
+                x="832"
+                y="357"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="9"
+                fill="#7a8087"
+              >
+                qwen-14b
+              </text>
+            </g>
+
+            <!-- actor-to-actor diamonds between actors -->
+            <path d="M237 338 l6 6 l-6 6 l-6 -6 z" fill="#5b52cc" />
+            <path d="M407 338 l6 6 l-6 6 l-6 -6 z" fill="#5b52cc" />
+            <path d="M577 338 l6 6 l-6 6 l-6 -6 z" fill="#5b52cc" />
+            <path d="M747 338 l6 6 l-6 6 l-6 -6 z" fill="#5b52cc" />
+
+            <!-- notes -->
+            <text
+              x="500"
+              y="394"
+              text-anchor="middle"
+              font-family="'JetBrains Mono',monospace"
+              font-size="9.5"
+              fill="#5b52cc"
+            >
+              actor-to-actor coordination &middot; bid / claim / orphan /
+              heartbeat on the bus
+            </text>
+            <text
+              x="500"
+              y="411"
+              text-anchor="middle"
+              font-family="'JetBrains Mono',monospace"
+              font-size="9.5"
+              fill="#cf222e"
+            >
+              actor fault recovery: another actor detects a lost heartbeat
+              &#8594; announces &#8594; re-bids (no Master)
+            </text>
+            <rect
+              x="290"
+              y="421"
+              width="420"
+              height="30"
+              rx="8"
+              fill="#fffbeb"
+              stroke="#caa53d"
+              stroke-width="1"
+              stroke-dasharray="4 3"
+            />
+            <text
+              x="500"
+              y="440"
+              text-anchor="middle"
+              font-family="'JetBrains Mono',monospace"
+              font-size="9.5"
+              fill="#9a7d1f"
+            >
+              0.5B narrator &#8594; operator bubbles only (no execution
+              authority)
+            </text>
+          </svg>
+
+          <div class="arch-legend">
+            <span class="arch-legend-item"
+              ><svg width="12" height="12" viewBox="0 0 12 12">
+                <rect
+                  x="0"
+                  y="0"
+                  width="12"
+                  height="12"
+                  rx="2"
+                  fill="#eef4fb"
+                  stroke="#3b6ea5"
+                  stroke-width="1.4"
+                />
+              </svg>
+              centralized (strategic)</span
+            >
+            <span class="arch-legend-item"
+              ><svg width="12" height="12" viewBox="0 0 12 12">
+                <rect
+                  x="0"
+                  y="0"
+                  width="12"
+                  height="12"
+                  rx="2"
+                  fill="#eef7f0"
+                  stroke="#2f8f55"
+                  stroke-width="1.4"
+                />
+              </svg>
+              decentralized (tactical + recovery)</span
+            >
+            <span class="arch-legend-item"
+              ><svg width="12" height="12" viewBox="0 0 12 12">
+                <path d="M6 1 l5 5 l-5 5 l-5 -5 z" fill="#5b52cc" />
+              </svg>
+              actor-to-actor on the bus</span
+            >
+          </div>
+        </div>
+
+        <div class="arch-callout reveal">
+          <strong>Hybrid by design.</strong> The operator sets a goal; a central
+          interpreter and announcer turn it into an auction on the shared bus.
+          From there, execution, actor-led fault detection, and recovery run
+          across the actors - the recovery claim is authored by
+          <strong>another actor</strong>, not the centre. Each actor is its own
+          container; the 0.5B narrator only writes operator bubbles.
+        </div>
+      </div>
+
+      <div class="slide-number">05<span class="of"> / 10</span></div>
+    </section>
+
+    <!-- ============ SLIDE 6 - HOW COORDINATION WORKS ============ -->
+    <section class="slide">
+      <header class="chrome">
+        <span class="dot r"></span><span class="dot y"></span
+        ><span class="dot g"></span>
+        <span class="path">~/Inter-Act/06-coordination</span>
+        <span class="branch"></span>
+      </header>
+
+      <div class="slide-content">
+        <p class="eyebrow reveal">How coordination works</p>
+        <h2 class="section-title reveal">
+          Bidding decides.
+          <span style="color: var(--green)">The LLM only advises.</span>
+        </h2>
+
+        <div class="arch reveal" style="padding: 0.5rem 0.9rem">
+          <svg
+            viewBox="0 0 1000 150"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            style="
+              width: 100%;
+              height: auto;
+              max-height: clamp(110px, 22vh, 180px);
+              display: block;
+              margin: 0 auto;
+            "
+            aria-label="Contract-net sequence: announce, bids, claim."
+          >
+            <defs>
+              <marker
+                id="cn-a"
+                viewBox="0 0 10 10"
+                refX="9"
+                refY="5"
+                markerWidth="6"
+                markerHeight="6"
+                orient="auto"
+              >
+                <path d="M0 0L10 5L0 10z" fill="#7a8087" />
+              </marker>
+            </defs>
+            <rect
+              x="30"
+              y="50"
+              width="180"
+              height="50"
+              rx="8"
+              fill="#f0fff5"
+              stroke="#2da44e"
+              stroke-width="2"
+            />
+            <text
+              x="120"
+              y="80"
+              text-anchor="middle"
+              font-family="'Space Grotesk',sans-serif"
+              font-size="14"
+              font-weight="600"
+              fill="#2da44e"
+            >
+              announce task
+            </text>
+            <rect
+              x="410"
+              y="20"
+              width="180"
+              height="36"
+              rx="8"
+              fill="#fafbfc"
+              stroke="#8a6300"
+              stroke-width="1.6"
+            />
+            <text
+              x="500"
+              y="43"
+              text-anchor="middle"
+              font-family="'JetBrains Mono',monospace"
+              font-size="12"
+              fill="#8a6300"
+            >
+              AGV bids (score)
+            </text>
+            <rect
+              x="410"
+              y="62"
+              width="180"
+              height="36"
+              rx="8"
+              fill="#fafbfc"
+              stroke="#8a6300"
+              stroke-width="1.6"
+            />
+            <text
+              x="500"
+              y="85"
+              text-anchor="middle"
+              font-family="'JetBrains Mono',monospace"
+              font-size="12"
+              fill="#8a6300"
+            >
+              AGV bids (score)
+            </text>
+            <rect
+              x="410"
+              y="104"
+              width="180"
+              height="36"
+              rx="8"
+              fill="#fafbfc"
+              stroke="#8a6300"
+              stroke-width="1.6"
+            />
+            <text
+              x="500"
+              y="127"
+              text-anchor="middle"
+              font-family="'JetBrains Mono',monospace"
+              font-size="12"
+              fill="#8a6300"
+            >
+              AGV bids (score)
+            </text>
+            <rect
+              x="790"
+              y="50"
+              width="180"
+              height="50"
+              rx="8"
+              fill="#f0fff5"
+              stroke="#2da44e"
+              stroke-width="2"
+            />
+            <text
+              x="880"
+              y="80"
+              text-anchor="middle"
+              font-family="'Space Grotesk',sans-serif"
+              font-size="14"
+              font-weight="600"
+              fill="#2da44e"
+            >
+              announcer claims
+            </text>
+            <line
+              x1="210"
+              y1="75"
+              x2="405"
+              y2="75"
+              stroke="#7a8087"
+              stroke-width="1.4"
+              marker-end="url(#cn-a)"
+            />
+            <line
+              x1="590"
+              y1="75"
+              x2="785"
+              y2="75"
+              stroke="#7a8087"
+              stroke-width="1.4"
+              marker-end="url(#cn-a)"
+            />
+          </svg>
+        </div>
+
+        <div class="grid-3 reveal" style="margin-top: 0.7rem">
+          <div class="card">
+            <span class="tag">mechanism</span>
+            <p style="margin-top: 0.5em">
+              Actors bid on a shared bus; the MasterAnnouncer announces the
+              winner.
+            </p>
+          </div>
+          <div class="card cyan">
+            <span class="tag cyan">decides</span>
+            <p style="margin-top: 0.5em">
+              Distance, capability, and workload are evaluated to select the
+              best actor.
+            </p>
+          </div>
+          <div class="card amber">
+            <span class="tag amber">advises only</span>
+            <p style="margin-top: 0.5em">
+              The LLM can adjust the score within fixed limits; it never
+              overrides the decision.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-number">06<span class="of"> / 10</span></div>
+    </section>
+
+    <!-- ============ SLIDE 7 - VALIDATION + LIMITATIONS ============ -->
+    <section class="slide" id="built-slide-fix">
+      <header class="chrome">
+        <span class="dot r"></span><span class="dot y"></span
+        ><span class="dot g"></span>
+        <span class="path">~/Inter-Act/07-validation</span>
+        <span class="branch"></span>
+      </header>
+
+      <div class="slide-content">
+        <p class="eyebrow reveal">
+          Validate <span style="color: var(--text-dim)">·</span>
+          <span style="color: var(--green)">LIVE + simulation</span>
+        </p>
+        <h2 class="section-title reveal">It works - with one known edge</h2>
+
+        <div class="stats-row reveal" style="justify-content: center">
+          <div
+            class="stat"
+            style="flex: 0 0 auto; text-align: center; min-width: 340px"
+          >
+            <div class="num">
+              <span style="font-size: 0.42em; font-weight: 600">within </span
+              >9.24<span style="font-size: 0.5em"> s</span>
+            </div>
+            <div class="label">another actor detects a lost actor, live</div>
+          </div>
+        </div>
+
+        <div class="grid-3 reveal" style="margin-top: 0.9rem">
+          <div class="card">
+            <span class="tag">recovery</span>
+            <p style="margin-top: 0.5em">
+              <strong>Another actor</strong> - not the centre - re-allocates the
+              lost task in <strong>every trial</strong>, on the running system.
+            </p>
+          </div>
+          <div class="card cyan">
+            <span class="tag cyan">allocation</span>
+            <p style="margin-top: 0.5em">
+              The capability-aware bid picks a <strong>near-optimal</strong>
+              winner in simulation.
+            </p>
+          </div>
+          <div class="card amber">
+            <span class="tag amber">the open edge</span>
+            <p style="margin-top: 0.5em">
+              On a hard crash a <strong>station / path lock</strong> isn't
+              released, so the re-allocated actor waits. A localized
+              lock-release fix - not an architectural gap.
+              <em>(see future work)</em>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-number">07<span class="of"> / 10</span></div>
+    </section>
+
+
+    <!-- ============ SLIDE 8 - FUTURE WORK ============ -->
+    <section class="slide">
+      <header class="chrome">
+        <span class="dot r"></span><span class="dot y"></span
+        ><span class="dot g"></span>
+        <span class="path">~/Inter-Act/08-future</span>
+        <span class="branch"></span>
+      </header>
+
+      <div class="slide-content">
+        <p class="eyebrow reveal">Future work</p>
+        <h2 class="section-title reveal">
+          Where INTER<span style="color: var(--green)">.</span>act is heading
+        </h2>
+
+        <div
+          class="roadmap reveal"
+          style="grid-template-columns: repeat(4, 1fr)"
+        >
+          <div class="milestone dream">
+            <div class="when">&#9656; close the gap</div>
+            <h3>Complete the recovery</h3>
+            <ul>
+              <li>
+                Release locks on heartbeat loss so re-allocated actors
+                <strong>finish delivery</strong>.
+              </li>
+              <li>Faults recover end to end, not just re-allocation.</li>
+            </ul>
+          </div>
+          <div class="milestone next">
+            <div class="when">&#9656; truly contested</div>
+            <h3>Beyond single-bidder</h3>
+            <ul>
+              <li>
+                Move past the single eligible bidder toward genuinely
+                distributed allocation.
+              </li>
+              <li>More actors, real competition on the bus.</li>
+            </ul>
+          </div>
+          <div class="milestone next">
+            <div class="when">&#9656; UI &middot; build it</div>
+            <h3>Visual builder</h3>
+            <ul>
+              <li>
+                Parallel routes and per-actor parameters authored from the
+                canvas.
+              </li>
+            </ul>
+          </div>
+          <div class="milestone dream">
+            <div class="when">&#9656; beyond the warehouse</div>
+            <h3>Any multi-agent system</h3>
+            <ul>
+              <li>
+                The warehouse is one scenario - the coordination foundation is
+                <strong>domain-agnostic</strong>.
+              </li>
+              <li>
+                Drone displays (one drone drops out), underwater cleaning
+                fleets, defence and search-and-rescue swarms.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-number">08<span class="of"> / 10</span></div>
+    </section>
+
+    <!-- ============ SLIDE 9 - CONCLUSION ============ -->
+    <section class="slide">
+      <header class="chrome">
+        <span class="dot r"></span><span class="dot y"></span
+        ><span class="dot g"></span>
+        <span class="path">~/Inter-Act/09-conclusion</span>
+        <span class="branch"></span>
+      </header>
+
+      <div class="slide-content">
+        <p class="eyebrow reveal">Conclusion</p>
+        <h2 class="section-title reveal">
+          A working foundation for
+          <span style="color: var(--green)">decentralized coordination</span>
+        </h2>
+
+        <div class="grid-3 reveal">
+          <div class="card">
+            <span class="tag">today</span>
+            <p style="margin-top: 0.5em">
+              Centralized intent, <strong>decentralized execution</strong> -
+              running live, not a mock-up.
+            </p>
+          </div>
+          <div class="card cyan">
+            <span class="tag cyan">proven</span>
+            <p style="margin-top: 0.5em">
+              <strong>Another actor</strong> recovers a lost task on the running
+              system; the LLM stays advisory.
+            </p>
+          </div>
+          <div class="card amber">
+            <span class="tag amber">next</span>
+            <p style="margin-top: 0.5em">
+              The foundation is solid; the one open edge is a known
+              <strong>lock-release</strong> fix.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-number">09<span class="of"> / 10</span></div>
+    </section>
+
+    <!-- ============ SLIDE 10 - THANK YOU ============ -->
+    <section class="slide thanks-slide">
+      <header class="chrome">
+        <span class="dot r"></span><span class="dot y"></span
+        ><span class="dot g"></span>
+        <span class="path">~/Inter-Act/10-thanks</span>
+        <span class="branch"></span>
+      </header>
+
+      <div class="slide-content thanks-content">
+        <h2 class="thanks-title reveal">
+          Thank<br /><span class="green">you</span><span class="cursor"></span>
+        </h2>
+        <p class="reveal muted thanks-lede">
+          Questions, ideas, opinions, all welcome.
+        </p>
+        <p
+          class="reveal team-names"
+          style="
+            font-family: var(--font-display);
+            font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+            font-weight: 500;
+            color: var(--text-primary);
+          "
+        >
+          Team: Sneh <span style="color: var(--green)">·</span> Haris
+          <span style="color: var(--green)">·</span> Montu
+          <span style="color: var(--green)">·</span> Purvil
+          <span style="color: var(--green)">·</span> Amir
+        </p>
+        <p
+          class="reveal dim"
+          style="
+            font-family: var(--font-mono);
+            font-size: var(--small-size);
+            letter-spacing: 0.1em;
+          "
+        >
+          INTER<span style="color: var(--green)">.</span>act &nbsp;·&nbsp; SoSe
+          2026 &nbsp;·&nbsp; IN&sup3; &times; AiSuNe
+        </p>
+      </div>
+
+      <div class="slide-number">10<span class="of"> / 10</span></div>
+    </section>
+
+    <div
+      class="lightbox"
+      id="lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Diagram enlarged"
+    >
+      <span class="close-hint">esc to close</span>
+      <object
+        type="image/svg+xml"
+        data="assets/today-vs-interact.svg"
+        aria-label="Today versus INTER.act architecture diagram (enlarged)"
+      ></object>
+    </div>
+
+    <div
+      class="lightbox"
+      id="archLightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Architecture diagram enlarged"
+    >
+      <span class="close-hint">esc to close</span>
+      <div class="arch-lightbox-inner"></div>
+    </div>
+
+    <script>
+      /* Combined-view controller - observer + dots + keys + progress */
+      class Combined {
+        constructor() {
+          this.slides = Array.from(document.querySelectorAll(".slide"));
+          this.current = 0;
+          this.progress = document.getElementById("progress");
+          this.dots = document.getElementById("navDots");
+          this.buildDots();
+          this.observe();
+          this.bindKeys();
+        }
+        buildDots() {
+          this.slides.forEach((_, i) => {
+            const b = document.createElement("button");
+            b.setAttribute("aria-label", `Go to slide ${i + 1}`);
+            if (i === 0) b.classList.add("active");
+            b.addEventListener("click", () => this.goTo(i));
+            this.dots.appendChild(b);
+          });
+        }
+        observe() {
+          const io = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((e) => {
+                if (e.isIntersecting) {
+                  e.target.classList.add("visible");
+                  const idx = this.slides.indexOf(e.target);
+                  if (idx >= 0) {
+                    this.current = idx;
+                    this.updateDots();
+                    this.updateProgress();
+                  }
+                }
+              });
+            },
+            { threshold: 0.5 },
+          );
+          this.slides.forEach((s) => io.observe(s));
+        }
+        updateDots() {
+          Array.from(this.dots.children).forEach((b, i) =>
+            b.classList.toggle("active", i === this.current),
+          );
+        }
+        updateProgress() {
+          this.progress.style.width =
+            ((this.current + 1) / this.slides.length) * 100 + "%";
+        }
+        goTo(i) {
+          if (i < 0 || i >= this.slides.length) return;
+          this.slides[i].scrollIntoView({ behavior: "smooth" });
+        }
+        bindKeys() {
+          document.addEventListener("keydown", (e) => {
+            if (
+              e.key === "ArrowDown" ||
+              e.key === "PageDown" ||
+              e.key === " "
+            ) {
+              e.preventDefault();
+              this.goTo(this.current + 1);
+            } else if (e.key === "ArrowUp" || e.key === "PageUp") {
+              e.preventDefault();
+              this.goTo(this.current - 1);
+            } else if (e.key === "Home") {
+              e.preventDefault();
+              this.goTo(0);
+            } else if (e.key === "End") {
+              e.preventDefault();
+              this.goTo(this.slides.length - 1);
+            }
+          });
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => new Combined());
+
+      /* Lightbox: click diagram → enlarge; backdrop / Esc → close. */
+      (function () {
+        const frame = document.getElementById("diagramFrame");
+        const lb = document.getElementById("lightbox");
+        const archFrame = document.getElementById("archFrame");
+        const archLb = document.getElementById("archLightbox");
+
+        function setupLightbox(trigger, box, cloneSvg) {
+          if (!trigger || !box) return;
+          const open = () => {
+            if (cloneSvg) {
+              const svg = trigger.querySelector("svg.arch-svg");
+              const inner = box.querySelector(".arch-lightbox-inner");
+              if (svg && inner) {
+                inner.innerHTML = "";
+                const clone = svg.cloneNode(true);
+                clone.removeAttribute("class");
+                clone.style.width = "98vw";
+                clone.style.maxHeight = "94vh";
+                clone.style.background = "white";
+                clone.style.borderRadius = "4px";
+                inner.appendChild(clone);
+              }
+            }
+            box.classList.add("open");
+          };
+          const close = () => box.classList.remove("open");
+          trigger.addEventListener("click", open);
+          trigger.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              open();
+            }
+          });
+          box.addEventListener("click", close);
+        }
+
+        setupLightbox(frame, lb, false);
+        setupLightbox(archFrame, archLb, true);
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            if (lb) lb.classList.remove("open");
+            if (archLb) archLb.classList.remove("open");
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
