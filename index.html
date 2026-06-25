@@ -999,7 +999,7 @@
               Kill an actor mid-run and no controller steps in to fix it.
               <span class="green-accent"
                 >Another actor notices on the message bus and negotiates to take
-                the task over.</span
+                over the task.</span
               >
             </p>
             <ul class="intro-traits">
@@ -1070,6 +1070,10 @@
 
         <div
           class="reveal"
+          id="demoFrame"
+          role="button"
+          tabindex="0"
+          aria-label="Click to enlarge the demo diagram"
           style="
             max-width: 1140px;
             width: 100%;
@@ -1079,8 +1083,11 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            cursor: zoom-in;
+            position: relative;
           "
         >
+          <span class="zoom-hint">click to zoom &#10530;</span>
           <svg
             viewBox="0 0 1080 362"
             xmlns="http://www.w3.org/2000/svg"
@@ -1537,10 +1544,7 @@
           <span class="pulse"></span>
           Live Demo &rarr;
         </a>
-        <span class="url reveal"
-          >http://localhost:8080/ &nbsp;·&nbsp; recorded fallback ready if the
-          live system is unavailable</span
-        >
+        <span class="url reveal">http://localhost:8080/</span>
       </div>
 
       <div class="slide-number">04<span class="of"> / 10</span></div>
@@ -1599,7 +1603,7 @@
                 refY="5"
                 markerWidth="6.5"
                 markerHeight="6.5"
-                orient="auto"
+                orient="auto-start-reverse"
               >
                 <path d="M0 0L10 5L0 10z" fill="#0f9b8e" />
               </marker>
@@ -1828,7 +1832,7 @@
             />
             <text
               x="76"
-              y="305"
+              y="461"
               font-family="'JetBrains Mono',monospace"
               font-size="9"
               letter-spacing="1"
@@ -1837,50 +1841,55 @@
               DECENTRALIZED &middot; tactical execution + recovery
             </text>
 
-            <!-- fan-out (teal) bus -> actors -->
+            <!-- bus <-> actors: parallel two-way links (announce/bid both directions) -->
             <line
-              x1="500"
-              y1="262"
+              x1="152"
+              y1="263"
               x2="152"
-              y2="316"
+              y2="314"
               stroke="#0f9b8e"
-              stroke-width="1.3"
+              stroke-width="1.4"
+              marker-start="url(#af-t)"
               marker-end="url(#af-t)"
             />
             <line
-              x1="500"
-              y1="262"
+              x1="322"
+              y1="263"
               x2="322"
-              y2="316"
+              y2="314"
               stroke="#0f9b8e"
-              stroke-width="1.3"
+              stroke-width="1.4"
+              marker-start="url(#af-t)"
               marker-end="url(#af-t)"
             />
             <line
-              x1="500"
-              y1="262"
+              x1="492"
+              y1="263"
               x2="492"
-              y2="316"
+              y2="314"
               stroke="#0f9b8e"
-              stroke-width="1.3"
+              stroke-width="1.4"
+              marker-start="url(#af-t)"
               marker-end="url(#af-t)"
             />
             <line
-              x1="500"
-              y1="262"
+              x1="662"
+              y1="263"
               x2="662"
-              y2="316"
+              y2="314"
               stroke="#0f9b8e"
-              stroke-width="1.3"
+              stroke-width="1.4"
+              marker-start="url(#af-t)"
               marker-end="url(#af-t)"
             />
             <line
-              x1="500"
-              y1="262"
+              x1="832"
+              y1="263"
               x2="832"
-              y2="316"
+              y2="314"
               stroke="#0f9b8e"
-              stroke-width="1.3"
+              stroke-width="1.4"
+              marker-start="url(#af-t)"
               marker-end="url(#af-t)"
             />
 
@@ -2157,7 +2166,7 @@
           interpreter and announcer turn it into an auction on the shared bus.
           From there, execution, actor-led fault detection, and recovery run
           across the actors - the recovery claim is authored by
-          <strong>another actor</strong>, not the centre. Each actor is its own
+          <strong>another actor</strong>, not a central controller. Each actor is its own
           container; the 0.5B narrator only writes operator bubbles.
         </div>
       </div>
@@ -2220,11 +2229,24 @@
           announce task
         </text>
 
-        <line class="s6-arrow-out s6-arrow-top" x1="220" y1="135" x2="358" y2="88"
+        <!-- announcer -> shared message bus -->
+        <line x1="220" y1="160" x2="246" y2="160"
+          stroke="#2da44e" stroke-width="1.8" marker-end="url(#s6-arr-green)"/>
+
+        <!-- shared message bus (announce side) -->
+        <rect x="250" y="70" width="36" height="180" rx="9"
+          fill="#fafbfc" stroke="#2da44e" stroke-width="1.8"/>
+        <text transform="rotate(-90 268 160)" x="268" y="160" text-anchor="middle"
+          font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#2da44e">
+          MESSAGE BUS
+        </text>
+
+        <!-- bus -> all AGVs (broadcast announce) -->
+        <line class="s6-arrow-out s6-arrow-top" x1="290" y1="160" x2="358" y2="88"
           stroke="#c9d1d9" stroke-width="1.8" marker-end="url(#s6-arr-dim)"/>
-        <line class="s6-arrow-out s6-arrow-mid" x1="220" y1="160" x2="358" y2="160"
+        <line class="s6-arrow-out s6-arrow-mid" x1="290" y1="160" x2="358" y2="160"
           stroke="#c9d1d9" stroke-width="1.8" marker-end="url(#s6-arr-dim)"/>
-        <line class="s6-arrow-out s6-arrow-bot" x1="220" y1="185" x2="358" y2="232"
+        <line class="s6-arrow-out s6-arrow-bot" x1="290" y1="160" x2="358" y2="232"
           stroke="#c9d1d9" stroke-width="1.8" marker-end="url(#s6-arr-dim)"/>
 
         <g class="s6-bid s6-bid-loser">
@@ -2259,7 +2281,24 @@
             font-family="'JetBrains Mono',monospace" font-size="13" font-weight="600" fill="#7a8087">score: 0.74</text>
         </g>
 
-        <line class="s6-arrow-claim" x1="562" y1="160" x2="696" y2="160"
+        <!-- all AGVs -> shared message bus (bids submitted by the actors themselves) -->
+        <line x1="562" y1="88" x2="598" y2="160"
+          stroke="#c9d1d9" stroke-width="1.8" marker-end="url(#s6-arr-dim)"/>
+        <line x1="562" y1="160" x2="598" y2="160"
+          stroke="#c9d1d9" stroke-width="1.8" marker-end="url(#s6-arr-dim)"/>
+        <line x1="562" y1="232" x2="598" y2="160"
+          stroke="#c9d1d9" stroke-width="1.8" marker-end="url(#s6-arr-dim)"/>
+
+        <!-- shared message bus (claim side) -->
+        <rect x="602" y="70" width="36" height="180" rx="9"
+          fill="#fafbfc" stroke="#2da44e" stroke-width="1.8"/>
+        <text transform="rotate(-90 620 160)" x="620" y="160" text-anchor="middle"
+          font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#2da44e">
+          MESSAGE BUS
+        </text>
+
+        <!-- bus -> announcer claims the winner -->
+        <line class="s6-arrow-claim" x1="642" y1="160" x2="696" y2="160"
           stroke="#2da44e" stroke-width="2.2" stroke-dasharray="6 3" marker-end="url(#s6-arr-green)"/>
 
         <rect class="s6-claim" x="700" y="110" width="190" height="100" rx="12"
@@ -2296,9 +2335,9 @@
     </div>
 
     <div class="s6-step-labels" aria-hidden="true">
-      <span>1. announce</span>
-      <span>2. all AGVs bid</span>
-      <span>3. claim winner</span>
+      <span>1. announce on bus</span>
+      <span>2. AGVs bid by themselves</span>
+      <span>3. claim winner via bus</span>
     </div>
 
     <div class="s6-captions reveal">
@@ -2342,7 +2381,7 @@
           <span class="s7-within">within </span><span
             class="s7-count" aria-live="polite">9.24</span><span class="s7-unit"> s</span>
         </div>
-        <div class="label">another actor detects a lost actor, live</div>
+        <div class="label">for a peer actor to detect a failed actor and recover its task - live</div>
       </div>
     </div>
 
@@ -2350,8 +2389,9 @@
       <div class="card s7-card-1">
         <span class="tag">recovery</span>
         <p style="margin-top: 0.5em">
-          <strong>Another actor</strong> - not the centre - re-allocates the
-          lost task in <strong>every trial</strong>, on the running system.
+          When an actor fails, <strong>another actor</strong> - not a central
+          controller - picks up its task. Recovered in
+          <strong>all 10 of 10 fault-injection runs</strong> on the live system.
         </p>
         <div class="s7-dots" aria-label="ten of ten trials succeeded" role="img">
           <span class="s7-dot"></span><span class="s7-dot"></span><span class="s7-dot"></span><span class="s7-dot"></span><span class="s7-dot"></span><span class="s7-dot"></span><span class="s7-dot"></span><span class="s7-dot"></span><span class="s7-dot"></span><span class="s7-dot"></span>
@@ -2360,17 +2400,17 @@
       <div class="card cyan s7-card-2">
         <span class="tag cyan">allocation</span>
         <p style="margin-top: 0.5em">
-          The capability-aware bid picks a <strong>near-optimal</strong>
-          winner in simulation.
+          In simulation, the bid score (skills, distance, workload) picks a
+          <strong>near-optimal</strong> actor for each task.
         </p>
       </div>
       <div class="card amber s7-card-3">
         <span class="tag amber">the open edge</span>
         <p style="margin-top: 0.5em">
-          On a hard crash a <strong>station / path lock</strong> isn't
-          released, so the re-allocated actor waits. A localized
-          lock-release fix - not an architectural gap.
-          <em>(see future work)</em>
+          One known gap: after a hard crash the failed actor's
+          <strong>station / path lock</strong> is never released, so the actor
+          taking over waits on it. A small lock-release fix - not an
+          architectural gap. <em>(see future work)</em>
         </p>
       </div>
     </div>
@@ -2564,6 +2604,17 @@
       <div class="arch-lightbox-inner"></div>
     </div>
 
+    <div
+      class="lightbox"
+      id="demoLightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Demo diagram enlarged"
+    >
+      <span class="close-hint">esc to close</span>
+      <div class="arch-lightbox-inner"></div>
+    </div>
+
     <script>
       /* Combined-view controller - observer + dots + keys + progress */
       class Combined {
@@ -2647,12 +2698,14 @@
         const lb = document.getElementById("lightbox");
         const archFrame = document.getElementById("archFrame");
         const archLb = document.getElementById("archLightbox");
+        const demoFrame = document.getElementById("demoFrame");
+        const demoLb = document.getElementById("demoLightbox");
 
-        function setupLightbox(trigger, box, cloneSvg) {
+        function setupLightbox(trigger, box, cloneSvg, svgSelector) {
           if (!trigger || !box) return;
           const open = () => {
             if (cloneSvg) {
-              const svg = trigger.querySelector("svg.arch-svg");
+              const svg = trigger.querySelector(svgSelector || "svg.arch-svg");
               const inner = box.querySelector(".arch-lightbox-inner");
               if (svg && inner) {
                 inner.innerHTML = "";
@@ -2680,11 +2733,13 @@
 
         setupLightbox(frame, lb, false);
         setupLightbox(archFrame, archLb, true);
+        setupLightbox(demoFrame, demoLb, true, "svg");
 
         document.addEventListener("keydown", (e) => {
           if (e.key === "Escape") {
             if (lb) lb.classList.remove("open");
             if (archLb) archLb.classList.remove("open");
+            if (demoLb) demoLb.classList.remove("open");
           }
         });
       })();
