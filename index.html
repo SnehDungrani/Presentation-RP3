@@ -573,20 +573,6 @@
 @keyframes s6-win-throb { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
 @keyframes s6-loser-fade { 0%,30% { opacity: 1; } 50%,80% { opacity: 0.38; } 100% { opacity: 1; } }
 @keyframes s6-dash-march { to { stroke-dashoffset: -18; } }
-@keyframes s6-dot-travel-out {
-  0% { opacity: 0; offset-distance: 0%; }
-  8% { opacity: 1; }
-  42% { opacity: 1; offset-distance: 100%; }
-  43% { opacity: 0; offset-distance: 100%; }
-  100% { opacity: 0; offset-distance: 100%; }
-}
-@keyframes s6-dot-travel-claim {
-  0% { opacity: 0; offset-distance: 0%; }
-  8% { opacity: 1; }
-  42% { opacity: 1; offset-distance: 100%; }
-  43% { opacity: 0; offset-distance: 100%; }
-  100% { opacity: 0; offset-distance: 100%; }
-}
 #s6.slide.visible .s6-pulse-announce { transform-origin: 125px 160px; animation: s6-pulse 4s ease-out 1.2s infinite; }
 #s6.slide.visible .s6-pulse-winner { transform-origin: 462px 160px; animation: s6-pulse 4s ease-out 2.4s infinite; }
 #s6.slide.visible .s6-pulse-claim { transform-origin: 795px 160px; animation: s6-pulse 4s ease-out 3.3s infinite; }
@@ -595,8 +581,6 @@
 #s6.slide.visible .s6-crown-badge,
 #s6.slide.visible .s6-crown-text { animation: s6-win-throb 4s ease-in-out 1s infinite; }
 #s6.slide.visible .s6-arrow-claim { animation: s6-dash-march 0.6s linear infinite; stroke-dasharray: 6 3; }
-#s6.slide.visible .s6-dot-out { offset-path: path("M220,160 L358,160"); offset-distance: 0%; animation: s6-dot-travel-out 4s ease-in-out 1.2s infinite; }
-#s6.slide.visible .s6-dot-claim { offset-path: path("M562,160 L696,160"); offset-distance: 0%; animation: s6-dot-travel-claim 4s ease-in-out 2.6s infinite; }
 @media (prefers-reduced-motion: reduce) {
   #s6.slide.visible .s6-pulse-announce,
   #s6.slide.visible .s6-pulse-winner,
@@ -606,8 +590,8 @@
   #s6.slide.visible .s6-crown-badge,
   #s6.slide.visible .s6-crown-text,
   #s6.slide.visible .s6-arrow-claim,
-  #s6.slide.visible .s6-dot-out,
-  #s6.slide.visible .s6-dot-claim { animation: none !important; opacity: 1 !important; }
+  .s6-dot-out,
+  .s6-dot-claim { opacity: 0 !important; }
   #s6.slide.visible .s6-bid-loser { opacity: 1 !important; }
 }
 
@@ -2328,8 +2312,14 @@
           x="700" y="110" width="190" height="100" rx="12"
           fill="none" stroke="#2da44e" stroke-width="3" opacity="0"/>
 
-        <circle class="s6-dot-out" aria-hidden="true" r="5" fill="#2da44e" opacity="0"></circle>
-        <circle class="s6-dot-claim" aria-hidden="true" r="5" fill="#2da44e" opacity="0"></circle>
+        <circle class="s6-dot-out" aria-hidden="true" r="5" fill="#2da44e">
+          <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.08;0.42;0.43;1" dur="4s" begin="1.2s" repeatCount="indefinite" calcMode="linear"/>
+          <animateMotion dur="4s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.42 0 0.58 1" path="M220,160 L358,160"/>
+        </circle>
+        <circle class="s6-dot-claim" aria-hidden="true" r="5" fill="#2da44e">
+          <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.08;0.42;0.43;1" dur="4s" begin="2.6s" repeatCount="indefinite" calcMode="linear"/>
+          <animateMotion dur="4s" begin="2.6s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.42 0 0.58 1" path="M562,160 L696,160"/>
+        </circle>
       </svg>
     </div>
 
