@@ -1084,6 +1084,36 @@ kbd {
     pointer-events: none;
 }
 
+/* Slide 4 demo diagram - click to zoom (reuses .lightbox modal) */
+#demoFrame {
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+#demoFrame:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.14);
+}
+
+#demoFrame .zoom-hint {
+    position: absolute;
+    top: clamp(0.4rem, 1vw, 0.8rem);
+    right: clamp(0.4rem, 1vw, 0.8rem);
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    color: var(--green);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--green);
+    padding: 0.3em 0.7em;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+    z-index: 2;
+}
+
+#demoFrame svg {
+    pointer-events: none;
+}
+
 /* Lightbox modal - full-viewport zoom view */
 .lightbox {
     position: fixed;
