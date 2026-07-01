@@ -685,120 +685,211 @@
    SLIDE 7 - VALIDATION (scoped .s7-scope)
    ============================================================ */
       #built-slide-fix .slide-content {
-        justify-content: center;
-        padding-top: clamp(0.5rem, 2vh, 1.5rem) !important;
-        gap: clamp(0.5rem, 1.2vh, 1rem);
+        justify-content: flex-start;
+        padding-top: clamp(0.4rem, 1.4vh, 0.8rem) !important;
+        gap: clamp(0.6rem, 1.8vh, 1.1rem);
       }
+      /* ---- hero verdict: left-aligned, single dominant focal point ---- */
       .s7-hero {
+        text-align: left;
         display: flex;
-        justify-content: center;
+        align-items: baseline;
+        gap: 0.6em;
         flex-wrap: wrap;
-        gap: clamp(0.8rem, 2vw, 1.6rem);
       }
-      .s7-stat {
-        background: var(--bg-panel);
-        border: 1px solid var(--border);
-        border-left: 3px solid var(--green);
-        border-radius: 6px;
-        padding: clamp(0.7rem, 1.6vw, 1.2rem) clamp(1.2rem, 3vw, 2.2rem);
-        text-align: center;
-        min-width: 260px;
-      }
-      .s7-hero-sub {
-        text-align: center;
+      .s7-hero-badge {
         font-family: var(--font-display);
-        font-size: clamp(0.85rem, 1.7vw, 1.05rem);
-        color: var(--text-secondary);
-        margin-top: 0.7em;
-      }
-      .s7-bounds {
-        text-align: center;
-        font-family: var(--font-mono);
-        font-size: var(--small-size);
-        color: var(--text-dim);
-        letter-spacing: 0.04em;
-        margin-top: 0.35em;
-      }
-      .s7-hero-num {
-        font-family: var(--font-display);
-        font-size: clamp(1.8rem, 4.5vw, 3rem);
+        font-size: clamp(2.4rem, 6vw, 3.8rem);
         font-weight: 700;
         color: var(--green);
         line-height: 1;
-        letter-spacing: -0.04em;
+        letter-spacing: -0.03em;
       }
-      .s7-within {
-        font-size: 0.42em;
+      .s7-hero-lines {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1em;
+      }
+      .s7-hero-line1 {
+        font-family: var(--font-display);
+        font-size: clamp(1.05rem, 2.05vw, 1.25rem);
         font-weight: 600;
+        color: var(--text-secondary);
       }
-      .s7-unit {
-        font-size: 0.5em;
-      }
-      .s7-spread {
-        font-size: 0.32em;
-        color: var(--text-dim);
-        font-weight: 500;
-      }
-      .s7-stat .label {
+      .s7-hero-line2 {
         font-family: var(--font-mono);
         font-size: var(--small-size);
-        color: var(--text-secondary);
-        margin-top: 0.3em;
+        color: var(--green);
+        letter-spacing: 0.02em;
+        opacity: 0.82;
+      }
+
+      /* ---- timeline: one continuous execution path ---- */
+      .s7-timeline-row {
+        display: flex;
+        align-items: center;
+      }
+      .s7-timeline-svg {
+        flex: 1 1 auto;
+        min-width: 0;
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      /* ---- outcomes: slide-level summary, centered beneath the whole workflow ---- */
+      .s7-outcomes {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-top: clamp(0.6rem, 2vh, 1.4rem);
+      }
+      .s7-outcomes-label {
+        font-family: var(--font-mono);
+        font-size: clamp(0.7rem, 1vw, 0.88rem);
+        color: var(--text-dim);
         text-transform: uppercase;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.14em;
+        margin-bottom: 0.35em;
       }
-      .s7-cards {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: clamp(0.5rem, 1vw, 0.9rem);
-      }
-      .s7-card-1,
-      .s7-card-2,
-      .s7-card-3 {
+      /* ---- outcome chips: compact, number-first ---- */
+      .s7-chips-row {
+        display: flex;
+        justify-content: center;
+        gap: clamp(1.2rem, 3vw, 2.2rem);
         opacity: 0;
-        transform: translateY(18px);
+        transform: translateY(10px);
         transition:
-          opacity 0.6s var(--ease),
-          transform 0.6s var(--ease);
+          opacity 0.5s var(--ease),
+          transform 0.5s var(--ease);
       }
-      .s7-scope.slide.visible .s7-card-1 {
+      .s7-chip {
+        text-align: center;
+      }
+      .s7-chip-num {
+        display: block;
+        font-family: var(--font-display);
+        font-size: clamp(1.3rem, 2.6vw, 1.75rem);
+        font-weight: 700;
+        color: var(--text-secondary);
+        line-height: 1.1;
+      }
+      .s7-chip-sub {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: clamp(0.72rem, 1.05vw, 0.9rem);
+        color: var(--text-dim);
+        margin-top: 0.15em;
+      }
+
+      /* ---- sequenced reveal, keyed off .visible ---- */
+      .s7-seq {
+        opacity: 0;
+        transform: translateY(8px);
+        transition:
+          opacity 0.45s var(--ease),
+          transform 0.45s var(--ease);
+      }
+      .s7-scope.slide.visible .s7-seq {
         opacity: 1;
         transform: translateY(0);
+      }
+      .s7-scope.slide.visible .s7-seq-1 {
+        transition-delay: 0.1s;
+      }
+      .s7-scope.slide.visible .s7-seq-2 {
         transition-delay: 0.3s;
       }
-      .s7-scope.slide.visible .s7-card-2 {
-        opacity: 1;
-        transform: translateY(0);
+      .s7-scope.slide.visible .s7-seq-3 {
         transition-delay: 0.5s;
       }
-      .s7-scope.slide.visible .s7-card-3 {
-        opacity: 1;
-        transform: translateY(0);
+      .s7-scope.slide.visible .s7-seq-4 {
         transition-delay: 0.7s;
       }
-      .s7-dots {
-        display: flex;
-        gap: 5px;
-        margin-top: 0.75em;
-        flex-wrap: wrap;
+      .s7-scope.slide.visible .s7-seq-5 {
+        transition-delay: 0.85s;
       }
-      .s7-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: var(--border-bright);
-        transition: background 0.25s var(--ease);
-        display: inline-block;
+      .s7-scope.slide.visible .s7-seq-6 {
+        transition-delay: 1.05s;
+      }
+      .s7-scope.slide.visible .s7-seq-7 {
+        transition-delay: 1.25s;
+      }
+      .s7-scope.slide.visible .s7-seq-7b {
+        transition-delay: 1.4s;
+      }
+      .s7-scope.slide.visible .s7-seq-8 {
+        transition-delay: 1.6s;
+      }
+      .s7-scope.slide.visible .s7-chips-row {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 1.7s;
+      }
+
+      /* ---- failure flash + delivered glow (reuse s6 pulse-ring technique) --- */
+      @keyframes s7-fail-pulse {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        30% {
+          opacity: 1;
+          transform: scale(1.15);
+        }
+        70% {
+          opacity: 0;
+          transform: scale(1.3);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.3);
+        }
+      }
+      @keyframes s7-glow-settle {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 0.4;
+        }
+      }
+      .s7-scope.slide.visible .s7-fail-ring {
+        transform-origin: 383px 90px;
+        animation: s7-fail-pulse 2.2s var(--ease) 0.5s 3;
+      }
+      .s7-scope.slide.visible .s7-delivered-ring {
+        animation: s7-glow-settle 0.9s var(--ease) 1.5s forwards;
+      }
+      @keyframes s7-fail-breathe {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.55;
+        }
+      }
+      .s7-scope.slide.visible .s7-fail-breathe {
+        animation: s7-fail-breathe 1.8s ease-in-out 2.6s infinite;
       }
       @media (prefers-reduced-motion: reduce) {
-        .s7-dot {
-          background: var(--green);
+        .s7-seq,
+        .s7-chips-row {
+          opacity: 1 !important;
+          transform: none !important;
+          transition-delay: 0s !important;
         }
-        .s7-card-1,
-        .s7-card-2,
-        .s7-card-3 {
+        .s7-scope.slide.visible .s7-fail-ring,
+        .s7-scope.slide.visible .s7-delivered-ring {
+          animation: none;
+          opacity: 0;
+        }
+        .s7-scope.slide.visible .s7-fail-breathe {
+          animation: none;
           opacity: 1;
-          transform: none;
         }
       }
 
@@ -1109,6 +1200,12 @@
         height: 1px;
         background: var(--border);
         margin: 0;
+      }
+      #s9 .s9-point-tag-slot {
+        display: inline-flex;
+        justify-content: flex-start;
+        width: clamp(3.8rem, 6.2vw, 4.9rem);
+        flex-shrink: 0;
       }
       #s9 .s9-point-tag {
         font-family: var(--font-mono);
@@ -3086,73 +3183,367 @@
           Validate <span style="color: var(--text-dim)">·</span>
           <span style="color: var(--green)">LIVE + simulation</span>
         </p>
-        <h2 class="section-title reveal">It works - with one known edge</h2>
+        <h2 class="section-title reveal">Validated under live failures.</h2>
 
         <div class="s7-hero reveal">
-          <div class="s7-stat">
-            <div class="num s7-hero-num">
-              <span class="s7-count" data-target="99.2" aria-live="polite"
-                >0.0</span
-              ><span class="s7-unit"> s</span
-              ><span class="s7-spread"> &plusmn;2.2 s</span>
-            </div>
-            <div class="label">
-              1 package &middot; goal &rarr; delivered &middot; mean of 5 runs
-            </div>
-          </div>
-          <div class="s7-stat">
-            <div class="num s7-hero-num">
-              <span class="s7-count" data-target="183.7" aria-live="polite"
-                >0.0</span
-              ><span class="s7-unit"> s</span
-              ><span class="s7-spread"> &plusmn;7.2 s</span>
-            </div>
-            <div class="label">
-              3 packages &middot; goal &rarr; all delivered &middot; mean of 5
-              runs
-            </div>
+          <div class="s7-hero-badge">10/10</div>
+          <div class="s7-hero-lines">
+            <div class="s7-hero-line1">Crash scenarios recovered</div>
+            <div class="s7-hero-line2">100% successful recovery</div>
           </div>
         </div>
-        <p class="s7-hero-sub reveal">
-          end to end - goal in, plan, bid, move and deliver; the time scales
-          with the task
-        </p>
 
-        <div class="s7-cards">
-          <div class="card s7-card-1">
-            <span class="tag">recovery</span>
-            <p style="margin-top: 0.5em">
-              When an actor fails, <strong>another actor</strong> - not a
-              central controller - picks up its task: spotted on the bus in
-              <strong>9.24 s</strong>, re-allocated in <strong>20.28 s</strong>,
-              recovered in <strong>all 10 of 10 fault-injection runs</strong>.
-            </p>
-            <div
-              class="s7-dots"
-              aria-label="ten of ten trials succeeded"
-              role="img"
-            >
-              <span class="s7-dot"></span><span class="s7-dot"></span
-              ><span class="s7-dot"></span><span class="s7-dot"></span
-              ><span class="s7-dot"></span><span class="s7-dot"></span
-              ><span class="s7-dot"></span><span class="s7-dot"></span
-              ><span class="s7-dot"></span><span class="s7-dot"></span>
+        <div class="s7-timeline-row">
+          <svg
+            class="s7-timeline-svg"
+            viewBox="-50 0 1225 170"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="Recovery timeline: task assigned to an AGV, AGV failure, failure detected (9.2 seconds), task reassigned (20.3 seconds), execution resumes on the new AGV, delivered."
+          >
+            <defs>
+              <marker
+                id="s7-arr"
+                viewBox="0 0 10 10"
+                refX="9"
+                refY="5"
+                markerWidth="5.5"
+                markerHeight="5.5"
+                orient="auto"
+              >
+                <path d="M0 0L10 5L0 10z" fill="#9aa2ab" />
+              </marker>
+              <filter
+                id="s7-glow-blur"
+                x="-60%"
+                y="-60%"
+                width="220%"
+                height="220%"
+              >
+                <feGaussianBlur stdDeviation="5" />
+              </filter>
+            </defs>
+
+            <!-- 1: task assigned -->
+            <g class="s7-seq s7-seq-1">
+              <circle cx="40" cy="90" r="5" fill="#9aa2ab" />
+              <text
+                x="40"
+                y="118"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="12"
+                fill="#4a4f55"
+              >
+                Task Assigned
+              </text>
+            </g>
+            <line
+              class="s7-seq s7-seq-1"
+              x1="55"
+              y1="90"
+              x2="118"
+              y2="90"
+              stroke="#9aa2ab"
+              stroke-width="2.85"
+              marker-end="url(#s7-arr)"
+            />
+
+            <!-- 2: AGV assigned (neutral) -->
+            <g class="s7-seq s7-seq-2">
+              <rect
+                x="123"
+                y="68"
+                width="145"
+                height="44"
+                rx="8"
+                fill="#fafbfc"
+                stroke="#c9d1d9"
+                stroke-width="1.8"
+              />
+              <text
+                x="195.5"
+                y="94"
+                text-anchor="middle"
+                font-family="'Space Grotesk',sans-serif"
+                font-size="13"
+                font-weight="700"
+                fill="#3a3f45"
+              >
+                AGV Assigned
+              </text>
+            </g>
+            <line
+              class="s7-seq s7-seq-2"
+              x1="268"
+              y1="90"
+              x2="328"
+              y2="90"
+              stroke="#9aa2ab"
+              stroke-width="2.85"
+              marker-end="url(#s7-arr)"
+            />
+
+            <!-- 3: AGV failure - the one break in the chain, deliberately loud -->
+            <g class="s7-seq s7-seq-3">
+              <circle
+                class="s7-fail-ring"
+                cx="383"
+                cy="90"
+                r="39"
+                fill="none"
+                stroke="#8a6300"
+                stroke-width="2"
+                opacity="0"
+              />
+              <circle
+                class="s7-fail-breathe"
+                cx="383"
+                cy="90"
+                r="30"
+                fill="#fdecc8"
+                stroke="#8a6300"
+                stroke-width="3"
+                stroke-dasharray="9 5"
+              />
+              <text
+                x="383"
+                y="99"
+                text-anchor="middle"
+                font-family="'Space Grotesk',sans-serif"
+                font-size="25"
+                font-weight="700"
+                fill="#8a6300"
+              >
+                &times;
+              </text>
+              <text
+                x="383"
+                y="140"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="12.5"
+                font-weight="700"
+                letter-spacing="0.05em"
+                fill="#8a6300"
+              >
+                AGV FAILURE
+              </text>
+            </g>
+
+            <!-- arrow + badge: failure -> detected -->
+            <g class="s7-seq s7-seq-4">
+              <line
+                x1="413"
+                y1="90"
+                x2="525"
+                y2="90"
+                stroke="#9aa2ab"
+                stroke-width="2.85"
+                marker-end="url(#s7-arr)"
+              />
+              <rect
+                x="442"
+                y="79"
+                width="54"
+                height="22"
+                rx="11"
+                fill="#fafbfc"
+                stroke="#c9d1d9"
+                stroke-width="1.4"
+              />
+              <text
+                x="469"
+                y="94"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="12.5"
+                font-weight="700"
+                fill="#4a4f55"
+              >
+                9.2 s
+              </text>
+              <text
+                x="469"
+                y="71"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="10.5"
+                fill="#7a8087"
+              >
+                Detection
+              </text>
+            </g>
+
+            <!-- 4: failure detected -->
+            <g class="s7-seq s7-seq-5">
+              <circle cx="560" cy="90" r="5" fill="#9aa2ab" />
+              <text
+                x="560"
+                y="118"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="12"
+                fill="#4a4f55"
+              >
+                Failure Detected
+              </text>
+            </g>
+
+            <!-- arrow + badge: detected -> reassigned -->
+            <g class="s7-seq s7-seq-6">
+              <line
+                x1="575"
+                y1="90"
+                x2="690"
+                y2="90"
+                stroke="#9aa2ab"
+                stroke-width="2.85"
+                marker-end="url(#s7-arr)"
+              />
+              <rect
+                x="603"
+                y="79"
+                width="58"
+                height="22"
+                rx="11"
+                fill="#fafbfc"
+                stroke="#c9d1d9"
+                stroke-width="1.4"
+              />
+              <text
+                x="632"
+                y="94"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="12.5"
+                font-weight="700"
+                fill="#4a4f55"
+              >
+                20.3 s
+              </text>
+              <text
+                x="632"
+                y="71"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="10.5"
+                fill="#7a8087"
+              >
+                Re-allocation
+              </text>
+            </g>
+
+            <!-- 5: task reassigned (neutral - green is reserved for delivered) -->
+            <g class="s7-seq s7-seq-7">
+              <rect
+                x="695"
+                y="68"
+                width="150"
+                height="44"
+                rx="8"
+                fill="#fafbfc"
+                stroke="#c9d1d9"
+                stroke-width="1.8"
+              />
+              <text
+                x="770"
+                y="94"
+                text-anchor="middle"
+                font-family="'Space Grotesk',sans-serif"
+                font-size="13"
+                font-weight="700"
+                fill="#3a3f45"
+              >
+                Task Reassigned
+              </text>
+            </g>
+            <line
+              class="s7-seq s7-seq-7"
+              x1="845"
+              y1="90"
+              x2="905"
+              y2="90"
+              stroke="#9aa2ab"
+              stroke-width="2.85"
+              marker-end="url(#s7-arr)"
+            />
+
+            <!-- 6: execution resumes - lightweight milestone, another actor now carries the task -->
+            <g class="s7-seq s7-seq-7b">
+              <circle cx="925" cy="90" r="5" fill="#9aa2ab" />
+              <text
+                x="925"
+                y="118"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="12"
+                fill="#4a4f55"
+              >
+                Execution Resumes
+              </text>
+            </g>
+            <line
+              class="s7-seq s7-seq-7b"
+              x1="940"
+              y1="90"
+              x2="1000"
+              y2="90"
+              stroke="#9aa2ab"
+              stroke-width="2.85"
+              marker-end="url(#s7-arr)"
+            />
+
+            <!-- 7: delivered - the sole green payoff (single border + blurred glow) -->
+            <g class="s7-seq s7-seq-8">
+              <rect
+                class="s7-delivered-ring"
+                x="1005"
+                y="68"
+                width="150"
+                height="44"
+                rx="8"
+                fill="#2da44e"
+                stroke="none"
+                filter="url(#s7-glow-blur)"
+                opacity="0"
+              />
+              <rect
+                x="1005"
+                y="68"
+                width="150"
+                height="44"
+                rx="8"
+                fill="#f0fff5"
+                stroke="#2da44e"
+                stroke-width="2.2"
+              />
+              <text
+                x="1080"
+                y="94"
+                text-anchor="middle"
+                font-family="'Space Grotesk',sans-serif"
+                font-size="14"
+                font-weight="700"
+                fill="#2da44e"
+              >
+                Delivered &#10003;
+              </text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="s7-outcomes">
+          <div class="s7-outcomes-label">Outcomes</div>
+          <div class="s7-chips-row">
+            <div class="s7-chip">
+              <span class="s7-chip-num">99.2 s</span
+              ><span class="s7-chip-sub">Single package</span>
             </div>
-          </div>
-          <div class="card cyan s7-card-2">
-            <span class="tag cyan">allocation</span>
-            <p style="margin-top: 0.5em">
-              In simulation, the bid score (skills, distance, workload) picks a
-              <strong>near-optimal</strong> actor for each task.
-            </p>
-          </div>
-          <div class="card amber s7-card-3">
-            <span class="tag amber">the open edge</span>
-            <p style="margin-top: 0.5em">
-              A package <strong>mid-carry</strong> is lost when its actor
-              crashes - the takeover actor has nothing to pick up. A small fix,
-              not architectural. <em>(see future work)</em>
-            </p>
+            <div class="s7-chip">
+              <span class="s7-chip-num">183.7 s</span
+              ><span class="s7-chip-sub">Three packages</span>
+            </div>
           </div>
         </div>
       </div>
@@ -3268,7 +3659,9 @@
 
         <div class="s9-sub reveal" role="list" aria-label="Supporting points">
           <div class="s9-point" role="listitem">
-            <span class="s9-point-tag">today</span>
+            <span class="s9-point-tag-slot"
+              ><span class="s9-point-tag">today</span></span
+            >
             <span class="s9-point-text"
               >The user sets one goal; execution is decentralized - running
               live, not a mock-up.</span
@@ -3276,7 +3669,9 @@
           </div>
           <div class="s9-divider" aria-hidden="true"></div>
           <div class="s9-point" role="listitem">
-            <span class="s9-point-tag s9-point-tag--cyan">proven</span>
+            <span class="s9-point-tag-slot"
+              ><span class="s9-point-tag s9-point-tag--cyan">proven</span></span
+            >
             <span class="s9-point-text"
               >Another actor recovers a lost task on the running system; the LLM
               stays advisory.</span
@@ -3284,7 +3679,9 @@
           </div>
           <div class="s9-divider" aria-hidden="true"></div>
           <div class="s9-point" role="listitem">
-            <span class="s9-point-tag s9-point-tag--amber">next</span>
+            <span class="s9-point-tag-slot"
+              ><span class="s9-point-tag s9-point-tag--amber">next</span></span
+            >
             <span class="s9-point-text"
               >Foundation is solid; one open edge is a known lock-release
               fix.</span
@@ -3522,71 +3919,6 @@
             if (demoLb) demoLb.classList.remove("open");
           }
         });
-      })();
-
-      /* ---- Slide 7: count-up + dot fill, keyed off .visible from Combined ---- */
-      (function () {
-        var s7 = document.getElementById("built-slide-fix");
-        if (!s7) return;
-        var countEls = Array.prototype.slice.call(
-          s7.querySelectorAll(".s7-count"),
-        );
-        var dots = Array.prototype.slice.call(s7.querySelectorAll(".s7-dot"));
-        var played = false;
-        function animateEl(el) {
-          var target = parseFloat(el.getAttribute("data-target")) || 0;
-          var duration = 1000;
-          var start = null;
-          function step(ts) {
-            if (!start) start = ts;
-            var progress = Math.min((ts - start) / duration, 1);
-            var eased = 1 - Math.pow(1 - progress, 3);
-            el.textContent = (eased * target).toFixed(1);
-            if (progress < 1) requestAnimationFrame(step);
-            else el.textContent = target.toFixed(1);
-          }
-          requestAnimationFrame(step);
-        }
-        function runCountUp() {
-          if (played) return;
-          played = true;
-          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-            countEls.forEach(function (el) {
-              el.textContent = (
-                parseFloat(el.getAttribute("data-target")) || 0
-              ).toFixed(1);
-            });
-            dots.forEach(function (d) {
-              d.style.background = "var(--green)";
-            });
-            return;
-          }
-          setTimeout(function () {
-            countEls.forEach(animateEl);
-          }, 200);
-          dots.forEach(function (d, i) {
-            setTimeout(
-              function () {
-                d.style.background = "var(--green)";
-                d.style.boxShadow = "0 0 0 2px rgba(45,164,78,0.18)";
-              },
-              400 + i * 80,
-            );
-          });
-        }
-        var mo = new MutationObserver(function (mutations) {
-          mutations.forEach(function (m) {
-            if (
-              m.type === "attributes" &&
-              m.attributeName === "class" &&
-              s7.classList.contains("visible")
-            ) {
-              runCountUp();
-            }
-          });
-        });
-        mo.observe(s7, { attributes: true });
-        if (s7.classList.contains("visible")) runCountUp();
       })();
     </script>
   </body>
