@@ -204,8 +204,10 @@
       }
       .arch-lightbox-inner {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
+        gap: 0.8rem;
         width: 100%;
         height: 100%;
       }
@@ -503,347 +505,653 @@
         font-style: italic;
         color: var(--text-dim);
       }
-    
-/* ===== RP3 back-half visualization upgrades ===== */
-/* ============================================================
+
+      /* ===== RP3 back-half visualization upgrades ===== */
+      /* ============================================================
    SLIDE 6 - contract-net hero diagram (scoped #s6)
    ============================================================ */
-#s6 .s6-diagram-wrap {
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: clamp(0.6rem, 1.5vw, 1.2rem) clamp(0.8rem, 2vw, 1.6rem) clamp(0.3rem, 0.8vw, 0.6rem);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  flex: 1 1 0;
-  min-height: 0;
-  max-height: clamp(190px, 36vh, 320px);
-  overflow: hidden;
-}
-#s6 .s6-diagram-wrap svg { flex: 1 1 auto; min-height: 0; max-height: 100%; }
-#s6 .s6-step-labels {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  text-align: center;
-  padding: 0.3rem clamp(0.5rem, 2vw, 1.5rem);
-  font-family: var(--font-mono);
-  font-size: var(--small-size);
-  color: var(--text-dim);
-  letter-spacing: 0.06em;
-  flex-shrink: 0;
-}
-#s6 .s6-captions {
-  display: flex;
-  gap: clamp(0.6rem, 1.5vw, 1.2rem);
-  align-items: flex-start;
-  flex-wrap: wrap;
-  flex-shrink: 0;
-}
-#s6 .s6-caption {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45em;
-  font-size: var(--small-size);
-  color: var(--text-secondary);
-  line-height: 1.45;
-  flex: 1 1 0;
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 0.7em 0.9em;
-}
-#s6 .s6-caption .tag { flex-shrink: 0; align-self: flex-start; }
-#s6 .reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
-  animation: none;
-}
-#s6.slide.visible .reveal:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
-#s6.slide.visible .reveal:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.18s; }
-#s6.slide.visible .reveal:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.35s; }
-#s6.slide.visible .reveal:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.75s; }
-@keyframes s6-pulse {
-  0% { opacity: 0; transform: scale(1); }
-  15% { opacity: 0.7; transform: scale(1); }
-  60% { opacity: 0; transform: scale(1.04); }
-  100% { opacity: 0; transform: scale(1.04); }
-}
-@keyframes s6-win-throb { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
-@keyframes s6-loser-fade { 0%,30% { opacity: 1; } 50%,80% { opacity: 0.38; } 100% { opacity: 1; } }
-@keyframes s6-dash-march { to { stroke-dashoffset: -18; } }
-#s6.slide.visible .s6-pulse-announce { transform-origin: 125px 160px; animation: s6-pulse 4s ease-out 1.2s infinite; }
-#s6.slide.visible .s6-pulse-winner { transform-origin: 462px 160px; animation: s6-pulse 4s ease-out 2.4s infinite; }
-#s6.slide.visible .s6-pulse-claim { transform-origin: 795px 160px; animation: s6-pulse 4s ease-out 3.3s infinite; }
-#s6.slide.visible .s6-bid-winner .s6-winner-rect { animation: s6-win-throb 4s ease-in-out 1s infinite; }
-#s6.slide.visible .s6-bid-loser { animation: s6-loser-fade 4s ease-in-out 1s infinite; }
-#s6.slide.visible .s6-crown-badge,
-#s6.slide.visible .s6-crown-text { animation: s6-win-throb 4s ease-in-out 1s infinite; }
-#s6.slide.visible .s6-arrow-claim { animation: s6-dash-march 0.6s linear infinite; stroke-dasharray: 6 3; }
-@media (prefers-reduced-motion: reduce) {
-  #s6.slide.visible .s6-pulse-announce,
-  #s6.slide.visible .s6-pulse-winner,
-  #s6.slide.visible .s6-pulse-claim,
-  #s6.slide.visible .s6-bid-winner .s6-winner-rect,
-  #s6.slide.visible .s6-bid-loser,
-  #s6.slide.visible .s6-crown-badge,
-  #s6.slide.visible .s6-crown-text,
-  #s6.slide.visible .s6-arrow-claim,
-  .s6-dot-out,
-  .s6-dot-claim { opacity: 0 !important; }
-  #s6.slide.visible .s6-bid-loser { opacity: 1 !important; }
-}
+      #s6 .s6-diagram-wrap {
+        background: var(--bg-panel);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: clamp(0.6rem, 1.5vw, 1.2rem) clamp(0.8rem, 2vw, 1.6rem)
+          clamp(0.3rem, 0.8vw, 0.6rem);
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        flex: 1 1 0;
+        min-height: 0;
+        max-height: clamp(220px, 40vh, 360px);
+        overflow: hidden;
+      }
+      #s6 .s6-diagram-wrap svg {
+        flex: 1 1 auto;
+        min-height: 0;
+        max-height: 100%;
+      }
+      #s6 .s6-step-labels {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        text-align: center;
+        padding: 0.3rem clamp(0.5rem, 2vw, 1.5rem);
+        font-family: var(--font-mono);
+        font-size: var(--small-size);
+        color: var(--text-dim);
+        letter-spacing: 0.06em;
+        flex-shrink: 0;
+      }
+      #s6 .s6-captions {
+        display: flex;
+        gap: clamp(0.6rem, 1.5vw, 1.2rem);
+        align-items: flex-start;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+      }
+      #s6 .s6-caption {
+        display: flex;
+        flex-direction: column;
+        gap: 0.45em;
+        font-size: clamp(0.78rem, 1.05vw, 0.92rem);
+        color: var(--text-secondary);
+        line-height: 1.5;
+        flex: 1 1 0;
+        background: var(--bg-panel);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 0.8em 1em;
+      }
+      #s6 .s6-caption .tag {
+        flex-shrink: 0;
+        align-self: flex-start;
+      }
+      #s6 .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 0.65s var(--ease),
+          transform 0.65s var(--ease);
+        animation: none;
+      }
+      #s6.slide.visible .reveal:nth-child(1) {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.05s;
+      }
+      #s6.slide.visible .reveal:nth-child(2) {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.18s;
+      }
+      #s6.slide.visible .reveal:nth-child(3) {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.35s;
+      }
+      #s6.slide.visible .reveal:nth-child(5) {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.75s;
+      }
+      @keyframes s6-pulse {
+        0% {
+          opacity: 0;
+          transform: scale(1);
+        }
+        15% {
+          opacity: 0.7;
+          transform: scale(1);
+        }
+        60% {
+          opacity: 0;
+          transform: scale(1.04);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.04);
+        }
+      }
+      @keyframes s6-win-throb {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.55;
+        }
+      }
+      @keyframes s6-loser-fade {
+        0%,
+        30% {
+          opacity: 1;
+        }
+        50%,
+        80% {
+          opacity: 0.38;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      @keyframes s6-dash-march {
+        to {
+          stroke-dashoffset: -18;
+        }
+      }
+      #s6.slide.visible .s6-pulse-announce {
+        transform-origin: 125px 160px;
+        animation: s6-pulse 4s ease-out 1.2s infinite;
+      }
+      #s6.slide.visible .s6-pulse-winner {
+        transform-origin: 462px 160px;
+        animation: s6-pulse 4s ease-out 2.4s infinite;
+      }
+      #s6.slide.visible .s6-pulse-claim {
+        transform-origin: 795px 160px;
+        animation: s6-pulse 4s ease-out 3.3s infinite;
+      }
+      #s6.slide.visible .s6-bid-winner .s6-winner-rect {
+        animation: s6-win-throb 4s ease-in-out 1s infinite;
+      }
+      #s6.slide.visible .s6-bid-loser {
+        animation: s6-loser-fade 4s ease-in-out 1s infinite;
+      }
+      #s6.slide.visible .s6-crown-badge,
+      #s6.slide.visible .s6-crown-text {
+        animation: s6-win-throb 4s ease-in-out 1s infinite;
+      }
+      #s6.slide.visible .s6-arrow-claim {
+        animation: s6-dash-march 0.6s linear infinite;
+        stroke-dasharray: 6 3;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #s6.slide.visible .s6-pulse-announce,
+        #s6.slide.visible .s6-pulse-winner,
+        #s6.slide.visible .s6-pulse-claim,
+        #s6.slide.visible .s6-bid-winner .s6-winner-rect,
+        #s6.slide.visible .s6-bid-loser,
+        #s6.slide.visible .s6-crown-badge,
+        #s6.slide.visible .s6-crown-text,
+        #s6.slide.visible .s6-arrow-claim,
+        .s6-dot-out,
+        .s6-dot-claim {
+          opacity: 0 !important;
+        }
+        #s6.slide.visible .s6-bid-loser {
+          opacity: 1 !important;
+        }
+      }
 
-/* ============================================================
+      /* ============================================================
    SLIDE 7 - VALIDATION (scoped .s7-scope)
    ============================================================ */
-#built-slide-fix .slide-content {
-  justify-content: center;
-  padding-top: clamp(0.5rem, 2vh, 1.5rem) !important;
-  gap: clamp(0.5rem, 1.2vh, 1rem);
-}
-.s7-hero { display: flex; justify-content: center; }
-.s7-stat {
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--green);
-  border-radius: 6px;
-  padding: clamp(0.7rem, 1.6vw, 1.2rem) clamp(1.2rem, 3vw, 2.5rem);
-  text-align: center;
-  min-width: 300px;
-}
-.s7-hero-num {
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 4.5vw, 3rem);
-  font-weight: 700;
-  color: var(--green);
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-.s7-within { font-size: 0.42em; font-weight: 600; }
-.s7-unit { font-size: 0.5em; }
-.s7-stat .label {
-  font-family: var(--font-mono);
-  font-size: var(--small-size);
-  color: var(--text-secondary);
-  margin-top: 0.3em;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
-.s7-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.5rem, 1vw, 0.9rem); }
-.s7-card-1, .s7-card-2, .s7-card-3 {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
-}
-.s7-scope.slide.visible .s7-card-1 { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
-.s7-scope.slide.visible .s7-card-2 { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
-.s7-scope.slide.visible .s7-card-3 { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
-.s7-dots { display: flex; gap: 5px; margin-top: 0.75em; flex-wrap: wrap; }
-.s7-dot {
-  width: 10px; height: 10px; border-radius: 50%;
-  background: var(--border-bright);
-  transition: background 0.25s var(--ease);
-  display: inline-block;
-}
-@media (prefers-reduced-motion: reduce) {
-  .s7-dot { background: var(--green); }
-  .s7-card-1, .s7-card-2, .s7-card-3 { opacity: 1; transform: none; }
-}
+      #built-slide-fix .slide-content {
+        justify-content: center;
+        padding-top: clamp(0.5rem, 2vh, 1.5rem) !important;
+        gap: clamp(0.5rem, 1.2vh, 1rem);
+      }
+      .s7-hero {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: clamp(0.8rem, 2vw, 1.6rem);
+      }
+      .s7-stat {
+        background: var(--bg-panel);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--green);
+        border-radius: 6px;
+        padding: clamp(0.7rem, 1.6vw, 1.2rem) clamp(1.2rem, 3vw, 2.2rem);
+        text-align: center;
+        min-width: 260px;
+      }
+      .s7-hero-sub {
+        text-align: center;
+        font-family: var(--font-display);
+        font-size: clamp(0.85rem, 1.7vw, 1.05rem);
+        color: var(--text-secondary);
+        margin-top: 0.7em;
+      }
+      .s7-bounds {
+        text-align: center;
+        font-family: var(--font-mono);
+        font-size: var(--small-size);
+        color: var(--text-dim);
+        letter-spacing: 0.04em;
+        margin-top: 0.35em;
+      }
+      .s7-hero-num {
+        font-family: var(--font-display);
+        font-size: clamp(1.8rem, 4.5vw, 3rem);
+        font-weight: 700;
+        color: var(--green);
+        line-height: 1;
+        letter-spacing: -0.04em;
+      }
+      .s7-within {
+        font-size: 0.42em;
+        font-weight: 600;
+      }
+      .s7-unit {
+        font-size: 0.5em;
+      }
+      .s7-spread {
+        font-size: 0.32em;
+        color: var(--text-dim);
+        font-weight: 500;
+      }
+      .s7-stat .label {
+        font-family: var(--font-mono);
+        font-size: var(--small-size);
+        color: var(--text-secondary);
+        margin-top: 0.3em;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+      .s7-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(0.5rem, 1vw, 0.9rem);
+      }
+      .s7-card-1,
+      .s7-card-2,
+      .s7-card-3 {
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 0.6s var(--ease),
+          transform 0.6s var(--ease);
+      }
+      .s7-scope.slide.visible .s7-card-1 {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.3s;
+      }
+      .s7-scope.slide.visible .s7-card-2 {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.5s;
+      }
+      .s7-scope.slide.visible .s7-card-3 {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.7s;
+      }
+      .s7-dots {
+        display: flex;
+        gap: 5px;
+        margin-top: 0.75em;
+        flex-wrap: wrap;
+      }
+      .s7-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--border-bright);
+        transition: background 0.25s var(--ease);
+        display: inline-block;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .s7-dot {
+          background: var(--green);
+        }
+        .s7-card-1,
+        .s7-card-2,
+        .s7-card-3 {
+          opacity: 1;
+          transform: none;
+        }
+      }
 
-/* ============================================================
+      /* ============================================================
    SLIDE 8 - FUTURE timeline (scoped #s8)  [reveal selectors fixed]
    ============================================================ */
-#s8 { --s8-c1: var(--green); --s8-c1-bg: rgba(45,164,78,0.07); }
-#s8 { --s8-c2: var(--cyan); --s8-c2-bg: rgba(9,105,218,0.07); }
-#s8 { --s8-c3: #b07800; --s8-c3-bg: rgba(176,120,0,0.07); }
-#s8 { --s8-c4: var(--amber); --s8-c4-bg: rgba(138,99,0,0.08); }
-#s8 .slide-content {
-  padding-top: clamp(0.6rem, 1.2vh, 1rem);
-  padding-bottom: clamp(0.4rem, 0.8vh, 0.7rem);
-  display: flex; flex-direction: column; gap: 0;
-}
-#s8 .eyebrow.reveal { margin-bottom: 0.1em; }
-#s8 .section-title.reveal { margin-bottom: clamp(0.4rem, 1.2vh, 0.9rem); }
-#s8 .s8-timeline {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1fr auto 1fr;
-  align-items: end;
-  flex: 1 1 0;
-  min-height: 0;
-  padding: 0 clamp(0.5rem, 1vw, 1rem);
-}
-#s8 .s8-spine {
-  grid-column: 1 / -1;
-  grid-row: 2;
-  height: 2px;
-  background: linear-gradient(to right, var(--s8-c1) 0%, var(--s8-c2) 33%, var(--s8-c3) 66%, var(--s8-c4) 100%);
-  border-radius: 2px;
-  position: relative;
-  align-self: center;
-}
-#s8 .s8-spine::after {
-  content: '';
-  position: absolute;
-  right: -1px; top: 50%;
-  transform: translateY(-50%);
-  border: 5px solid transparent;
-  border-left: 8px solid var(--s8-c4);
-}
-#s8 .s8-node { display: contents; }
-#s8 .s8-node--1 { --col: 1; --clr: var(--s8-c1); --bg: var(--s8-c1-bg); }
-#s8 .s8-node--2 { --col: 2; --clr: var(--s8-c2); --bg: var(--s8-c2-bg); }
-#s8 .s8-node--3 { --col: 3; --clr: var(--s8-c3); --bg: var(--s8-c3-bg); }
-#s8 .s8-node--4 { --col: 4; --clr: var(--s8-c4); --bg: var(--s8-c4-bg); }
-#s8 .s8-card {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  border-top: 3px solid var(--clr);
-  padding: clamp(0.5rem, 1vw, 0.85rem) clamp(0.5rem, 1vw, 0.9rem);
-  grid-row: var(--card-row);
-  grid-column: var(--col);
-  align-self: var(--card-align);
-  margin: 0 clamp(0.2rem, 0.5vw, 0.45rem);
-  min-width: 0;
-}
-#s8 .s8-above .s8-card { --card-row: 1; --card-align: end; }
-#s8 .s8-below .s8-card { --card-row: 3; --card-align: start; }
-#s8 .s8-stem {
-  width: 2px; background: var(--clr); opacity: 0.55;
-  grid-row: 2; grid-column: var(--col);
-  justify-self: center; align-self: stretch;
-  height: clamp(10px, 2vh, 24px);
-}
-#s8 .s8-above .s8-stem { align-self: end; }
-#s8 .s8-below .s8-stem { align-self: start; }
-#s8 .s8-dot {
-  width: 10px; height: 10px; border-radius: 50%;
-  background: var(--clr); border: 2px solid var(--bg-panel);
-  box-shadow: 0 0 0 2px var(--clr);
-  grid-row: 2; grid-column: var(--col);
-  justify-self: center; align-self: center;
-  z-index: 1; position: relative;
-}
-#s8 .s8-when {
-  font-family: var(--font-mono);
-  font-size: var(--small-size);
-  color: var(--clr);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-bottom: 0.35em;
-  opacity: 0.9;
-}
-#s8 .s8-card h3 {
-  font-family: var(--font-display);
-  font-size: clamp(0.78rem, 1.5vw, 1.05rem);
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 0.35em 0;
-  line-height: 1.25;
-}
-#s8 .s8-card ul {
-  list-style: none; margin: 0; padding: 0;
-  display: flex; flex-direction: column; gap: 0.28em;
-  color: var(--text-secondary);
-  font-size: clamp(0.62rem, 1.1vw, 0.8rem);
-  line-height: 1.45;
-}
-#s8 .s8-card ul li { padding-left: 0.9em; position: relative; }
-#s8 .s8-card ul li::before {
-  content: '\25C6'; position: absolute; left: 0;
-  color: var(--clr); font-size: 0.6em; top: 0.42em;
-}
-#s8 .s8-node--1 .s8-card, #s8 .s8-node--1 .s8-stem, #s8 .s8-node--1 .s8-dot,
-#s8 .s8-node--2 .s8-card, #s8 .s8-node--2 .s8-stem, #s8 .s8-node--2 .s8-dot,
-#s8 .s8-node--3 .s8-card, #s8 .s8-node--3 .s8-stem, #s8 .s8-node--3 .s8-dot,
-#s8 .s8-node--4 .s8-card, #s8 .s8-node--4 .s8-stem, #s8 .s8-node--4 .s8-dot {
-  opacity: 0; transform: translateY(12px);
-  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
-}
-#s8 .s8-node--1 .s8-card, #s8 .s8-node--1 .s8-stem, #s8 .s8-node--1 .s8-dot { transition-delay: 0.15s; }
-#s8 .s8-node--2 .s8-card, #s8 .s8-node--2 .s8-stem, #s8 .s8-node--2 .s8-dot { transition-delay: 0.3s; }
-#s8 .s8-node--3 .s8-card, #s8 .s8-node--3 .s8-stem, #s8 .s8-node--3 .s8-dot { transition-delay: 0.45s; }
-#s8 .s8-node--4 .s8-card, #s8 .s8-node--4 .s8-stem, #s8 .s8-node--4 .s8-dot { transition-delay: 0.6s; }
-#s8 .s8-spine { clip-path: inset(0 100% 0 0); transition: clip-path 0.8s var(--ease); transition-delay: 0.1s; }
-#s8.slide.visible .s8-spine { clip-path: inset(0 0% 0 0); }
-#s8.slide.visible .s8-node--1 .s8-card, #s8.slide.visible .s8-node--1 .s8-stem, #s8.slide.visible .s8-node--1 .s8-dot,
-#s8.slide.visible .s8-node--2 .s8-card, #s8.slide.visible .s8-node--2 .s8-stem, #s8.slide.visible .s8-node--2 .s8-dot,
-#s8.slide.visible .s8-node--3 .s8-card, #s8.slide.visible .s8-node--3 .s8-stem, #s8.slide.visible .s8-node--3 .s8-dot,
-#s8.slide.visible .s8-node--4 .s8-card, #s8.slide.visible .s8-node--4 .s8-stem, #s8.slide.visible .s8-node--4 .s8-dot {
-  opacity: 1; transform: translateY(0);
-}
-@media (prefers-reduced-motion: reduce) {
-  #s8 .s8-node--1 .s8-card, #s8 .s8-node--1 .s8-stem, #s8 .s8-node--1 .s8-dot,
-  #s8 .s8-node--2 .s8-card, #s8 .s8-node--2 .s8-stem, #s8 .s8-node--2 .s8-dot,
-  #s8 .s8-node--3 .s8-card, #s8 .s8-node--3 .s8-stem, #s8 .s8-node--3 .s8-dot,
-  #s8 .s8-node--4 .s8-card, #s8 .s8-node--4 .s8-stem, #s8 .s8-node--4 .s8-dot { opacity: 1; transform: none; }
-  #s8 .s8-spine { clip-path: inset(0 0% 0 0); }
-}
+      #s8 {
+        --s8-c1: var(--green);
+        --s8-c1-bg: rgba(45, 164, 78, 0.07);
+      }
+      #s8 {
+        --s8-c2: var(--cyan);
+        --s8-c2-bg: rgba(9, 105, 218, 0.07);
+      }
+      #s8 {
+        --s8-c3: #b07800;
+        --s8-c3-bg: rgba(176, 120, 0, 0.07);
+      }
+      #s8 {
+        --s8-c4: var(--amber);
+        --s8-c4-bg: rgba(138, 99, 0, 0.08);
+      }
+      #s8 .slide-content {
+        padding-top: clamp(0.6rem, 1.2vh, 1rem);
+        padding-bottom: clamp(0.4rem, 0.8vh, 0.7rem);
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      #s8 .eyebrow.reveal {
+        margin-bottom: 0.1em;
+      }
+      #s8 .section-title.reveal {
+        margin-bottom: clamp(0.4rem, 1.2vh, 0.9rem);
+      }
+      #s8 .s8-timeline {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 1fr auto 1fr;
+        align-items: end;
+        flex: 1 1 0;
+        min-height: 0;
+        padding: 0 clamp(0.5rem, 1vw, 1rem);
+      }
+      #s8 .s8-spine {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        height: 2px;
+        background: linear-gradient(
+          to right,
+          var(--s8-c1) 0%,
+          var(--s8-c2) 33%,
+          var(--s8-c3) 66%,
+          var(--s8-c4) 100%
+        );
+        border-radius: 2px;
+        position: relative;
+        align-self: center;
+      }
+      #s8 .s8-spine::after {
+        content: "";
+        position: absolute;
+        right: -1px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 5px solid transparent;
+        border-left: 8px solid var(--s8-c4);
+      }
+      #s8 .s8-node {
+        display: contents;
+      }
+      #s8 .s8-node--1 {
+        --col: 1;
+        --clr: var(--s8-c1);
+        --bg: var(--s8-c1-bg);
+      }
+      #s8 .s8-node--2 {
+        --col: 2;
+        --clr: var(--s8-c2);
+        --bg: var(--s8-c2-bg);
+      }
+      #s8 .s8-node--3 {
+        --col: 3;
+        --clr: var(--s8-c3);
+        --bg: var(--s8-c3-bg);
+      }
+      #s8 .s8-node--4 {
+        --col: 4;
+        --clr: var(--s8-c4);
+        --bg: var(--s8-c4-bg);
+      }
+      #s8 .s8-card {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        border-top: 3px solid var(--clr);
+        padding: clamp(0.5rem, 1vw, 0.85rem) clamp(0.5rem, 1vw, 0.9rem);
+        grid-row: var(--card-row);
+        grid-column: var(--col);
+        align-self: var(--card-align);
+        margin: 0 clamp(0.2rem, 0.5vw, 0.45rem);
+        min-width: 0;
+      }
+      #s8 .s8-above .s8-card {
+        --card-row: 1;
+        --card-align: end;
+      }
+      #s8 .s8-below .s8-card {
+        --card-row: 3;
+        --card-align: start;
+      }
+      #s8 .s8-stem {
+        width: 2px;
+        background: var(--clr);
+        opacity: 0.55;
+        grid-row: 2;
+        grid-column: var(--col);
+        justify-self: center;
+        align-self: stretch;
+        height: clamp(10px, 2vh, 24px);
+      }
+      #s8 .s8-above .s8-stem {
+        align-self: end;
+      }
+      #s8 .s8-below .s8-stem {
+        align-self: start;
+      }
+      #s8 .s8-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--clr);
+        border: 2px solid var(--bg-panel);
+        box-shadow: 0 0 0 2px var(--clr);
+        grid-row: 2;
+        grid-column: var(--col);
+        justify-self: center;
+        align-self: center;
+        z-index: 1;
+        position: relative;
+      }
+      #s8 .s8-when {
+        font-family: var(--font-mono);
+        font-size: var(--small-size);
+        color: var(--clr);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-bottom: 0.35em;
+        opacity: 0.9;
+      }
+      #s8 .s8-card h3 {
+        font-family: var(--font-display);
+        font-size: clamp(0.78rem, 1.5vw, 1.05rem);
+        font-weight: 600;
+        color: var(--text-primary);
+        margin: 0 0 0.35em 0;
+        line-height: 1.25;
+      }
+      #s8 .s8-card ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.28em;
+        color: var(--text-secondary);
+        font-size: clamp(0.62rem, 1.1vw, 0.8rem);
+        line-height: 1.45;
+      }
+      #s8 .s8-card ul li {
+        padding-left: 0.9em;
+        position: relative;
+      }
+      #s8 .s8-card ul li::before {
+        content: "\25C6";
+        position: absolute;
+        left: 0;
+        color: var(--clr);
+        font-size: 0.6em;
+        top: 0.42em;
+      }
+      #s8 .s8-node--1 .s8-card,
+      #s8 .s8-node--1 .s8-stem,
+      #s8 .s8-node--1 .s8-dot,
+      #s8 .s8-node--2 .s8-card,
+      #s8 .s8-node--2 .s8-stem,
+      #s8 .s8-node--2 .s8-dot,
+      #s8 .s8-node--3 .s8-card,
+      #s8 .s8-node--3 .s8-stem,
+      #s8 .s8-node--3 .s8-dot,
+      #s8 .s8-node--4 .s8-card,
+      #s8 .s8-node--4 .s8-stem,
+      #s8 .s8-node--4 .s8-dot {
+        opacity: 0;
+        transform: translateY(12px);
+        transition:
+          opacity 0.55s var(--ease),
+          transform 0.55s var(--ease);
+      }
+      #s8 .s8-node--1 .s8-card,
+      #s8 .s8-node--1 .s8-stem,
+      #s8 .s8-node--1 .s8-dot {
+        transition-delay: 0.15s;
+      }
+      #s8 .s8-node--2 .s8-card,
+      #s8 .s8-node--2 .s8-stem,
+      #s8 .s8-node--2 .s8-dot {
+        transition-delay: 0.3s;
+      }
+      #s8 .s8-node--3 .s8-card,
+      #s8 .s8-node--3 .s8-stem,
+      #s8 .s8-node--3 .s8-dot {
+        transition-delay: 0.45s;
+      }
+      #s8 .s8-node--4 .s8-card,
+      #s8 .s8-node--4 .s8-stem,
+      #s8 .s8-node--4 .s8-dot {
+        transition-delay: 0.6s;
+      }
+      #s8 .s8-spine {
+        clip-path: inset(0 100% 0 0);
+        transition: clip-path 0.8s var(--ease);
+        transition-delay: 0.1s;
+      }
+      #s8.slide.visible .s8-spine {
+        clip-path: inset(0 0% 0 0);
+      }
+      #s8.slide.visible .s8-node--1 .s8-card,
+      #s8.slide.visible .s8-node--1 .s8-stem,
+      #s8.slide.visible .s8-node--1 .s8-dot,
+      #s8.slide.visible .s8-node--2 .s8-card,
+      #s8.slide.visible .s8-node--2 .s8-stem,
+      #s8.slide.visible .s8-node--2 .s8-dot,
+      #s8.slide.visible .s8-node--3 .s8-card,
+      #s8.slide.visible .s8-node--3 .s8-stem,
+      #s8.slide.visible .s8-node--3 .s8-dot,
+      #s8.slide.visible .s8-node--4 .s8-card,
+      #s8.slide.visible .s8-node--4 .s8-stem,
+      #s8.slide.visible .s8-node--4 .s8-dot {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #s8 .s8-node--1 .s8-card,
+        #s8 .s8-node--1 .s8-stem,
+        #s8 .s8-node--1 .s8-dot,
+        #s8 .s8-node--2 .s8-card,
+        #s8 .s8-node--2 .s8-stem,
+        #s8 .s8-node--2 .s8-dot,
+        #s8 .s8-node--3 .s8-card,
+        #s8 .s8-node--3 .s8-stem,
+        #s8 .s8-node--3 .s8-dot,
+        #s8 .s8-node--4 .s8-card,
+        #s8 .s8-node--4 .s8-stem,
+        #s8 .s8-node--4 .s8-dot {
+          opacity: 1;
+          transform: none;
+        }
+        #s8 .s8-spine {
+          clip-path: inset(0 0% 0 0);
+        }
+      }
 
-/* ============================================================
+      /* ============================================================
    SLIDE 9 - CONCLUSION typographic (scoped #s9)  [stagger fixed]
    ============================================================ */
-#s9 #s9-content {
-  justify-content: center;
-  gap: clamp(1.6rem, 3.5vh, 2.8rem);
-  padding-top: 0;
-  margin-top: clamp(2.5rem, 6vh, 4rem);
-}
-#s9 .s9-hero { display: flex; flex-direction: column; gap: 0; }
-#s9 .s9-hero-line {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5.5vw, 4rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
-  color: var(--text-primary);
-}
-#s9 .s9-hero-accent { color: var(--green); text-shadow: 0 0 48px var(--green-glow); }
-#s9 .s9-sub {
-  display: flex; flex-direction: column; gap: 0;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--bg-panel);
-  max-width: 72ch;
-  overflow: hidden;
-}
-#s9 .s9-point {
-  display: flex; align-items: baseline;
-  gap: clamp(0.7rem, 1.4vw, 1.1rem);
-  padding: clamp(0.55rem, 1.1vh, 0.9rem) clamp(0.9rem, 1.8vw, 1.4rem);
-}
-#s9 .s9-divider { height: 1px; background: var(--border); margin: 0; }
-#s9 .s9-point-tag {
-  font-family: var(--font-mono);
-  font-size: var(--small-size);
-  color: var(--green);
-  border: 1px solid var(--green);
-  border-radius: 999px;
-  padding: 0.18em 0.7em;
-  background: rgba(45, 164, 78, 0.07);
-  white-space: nowrap;
-  flex-shrink: 0;
-  line-height: 1.5;
-}
-#s9 .s9-point-tag--cyan { color: var(--cyan); border-color: var(--cyan); background: rgba(9, 105, 218, 0.07); }
-#s9 .s9-point-tag--amber { color: var(--amber); border-color: var(--amber); background: rgba(138, 99, 0, 0.07); }
-#s9 .s9-point-text {
-  font-family: var(--font-display);
-  font-size: clamp(0.72rem, 1.05vw, 0.9rem);
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
-#s9.slide.visible .reveal:nth-child(2) { transition-delay: 0.12s; }
-#s9.slide.visible .reveal:nth-child(3) { transition-delay: 0.38s; }
-@media (prefers-reduced-motion: reduce) {
-  #s9 .s9-hero-line, #s9 .s9-point-tag, #s9 .s9-point-text { transition-duration: 0.01ms !important; }
-}
-
-</style>
+      #s9 #s9-content {
+        justify-content: center;
+        gap: clamp(1.6rem, 3.5vh, 2.8rem);
+        padding-top: 0;
+        margin-top: clamp(2.5rem, 6vh, 4rem);
+      }
+      #s9 .s9-hero {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      #s9 .s9-hero-line {
+        font-family: var(--font-display);
+        font-size: clamp(2rem, 5.5vw, 4rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1.05;
+        color: var(--text-primary);
+      }
+      #s9 .s9-hero-accent {
+        color: var(--green);
+        text-shadow: 0 0 48px var(--green-glow);
+      }
+      #s9 .s9-sub {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--bg-panel);
+        max-width: 72ch;
+        overflow: hidden;
+      }
+      #s9 .s9-point {
+        display: flex;
+        align-items: baseline;
+        gap: clamp(0.7rem, 1.4vw, 1.1rem);
+        padding: clamp(0.55rem, 1.1vh, 0.9rem) clamp(0.9rem, 1.8vw, 1.4rem);
+      }
+      #s9 .s9-divider {
+        height: 1px;
+        background: var(--border);
+        margin: 0;
+      }
+      #s9 .s9-point-tag {
+        font-family: var(--font-mono);
+        font-size: var(--small-size);
+        color: var(--green);
+        border: 1px solid var(--green);
+        border-radius: 999px;
+        padding: 0.18em 0.7em;
+        background: rgba(45, 164, 78, 0.07);
+        white-space: nowrap;
+        flex-shrink: 0;
+        line-height: 1.5;
+      }
+      #s9 .s9-point-tag--cyan {
+        color: var(--cyan);
+        border-color: var(--cyan);
+        background: rgba(9, 105, 218, 0.07);
+      }
+      #s9 .s9-point-tag--amber {
+        color: var(--amber);
+        border-color: var(--amber);
+        background: rgba(138, 99, 0, 0.07);
+      }
+      #s9 .s9-point-text {
+        font-family: var(--font-display);
+        font-size: clamp(0.72rem, 1.05vw, 0.9rem);
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+      #s9.slide.visible .reveal:nth-child(2) {
+        transition-delay: 0.12s;
+      }
+      #s9.slide.visible .reveal:nth-child(3) {
+        transition-delay: 0.38s;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #s9 .s9-hero-line,
+        #s9 .s9-point-tag,
+        #s9 .s9-point-text {
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="progress-bar" id="progress"></div>
@@ -1048,7 +1356,7 @@
       <div class="slide-content demo-focal">
         <p class="eyebrow reveal">Live demo</p>
         <h2 class="reveal">
-          This is the <span class="green">real system</span>.
+          An <span class="green">example system</span> you can watch run.
         </h2>
         <p class="lede reveal">goal &rarr; bid &rarr; plan route &rarr; work</p>
 
@@ -1494,15 +1802,68 @@
             </g>
 
             <!-- functioning pipeline: bid -> plan route (A*) -> work -->
-            <g font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700">
-              <rect x="298" y="312" width="116" height="30" rx="15" fill="#f0fff5" stroke="#2da44e" stroke-width="1.2" />
-              <text x="356" y="331" text-anchor="middle" fill="#2da44e">bid</text>
-              <line x1="418" y1="327" x2="448" y2="327" stroke="#9aa0a6" stroke-width="1.4" marker-end="url(#d4-dim)" />
-              <rect x="452" y="312" width="160" height="30" rx="15" fill="#eef4fb" stroke="#3b6ea5" stroke-width="1.2" />
-              <text x="532" y="331" text-anchor="middle" fill="#3b6ea5">plan route &middot; A*</text>
-              <line x1="616" y1="327" x2="646" y2="327" stroke="#9aa0a6" stroke-width="1.4" marker-end="url(#d4-dim)" />
-              <rect x="650" y="312" width="116" height="30" rx="15" fill="#fff7ed" stroke="#d97706" stroke-width="1.2" />
-              <text x="708" y="331" text-anchor="middle" fill="#b45309">work</text>
+            <g
+              font-family="'JetBrains Mono',monospace"
+              font-size="11"
+              font-weight="700"
+            >
+              <rect
+                x="298"
+                y="312"
+                width="116"
+                height="30"
+                rx="15"
+                fill="#f0fff5"
+                stroke="#2da44e"
+                stroke-width="1.2"
+              />
+              <text x="356" y="331" text-anchor="middle" fill="#2da44e">
+                bid
+              </text>
+              <line
+                x1="418"
+                y1="327"
+                x2="448"
+                y2="327"
+                stroke="#9aa0a6"
+                stroke-width="1.4"
+                marker-end="url(#d4-dim)"
+              />
+              <rect
+                x="452"
+                y="312"
+                width="160"
+                height="30"
+                rx="15"
+                fill="#eef4fb"
+                stroke="#3b6ea5"
+                stroke-width="1.2"
+              />
+              <text x="532" y="331" text-anchor="middle" fill="#3b6ea5">
+                plan route &middot; A*
+              </text>
+              <line
+                x1="616"
+                y1="327"
+                x2="646"
+                y2="327"
+                stroke="#9aa0a6"
+                stroke-width="1.4"
+                marker-end="url(#d4-dim)"
+              />
+              <rect
+                x="650"
+                y="312"
+                width="116"
+                height="30"
+                rx="15"
+                fill="#fff7ed"
+                stroke="#d97706"
+                stroke-width="1.2"
+              />
+              <text x="708" y="331" text-anchor="middle" fill="#b45309">
+                work
+              </text>
             </g>
           </svg>
         </div>
@@ -1515,7 +1876,8 @@
             margin-top: 0.6rem;
           "
         >
-          Type a goal - actors <span class="green">bid, plan a route, and do the work</span>.
+          Type a goal - actors
+          <span class="green">bid, plan a route, and do the work</span>.
         </p>
 
         <a
@@ -1544,11 +1906,11 @@
 
       <div class="slide-content">
         <p class="eyebrow reveal">
-          Architecture <span style="color: var(--text-dim)">·</span>
-          <span style="color: var(--amber)">current state (hybrid)</span>
+          The real system <span style="color: var(--text-dim)">·</span>
+          <span style="color: var(--amber)">architecture</span>
         </p>
         <h2 class="section-title reveal">
-          Centralized intent, decentralized execution
+          Centralized goal, decentralized execution
         </h2>
 
         <div
@@ -1565,7 +1927,7 @@
             xmlns="http://www.w3.org/2000/svg"
             role="img"
             style="max-height: clamp(250px, 52vh, 440px)"
-            aria-label="Authority flow: the operator sets a goal; a centralized interpreter (QwQ-32B) and MasterAnnouncer announce an auction on the shared message bus; five containerized actors (arm-1, agv-1, agv-2, agv-3, arm-2) on qwen-14b execute and recover actor-to-actor; the 0.5B narrator writes operator bubbles only."
+            aria-label="Authority flow: the operator sets a goal; the Interpreter / Announcer (QwQ-32B) interprets and announces a task auction on the shared message bus; five containerized actors (arm-1, agv-1, agv-2, agv-3, arm-2) on qwen-14b execute and recover via peer coordination; a small qwen-0.5B narrator writes operator bubbles only."
           >
             <defs>
               <marker
@@ -1612,7 +1974,7 @@
               font-weight="700"
               fill="#1f2328"
             >
-              Operator
+              Operator / User
             </text>
             <text
               x="500"
@@ -1628,83 +1990,43 @@
               x1="500"
               y1="48"
               x2="500"
-              y2="71"
+              y2="104"
               stroke="#3a3f45"
               stroke-width="1.6"
               marker-end="url(#af-d)"
             />
 
-            <!-- CENTRALIZED band -->
+            <!-- Interpreter / Announcer (merged box, centred under operator) -->
             <rect
-              x="150"
-              y="72"
-              width="560"
-              height="122"
-              rx="12"
-              fill="#eef4fb"
-              stroke="#bcd4ee"
-              stroke-width="1.2"
+              x="278"
+              y="106"
+              width="444"
+              height="58"
+              rx="8"
+              fill="#dbeafe"
+              stroke="#3b6ea5"
+              stroke-width="1.8"
             />
             <text
-              x="166"
-              y="91"
+              x="500"
+              y="131"
+              text-anchor="middle"
+              font-family="'Space Grotesk',sans-serif"
+              font-size="13"
+              font-weight="700"
+              fill="#1d4ed8"
+            >
+              Interpreter / Announcer
+            </text>
+            <text
+              x="500"
+              y="150"
+              text-anchor="middle"
               font-family="'JetBrains Mono',monospace"
-              font-size="9"
-              letter-spacing="1"
+              font-size="10"
               fill="#3b6ea5"
             >
-              CENTRALIZED &middot; strategic
-            </text>
-            <rect
-              x="208"
-              y="98"
-              width="444"
-              height="38"
-              rx="8"
-              fill="#ffffff"
-              stroke="#3b6ea5"
-              stroke-width="1.6"
-            />
-            <text
-              x="430"
-              y="121"
-              text-anchor="middle"
-              font-family="'Space Grotesk',sans-serif"
-              font-size="12"
-              font-weight="600"
-              fill="#3b6ea5"
-            >
-              Goal interpreter &middot; QwQ-32B
-            </text>
-            <line
-              x1="430"
-              y1="136"
-              x2="430"
-              y2="146"
-              stroke="#3b6ea5"
-              stroke-width="1.4"
-              marker-end="url(#af-d)"
-            />
-            <rect
-              x="208"
-              y="148"
-              width="444"
-              height="38"
-              rx="8"
-              fill="#ffffff"
-              stroke="#3b6ea5"
-              stroke-width="1.6"
-            />
-            <text
-              x="430"
-              y="171"
-              text-anchor="middle"
-              font-family="'Space Grotesk',sans-serif"
-              font-size="12"
-              font-weight="600"
-              fill="#3b6ea5"
-            >
-              MasterAnnouncer &middot; new-task auction
+              QwQ-32B &middot; interprets goal &middot; announces task auction
             </text>
 
             <!-- Backend infra (dashed) -->
@@ -1749,20 +2071,40 @@
             >
               health &middot; Docker registry
             </text>
-
-            <!-- announce -> bus -->
+            <!-- backend hosts the shared message bus -->
             <line
-              x1="430"
-              y1="194"
-              x2="430"
+              x1="836"
+              y1="186"
+              x2="836"
+              y2="220"
+              stroke="#bcc2c8"
+              stroke-width="1"
+              stroke-dasharray="3 3"
+              opacity="0.75"
+            />
+            <text
+              x="844"
+              y="206"
+              font-family="'JetBrains Mono',monospace"
+              font-size="8.5"
+              fill="#9aa0a6"
+            >
+              hosts the bus
+            </text>
+
+            <!-- Interpreter / Announcer -> bus -->
+            <line
+              x1="500"
+              y1="164"
+              x2="500"
               y2="220"
               stroke="#3a3f45"
               stroke-width="1.6"
               marker-end="url(#af-d)"
             />
             <text
-              x="440"
-              y="212"
+              x="510"
+              y="196"
               font-family="'JetBrains Mono',monospace"
               font-size="9"
               fill="#7a8087"
@@ -1802,7 +2144,7 @@
               </tspan>
             </text>
 
-            <!-- DECENTRALIZED band -->
+            <!-- DECENTRALIZED band (labelled by the legend below the diagram) -->
             <rect
               x="60"
               y="286"
@@ -1813,16 +2155,6 @@
               stroke="#bfe2c8"
               stroke-width="1.2"
             />
-            <text
-              x="76"
-              y="461"
-              font-family="'JetBrains Mono',monospace"
-              font-size="9"
-              letter-spacing="1"
-              fill="#2f8f55"
-            >
-              DECENTRALIZED &middot; tactical execution + recovery
-            </text>
 
             <!-- bus <-> actors: parallel two-way links (announce/bid both directions) -->
             <line
@@ -1917,7 +2249,7 @@
                 width="150"
                 height="56"
                 rx="9"
-                fill="#f3f3fb"
+                fill="#e0e0f8"
                 stroke="#5b52cc"
                 stroke-width="2"
               />
@@ -1928,7 +2260,7 @@
                 font-family="'Space Grotesk',sans-serif"
                 font-size="12"
                 font-weight="600"
-                fill="#4b44b0"
+                fill="#3730a3"
               >
                 agv-1
               </text>
@@ -1950,7 +2282,7 @@
                 width="150"
                 height="56"
                 rx="9"
-                fill="#f3f3fb"
+                fill="#e0e0f8"
                 stroke="#5b52cc"
                 stroke-width="2"
               />
@@ -1961,7 +2293,7 @@
                 font-family="'Space Grotesk',sans-serif"
                 font-size="12"
                 font-weight="600"
-                fill="#4b44b0"
+                fill="#3730a3"
               >
                 agv-2
               </text>
@@ -1983,7 +2315,7 @@
                 width="150"
                 height="56"
                 rx="9"
-                fill="#f3f3fb"
+                fill="#e0e0f8"
                 stroke="#5b52cc"
                 stroke-width="2"
               />
@@ -1994,7 +2326,7 @@
                 font-family="'Space Grotesk',sans-serif"
                 font-size="12"
                 font-weight="600"
-                fill="#4b44b0"
+                fill="#3730a3"
               >
                 agv-3
               </text>
@@ -2043,19 +2375,39 @@
               </text>
             </g>
 
-            <!-- peer-to-peer mesh: actors coordinate directly with each other -->
-            <path d="M152 316 C 205 294, 269 294, 322 316" fill="none" stroke="#5b52cc" stroke-width="1.3" stroke-dasharray="4 3" opacity="0.85" />
-            <path d="M322 316 C 375 294, 439 294, 492 316" fill="none" stroke="#5b52cc" stroke-width="1.3" stroke-dasharray="4 3" opacity="0.85" />
-            <path d="M492 316 C 545 294, 609 294, 662 316" fill="none" stroke="#5b52cc" stroke-width="1.3" stroke-dasharray="4 3" opacity="0.85" />
-            <path d="M662 316 C 715 294, 779 294, 832 316" fill="none" stroke="#5b52cc" stroke-width="1.3" stroke-dasharray="4 3" opacity="0.85" />
-            <path d="M152 316 C 270 274, 374 274, 492 316" fill="none" stroke="#5b52cc" stroke-width="1.1" stroke-dasharray="3 3" opacity="0.5" />
-            <path d="M492 316 C 610 274, 714 274, 832 316" fill="none" stroke="#5b52cc" stroke-width="1.1" stroke-dasharray="3 3" opacity="0.5" />
-
-            <!-- actor-to-actor diamonds between actors -->
-            <path d="M237 338 l6 6 l-6 6 l-6 -6 z" fill="#5b52cc" />
-            <path d="M407 338 l6 6 l-6 6 l-6 -6 z" fill="#5b52cc" />
-            <path d="M577 338 l6 6 l-6 6 l-6 -6 z" fill="#5b52cc" />
-            <path d="M747 338 l6 6 l-6 6 l-6 -6 z" fill="#5b52cc" />
+            <!-- peer arcs: adjacent actor-to-actor links (diamonds removed) -->
+            <path
+              d="M152 316 C 205 294, 269 294, 322 316"
+              fill="none"
+              stroke="#5b52cc"
+              stroke-width="1.3"
+              stroke-dasharray="4 3"
+              opacity="0.85"
+            />
+            <path
+              d="M322 316 C 375 294, 439 294, 492 316"
+              fill="none"
+              stroke="#5b52cc"
+              stroke-width="1.3"
+              stroke-dasharray="4 3"
+              opacity="0.85"
+            />
+            <path
+              d="M492 316 C 545 294, 609 294, 662 316"
+              fill="none"
+              stroke="#5b52cc"
+              stroke-width="1.3"
+              stroke-dasharray="4 3"
+              opacity="0.85"
+            />
+            <path
+              d="M662 316 C 715 294, 779 294, 832 316"
+              fill="none"
+              stroke="#5b52cc"
+              stroke-width="1.3"
+              stroke-dasharray="4 3"
+              opacity="0.85"
+            />
 
             <!-- notes -->
             <text
@@ -2081,10 +2433,10 @@
               &#8594; announces &#8594; re-bids (no Master)
             </text>
             <rect
-              x="290"
+              x="240"
               y="421"
-              width="420"
-              height="30"
+              width="520"
+              height="38"
               rx="8"
               fill="#fffbeb"
               stroke="#caa53d"
@@ -2093,42 +2445,50 @@
             />
             <text
               x="500"
-              y="440"
+              y="437"
               text-anchor="middle"
               font-family="'JetBrains Mono',monospace"
               font-size="9.5"
               fill="#9a7d1f"
             >
-              0.5B narrator &#8594; operator bubbles only (no execution
-              authority)
+              A small qwen-0.5B model narrates status to the operator -
+            </text>
+            <text
+              x="500"
+              y="452"
+              text-anchor="middle"
+              font-family="'JetBrains Mono',monospace"
+              font-size="9.5"
+              fill="#9a7d1f"
+            >
+              it has no control over execution.
             </text>
           </svg>
-
           <div class="arch-legend">
             <span class="arch-legend-item"
-              ><svg width="12" height="12" viewBox="0 0 12 12">
+              ><svg width="15" height="15" viewBox="0 0 15 15">
                 <rect
                   x="0"
                   y="0"
-                  width="12"
-                  height="12"
+                  width="15"
+                  height="15"
                   rx="2"
-                  fill="#eef4fb"
+                  fill="#3b6ea5"
                   stroke="#3b6ea5"
                   stroke-width="1.4"
                 />
               </svg>
-              centralized (strategic)</span
+              Interpreter / Announcer (strategic)</span
             >
             <span class="arch-legend-item"
-              ><svg width="12" height="12" viewBox="0 0 12 12">
+              ><svg width="15" height="15" viewBox="0 0 15 15">
                 <rect
                   x="0"
                   y="0"
-                  width="12"
-                  height="12"
+                  width="15"
+                  height="15"
                   rx="2"
-                  fill="#eef7f0"
+                  fill="#2f8f55"
                   stroke="#2f8f55"
                   stroke-width="1.4"
                 />
@@ -2137,9 +2497,17 @@
             >
             <span class="arch-legend-item"
               ><svg width="12" height="12" viewBox="0 0 12 12">
-                <path d="M6 1 l5 5 l-5 5 l-5 -5 z" fill="#5b52cc" />
+                <line
+                  x1="1"
+                  y1="6"
+                  x2="11"
+                  y2="6"
+                  stroke="#5b52cc"
+                  stroke-width="1.5"
+                  stroke-dasharray="3 2"
+                />
               </svg>
-              actor-to-actor on the bus</span
+              peer coordination on the bus</span
             >
           </div>
         </div>
@@ -2149,8 +2517,8 @@
           interpreter and announcer turn it into an auction on the shared bus.
           From there, execution, actor-led fault detection, and recovery run
           across the actors - the recovery claim is authored by
-          <strong>another actor</strong>, not a central controller. Each actor is its own
-          container; the 0.5B narrator only writes operator bubbles.
+          <strong>another actor</strong>, not a central controller. Each actor
+          is its own container; the 0.5B narrator only writes operator bubbles.
         </div>
       </div>
 
@@ -2159,367 +2527,774 @@
 
     <!-- ============ SLIDE 6 - HOW COORDINATION WORKS ============ -->
     <section class="slide" id="s6">
-  <header class="chrome">
-    <span class="dot r"></span><span class="dot y"></span
-    ><span class="dot g"></span>
-    <span class="path">~/Inter-Act/06-coordination</span>
-    <span class="branch"></span>
-  </header>
+      <header class="chrome">
+        <span class="dot r"></span><span class="dot y"></span
+        ><span class="dot g"></span>
+        <span class="path">~/Inter-Act/06-coordination</span>
+        <span class="branch"></span>
+      </header>
 
-  <div class="slide-content" style="justify-content: center; gap: clamp(0.5rem, 1.2vh, 1rem);">
-    <p class="eyebrow reveal">How coordination works</p>
-    <h2 class="section-title reveal">
-      Bidding decides.
-      <span style="color: var(--green)">The LLM only advises.</span>
-    </h2>
-
-    <div class="s6-diagram-wrap reveal" aria-label="Animated contract-net sequence">
-      <svg
-        id="s6-svg"
-        viewBox="0 0 920 320"
-        xmlns="http://www.w3.org/2000/svg"
-        role="img"
-        aria-label="Contract-net: announce task, three AGV bids, announcer claims winner."
-        style="width: 100%; height: auto; display: block;"
+      <div
+        class="slide-content"
+        style="justify-content: center; gap: clamp(0.5rem, 1.2vh, 1rem)"
       >
-        <defs>
-          <marker id="s6-arr-green" viewBox="0 0 10 10" refX="9" refY="5"
-            markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M0 0L10 5L0 10z" fill="#2da44e"/>
-          </marker>
-          <marker id="s6-arr-dim" viewBox="0 0 10 10" refX="9" refY="5"
-            markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M0 0L10 5L0 10z" fill="#c9d1d9"/>
-          </marker>
-          <marker id="s6-arr-amber" viewBox="0 0 10 10" refX="9" refY="5"
-            markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M0 0L10 5L0 10z" fill="#8a6300"/>
-          </marker>
-          <filter id="s6-win-glow" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="4" result="blur"/>
-            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-        </defs>
+        <p class="eyebrow reveal">How coordination works</p>
+        <h2 class="section-title reveal">
+          Bidding decides.
+          <span style="color: var(--green)">The LLM only advises.</span>
+        </h2>
 
-        <rect class="s6-announce" x="30" y="110" width="190" height="100" rx="12"
-          fill="#f0fff5" stroke="#2da44e" stroke-width="2.5"/>
-        <text x="125" y="152" text-anchor="middle"
-          font-family="'Space Grotesk',sans-serif" font-size="15" font-weight="700" fill="#2da44e">
-          MasterAnnouncer
-        </text>
-        <text x="125" y="174" text-anchor="middle"
-          font-family="'JetBrains Mono',monospace" font-size="12" fill="#2da44e">
-          announce task
-        </text>
+        <div
+          class="s6-diagram-wrap reveal"
+          aria-label="Animated contract-net sequence"
+        >
+          <svg
+            id="s6-svg"
+            viewBox="0 0 920 320"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="Contract-net: announce task, three AGV bids, announcer claims winner."
+            style="width: 100%; height: auto; display: block"
+          >
+            <defs>
+              <marker
+                id="s6-arr-green"
+                viewBox="0 0 10 10"
+                refX="9"
+                refY="5"
+                markerWidth="6"
+                markerHeight="6"
+                orient="auto"
+              >
+                <path d="M0 0L10 5L0 10z" fill="#2da44e" />
+              </marker>
+              <marker
+                id="s6-arr-dim"
+                viewBox="0 0 10 10"
+                refX="9"
+                refY="5"
+                markerWidth="6"
+                markerHeight="6"
+                orient="auto"
+              >
+                <path d="M0 0L10 5L0 10z" fill="#4b6bba" />
+              </marker>
+              <marker
+                id="s6-arr-amber"
+                viewBox="0 0 10 10"
+                refX="9"
+                refY="5"
+                markerWidth="6"
+                markerHeight="6"
+                orient="auto"
+              >
+                <path d="M0 0L10 5L0 10z" fill="#8a6300" />
+              </marker>
+              <filter
+                id="s6-win-glow"
+                x="-30%"
+                y="-30%"
+                width="160%"
+                height="160%"
+              >
+                <feGaussianBlur stdDeviation="4" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
 
-        <!-- announcer -> shared message bus -->
-        <line x1="220" y1="160" x2="246" y2="160"
-          stroke="#2da44e" stroke-width="1.8" marker-end="url(#s6-arr-green)"/>
+            <rect
+              class="s6-announce"
+              x="30"
+              y="110"
+              width="190"
+              height="100"
+              rx="12"
+              fill="#f0fff5"
+              stroke="#2da44e"
+              stroke-width="2.5"
+            />
+            <text
+              x="125"
+              y="152"
+              text-anchor="middle"
+              font-family="'Space Grotesk',sans-serif"
+              font-size="15"
+              font-weight="700"
+              fill="#2da44e"
+            >
+              MasterAnnouncer
+            </text>
+            <text
+              x="125"
+              y="174"
+              text-anchor="middle"
+              font-family="'JetBrains Mono',monospace"
+              font-size="12"
+              fill="#2da44e"
+            >
+              announce task
+            </text>
 
-        <!-- shared message bus (announce side) -->
-        <rect x="250" y="70" width="36" height="180" rx="9"
-          fill="#fafbfc" stroke="#2da44e" stroke-width="1.8"/>
-        <text transform="rotate(-90 268 160)" x="268" y="160" text-anchor="middle"
-          font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#2da44e">
-          MESSAGE BUS
-        </text>
+            <!-- announcer -> shared message bus -->
+            <line
+              x1="220"
+              y1="160"
+              x2="246"
+              y2="160"
+              stroke="#2da44e"
+              stroke-width="1.8"
+              marker-end="url(#s6-arr-green)"
+            />
 
-        <!-- bus -> all AGVs (broadcast announce) -->
-        <line class="s6-arrow-out s6-arrow-top" x1="290" y1="160" x2="358" y2="88"
-          stroke="#c9d1d9" stroke-width="1.8" marker-end="url(#s6-arr-dim)"/>
-        <line class="s6-arrow-out s6-arrow-mid" x1="290" y1="160" x2="358" y2="160"
-          stroke="#c9d1d9" stroke-width="1.8" marker-end="url(#s6-arr-dim)"/>
-        <line class="s6-arrow-out s6-arrow-bot" x1="290" y1="160" x2="358" y2="232"
-          stroke="#c9d1d9" stroke-width="1.8" marker-end="url(#s6-arr-dim)"/>
+            <!-- shared message bus (announce side) -->
+            <rect
+              x="250"
+              y="70"
+              width="36"
+              height="180"
+              rx="9"
+              fill="#fafbfc"
+              stroke="#2da44e"
+              stroke-width="1.8"
+            />
+            <text
+              transform="rotate(-90 268 160)"
+              x="268"
+              y="160"
+              text-anchor="middle"
+              font-family="'JetBrains Mono',monospace"
+              font-size="11"
+              font-weight="700"
+              fill="#2da44e"
+            >
+              MESSAGE BUS
+            </text>
 
-        <g class="s6-bid s6-bid-loser">
-          <rect x="362" y="56" width="200" height="64" rx="10"
-            fill="#fafbfc" stroke="#c9d1d9" stroke-width="1.5"/>
-          <text x="462" y="86" text-anchor="middle"
-            font-family="'JetBrains Mono',monospace" font-size="12" fill="#7a8087">AGV-1 bids</text>
-          <text x="462" y="104" text-anchor="middle"
-            font-family="'JetBrains Mono',monospace" font-size="13" font-weight="600" fill="#7a8087">score: 0.61</text>
-        </g>
+            <!-- bus -> all AGVs (broadcast announce) -->
+            <line
+              class="s6-arrow-out s6-arrow-top"
+              x1="290"
+              y1="160"
+              x2="358"
+              y2="80"
+              stroke="#4b6bba"
+              stroke-width="1.8"
+              marker-end="url(#s6-arr-dim)"
+            />
+            <line
+              class="s6-arrow-out s6-arrow-mid"
+              x1="290"
+              y1="160"
+              x2="358"
+              y2="160"
+              stroke="#4b6bba"
+              stroke-width="1.8"
+              marker-end="url(#s6-arr-dim)"
+            />
+            <line
+              class="s6-arrow-out s6-arrow-bot"
+              x1="290"
+              y1="160"
+              x2="358"
+              y2="240"
+              stroke="#4b6bba"
+              stroke-width="1.8"
+              marker-end="url(#s6-arr-dim)"
+            />
 
-        <g class="s6-bid s6-bid-winner">
-          <rect class="s6-winner-rect" x="362" y="128" width="200" height="64" rx="10"
-            fill="#f0fff5" stroke="#2da44e" stroke-width="2.5" filter="url(#s6-win-glow)"/>
-          <rect x="519" y="122" width="46" height="18" rx="9"
-            class="s6-crown-badge" fill="#2da44e"/>
-          <text x="542" y="135" text-anchor="middle"
-            font-family="'JetBrains Mono',monospace" font-size="9" font-weight="700" fill="#ffffff"
-            class="s6-crown-text">WINNER</text>
-          <text x="462" y="156" text-anchor="middle"
-            font-family="'JetBrains Mono',monospace" font-size="12" fill="#2da44e">AGV-2 bids</text>
-          <text x="462" y="176" text-anchor="middle"
-            font-family="'JetBrains Mono',monospace" font-size="13" font-weight="700" fill="#2da44e">score: 0.87</text>
-        </g>
+            <g class="s6-bid s6-bid-loser">
+              <rect
+                x="362"
+                y="48"
+                width="200"
+                height="64"
+                rx="10"
+                fill="#f3f6fc"
+                stroke="#4b6bba"
+                stroke-width="1.5"
+              />
+              <text
+                x="462"
+                y="78"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="12"
+                fill="#4b6bba"
+              >
+                AGV-1 bids
+              </text>
+              <text
+                x="462"
+                y="96"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="13"
+                font-weight="600"
+                fill="#4b6bba"
+              >
+                score: 0.61
+              </text>
+            </g>
 
-        <g class="s6-bid s6-bid-loser">
-          <rect x="362" y="200" width="200" height="64" rx="10"
-            fill="#fafbfc" stroke="#c9d1d9" stroke-width="1.5"/>
-          <text x="462" y="230" text-anchor="middle"
-            font-family="'JetBrains Mono',monospace" font-size="12" fill="#7a8087">AGV-3 bids</text>
-          <text x="462" y="248" text-anchor="middle"
-            font-family="'JetBrains Mono',monospace" font-size="13" font-weight="600" fill="#7a8087">score: 0.74</text>
-        </g>
+            <g class="s6-bid s6-bid-winner">
+              <rect
+                class="s6-winner-rect"
+                x="362"
+                y="128"
+                width="200"
+                height="64"
+                rx="10"
+                fill="#f0fff5"
+                stroke="#2da44e"
+                stroke-width="2.5"
+                filter="url(#s6-win-glow)"
+              />
+              <rect
+                x="519"
+                y="122"
+                width="46"
+                height="18"
+                rx="9"
+                class="s6-crown-badge"
+                fill="#2da44e"
+              />
+              <text
+                x="542"
+                y="135"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="9"
+                font-weight="700"
+                fill="#ffffff"
+                class="s6-crown-text"
+              >
+                WINNER
+              </text>
+              <text
+                x="462"
+                y="156"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="12"
+                fill="#2da44e"
+              >
+                AGV-2 bids
+              </text>
+              <text
+                x="462"
+                y="176"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="13"
+                font-weight="700"
+                fill="#2da44e"
+              >
+                score: 0.87
+              </text>
+            </g>
 
-        <!-- all AGVs -> shared message bus (bids submitted by the actors themselves) -->
-        <line x1="562" y1="88" x2="598" y2="160"
-          stroke="#c9d1d9" stroke-width="1.8" marker-end="url(#s6-arr-dim)"/>
-        <line x1="562" y1="160" x2="598" y2="160"
-          stroke="#c9d1d9" stroke-width="1.8" marker-end="url(#s6-arr-dim)"/>
-        <line x1="562" y1="232" x2="598" y2="160"
-          stroke="#c9d1d9" stroke-width="1.8" marker-end="url(#s6-arr-dim)"/>
+            <g class="s6-bid s6-bid-loser">
+              <rect
+                x="362"
+                y="208"
+                width="200"
+                height="64"
+                rx="10"
+                fill="#f3f6fc"
+                stroke="#4b6bba"
+                stroke-width="1.5"
+              />
+              <text
+                x="462"
+                y="238"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="12"
+                fill="#4b6bba"
+              >
+                AGV-3 bids
+              </text>
+              <text
+                x="462"
+                y="256"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="13"
+                font-weight="600"
+                fill="#4b6bba"
+              >
+                score: 0.74
+              </text>
+            </g>
 
-        <!-- shared message bus (claim side) -->
-        <rect x="602" y="70" width="36" height="180" rx="9"
-          fill="#fafbfc" stroke="#2da44e" stroke-width="1.8"/>
-        <text transform="rotate(-90 620 160)" x="620" y="160" text-anchor="middle"
-          font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#2da44e">
-          MESSAGE BUS
-        </text>
+            <!-- all AGVs -> shared message bus (bids submitted by the actors themselves) -->
+            <line
+              x1="562"
+              y1="80"
+              x2="598"
+              y2="160"
+              stroke="#4b6bba"
+              stroke-width="1.8"
+              marker-end="url(#s6-arr-dim)"
+            />
+            <line
+              x1="562"
+              y1="160"
+              x2="598"
+              y2="160"
+              stroke="#4b6bba"
+              stroke-width="1.8"
+              marker-end="url(#s6-arr-dim)"
+            />
+            <line
+              x1="562"
+              y1="240"
+              x2="598"
+              y2="160"
+              stroke="#4b6bba"
+              stroke-width="1.8"
+              marker-end="url(#s6-arr-dim)"
+            />
 
-        <!-- bus -> announcer claims the winner -->
-        <line class="s6-arrow-claim" x1="642" y1="160" x2="696" y2="160"
-          stroke="#2da44e" stroke-width="2.2" stroke-dasharray="6 3" marker-end="url(#s6-arr-green)"/>
+            <!-- shared message bus (claim side) -->
+            <rect
+              x="602"
+              y="70"
+              width="36"
+              height="180"
+              rx="9"
+              fill="#fafbfc"
+              stroke="#2da44e"
+              stroke-width="1.8"
+            />
+            <text
+              transform="rotate(-90 620 160)"
+              x="620"
+              y="160"
+              text-anchor="middle"
+              font-family="'JetBrains Mono',monospace"
+              font-size="11"
+              font-weight="700"
+              fill="#2da44e"
+            >
+              MESSAGE BUS
+            </text>
 
-        <rect class="s6-claim" x="700" y="110" width="190" height="100" rx="12"
-          fill="#f0fff5" stroke="#2da44e" stroke-width="2.5"/>
-        <text x="795" y="152" text-anchor="middle"
-          font-family="'Space Grotesk',sans-serif" font-size="15" font-weight="700" fill="#2da44e">
-          MasterAnnouncer
-        </text>
-        <text x="795" y="174" text-anchor="middle"
-          font-family="'JetBrains Mono',monospace" font-size="12" fill="#2da44e">
-          claims AGV-2
-        </text>
+            <!-- bus -> announcer claims the winner -->
+            <line
+              class="s6-arrow-claim"
+              x1="642"
+              y1="160"
+              x2="696"
+              y2="160"
+              stroke="#2da44e"
+              stroke-width="2.2"
+              stroke-dasharray="6 3"
+              marker-end="url(#s6-arr-green)"
+            />
 
-        <rect x="310" y="280" width="300" height="28" rx="6"
-          fill="rgba(138,99,0,0.07)" stroke="rgba(138,99,0,0.25)" stroke-width="1"/>
-        <text x="460" y="299" text-anchor="middle"
-          font-family="'JetBrains Mono',monospace" font-size="11" fill="#8a6300">
-          LLM adjusts score within fixed limits only
-        </text>
+            <rect
+              class="s6-claim"
+              x="700"
+              y="110"
+              width="190"
+              height="100"
+              rx="12"
+              fill="#f0fff5"
+              stroke="#2da44e"
+              stroke-width="2.5"
+            />
+            <text
+              x="795"
+              y="152"
+              text-anchor="middle"
+              font-family="'Space Grotesk',sans-serif"
+              font-size="15"
+              font-weight="700"
+              fill="#2da44e"
+            >
+              MasterAnnouncer
+            </text>
+            <text
+              x="795"
+              y="174"
+              text-anchor="middle"
+              font-family="'JetBrains Mono',monospace"
+              font-size="12"
+              fill="#2da44e"
+            >
+              claims AGV-2
+            </text>
 
-        <rect class="s6-pulse-announce" aria-hidden="true"
-          x="30" y="110" width="190" height="100" rx="12"
-          fill="none" stroke="#2da44e" stroke-width="3" opacity="0"/>
-        <rect class="s6-pulse-winner" aria-hidden="true"
-          x="362" y="128" width="200" height="64" rx="10"
-          fill="none" stroke="#2da44e" stroke-width="3" opacity="0"/>
-        <rect class="s6-pulse-claim" aria-hidden="true"
-          x="700" y="110" width="190" height="100" rx="12"
-          fill="none" stroke="#2da44e" stroke-width="3" opacity="0"/>
+            <rect
+              x="310"
+              y="280"
+              width="300"
+              height="28"
+              rx="6"
+              fill="rgba(138,99,0,0.07)"
+              stroke="rgba(138,99,0,0.25)"
+              stroke-width="1"
+            />
+            <text
+              x="460"
+              y="299"
+              text-anchor="middle"
+              font-family="'JetBrains Mono',monospace"
+              font-size="11"
+              fill="#8a6300"
+            >
+              LLM adjusts score within fixed limits only
+            </text>
 
-        <circle class="s6-dot-out" aria-hidden="true" r="5" fill="#2da44e">
-          <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.08;0.42;0.43;1" dur="4s" begin="1.2s" repeatCount="indefinite" calcMode="linear"/>
-          <animateMotion dur="4s" begin="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.42 0 0.58 1" path="M220,160 L358,160"/>
-        </circle>
-        <circle class="s6-dot-claim" aria-hidden="true" r="5" fill="#2da44e">
-          <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.08;0.42;0.43;1" dur="4s" begin="2.6s" repeatCount="indefinite" calcMode="linear"/>
-          <animateMotion dur="4s" begin="2.6s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.42 0 0.58 1" path="M562,160 L696,160"/>
-        </circle>
-      </svg>
-    </div>
+            <rect
+              class="s6-pulse-announce"
+              aria-hidden="true"
+              x="30"
+              y="110"
+              width="190"
+              height="100"
+              rx="12"
+              fill="none"
+              stroke="#2da44e"
+              stroke-width="3"
+              opacity="0"
+            />
+            <rect
+              class="s6-pulse-winner"
+              aria-hidden="true"
+              x="362"
+              y="128"
+              width="200"
+              height="64"
+              rx="10"
+              fill="none"
+              stroke="#2da44e"
+              stroke-width="3"
+              opacity="0"
+            />
+            <rect
+              class="s6-pulse-claim"
+              aria-hidden="true"
+              x="700"
+              y="110"
+              width="190"
+              height="100"
+              rx="12"
+              fill="none"
+              stroke="#2da44e"
+              stroke-width="3"
+              opacity="0"
+            />
 
-    <div class="s6-step-labels" aria-hidden="true">
-      <span>1. announce on bus</span>
-      <span>2. AGVs bid by themselves</span>
-      <span>3. claim winner via bus</span>
-    </div>
+            <circle class="s6-dot-out" aria-hidden="true" r="5" fill="#2da44e">
+              <animate
+                attributeName="opacity"
+                values="0;1;1;0;0"
+                keyTimes="0;0.08;0.42;0.43;1"
+                dur="4s"
+                begin="1.2s"
+                repeatCount="indefinite"
+                calcMode="linear"
+              />
+              <animateMotion
+                dur="4s"
+                begin="1.2s"
+                repeatCount="indefinite"
+                calcMode="spline"
+                keyTimes="0;1"
+                keySplines="0.42 0 0.58 1"
+                path="M220,160 L358,160"
+              />
+            </circle>
+            <circle
+              class="s6-dot-claim"
+              aria-hidden="true"
+              r="5"
+              fill="#2da44e"
+            >
+              <animate
+                attributeName="opacity"
+                values="0;1;1;0;0"
+                keyTimes="0;0.08;0.42;0.43;1"
+                dur="4s"
+                begin="2.6s"
+                repeatCount="indefinite"
+                calcMode="linear"
+              />
+              <animateMotion
+                dur="4s"
+                begin="2.6s"
+                repeatCount="indefinite"
+                calcMode="spline"
+                keyTimes="0;1"
+                keySplines="0.42 0 0.58 1"
+                path="M562,160 L696,160"
+              />
+            </circle>
+          </svg>
+        </div>
 
-    <div class="s6-captions reveal">
-      <div class="s6-caption">
-        <span class="tag">mechanism</span>
-        <span>Actors bid on a shared bus; the MasterAnnouncer announces the winner.</span>
+        <div class="s6-step-labels" aria-hidden="true">
+          <span>1. announce on bus</span>
+          <span>2. AGVs bid by themselves</span>
+          <span>3. claim winner via bus</span>
+        </div>
+
+        <div class="s6-captions reveal">
+          <div class="s6-caption">
+            <span class="tag">mechanism</span>
+            <span
+              >Actors bid on a shared bus; the MasterAnnouncer picks and claims
+              the winner.</span
+            >
+          </div>
+          <div class="s6-caption">
+            <span class="tag cyan">decides</span>
+            <span
+              >Distance, capability, and workload scores determine which actor
+              wins the bid.</span
+            >
+          </div>
+          <div class="s6-caption">
+            <span class="tag amber">advises only</span>
+            <span
+              >The LLM adjusts bid scores within fixed limits - it never
+              overrides the decision.</span
+            >
+          </div>
+        </div>
       </div>
-      <div class="s6-caption">
-        <span class="tag cyan">decides</span>
-        <span>Distance, capability, and workload are evaluated to select the best actor.</span>
-      </div>
-      <div class="s6-caption">
-        <span class="tag amber">advises only</span>
-        <span>The LLM can adjust the score within fixed limits; it never overrides the decision.</span>
-      </div>
-    </div>
-  </div>
 
-  <div class="slide-number">06<span class="of"> / 10</span></div>
-</section>
+      <div class="slide-number">06<span class="of"> / 10</span></div>
+    </section>
 
     <!-- ============ SLIDE 7 - VALIDATION + LIMITATIONS ============ -->
     <section class="slide s7-scope" id="built-slide-fix">
-  <header class="chrome">
-    <span class="dot r"></span><span class="dot y"></span
-    ><span class="dot g"></span>
-    <span class="path">~/Inter-Act/07-validation</span>
-    <span class="branch"></span>
-  </header>
+      <header class="chrome">
+        <span class="dot r"></span><span class="dot y"></span
+        ><span class="dot g"></span>
+        <span class="path">~/Inter-Act/07-validation</span>
+        <span class="branch"></span>
+      </header>
 
-  <div class="slide-content">
-    <p class="eyebrow reveal">
-      Validate <span style="color: var(--text-dim)">·</span>
-      <span style="color: var(--green)">LIVE + simulation</span>
-    </p>
-    <h2 class="section-title reveal">It works - with one known edge</h2>
+      <div class="slide-content">
+        <p class="eyebrow reveal">
+          Validate <span style="color: var(--text-dim)">·</span>
+          <span style="color: var(--green)">LIVE + simulation</span>
+        </p>
+        <h2 class="section-title reveal">It works - with one known edge</h2>
 
-    <div class="s7-hero reveal">
-      <div class="s7-stat">
-        <div class="num s7-hero-num">
-          <span class="s7-within">within </span><span
-            class="s7-count" aria-live="polite">9.24</span><span class="s7-unit"> s</span>
+        <div class="s7-hero reveal">
+          <div class="s7-stat">
+            <div class="num s7-hero-num">
+              <span class="s7-count" data-target="99.2" aria-live="polite"
+                >0.0</span
+              ><span class="s7-unit"> s</span
+              ><span class="s7-spread"> &plusmn;2.2 s</span>
+            </div>
+            <div class="label">
+              1 package &middot; goal &rarr; delivered &middot; mean of 5 runs
+            </div>
+          </div>
+          <div class="s7-stat">
+            <div class="num s7-hero-num">
+              <span class="s7-count" data-target="183.7" aria-live="polite"
+                >0.0</span
+              ><span class="s7-unit"> s</span
+              ><span class="s7-spread"> &plusmn;7.2 s</span>
+            </div>
+            <div class="label">
+              3 packages &middot; goal &rarr; all delivered &middot; mean of 5
+              runs
+            </div>
+          </div>
         </div>
-        <div class="label">time for a peer actor to spot a failed actor on the bus - live</div>
-      </div>
-    </div>
-
-    <div class="s7-cards">
-      <div class="card s7-card-1">
-        <span class="tag">recovery</span>
-        <p style="margin-top: 0.5em">
-          When an actor fails, <strong>another actor</strong> - not a central
-          controller - picks up its task. Recovered in
-          <strong>all 10 of 10 fault-injection runs</strong> on the live system.
+        <p class="s7-hero-sub reveal">
+          end to end - goal in, plan, bid, move and deliver; the time scales
+          with the task
         </p>
-        <div class="s7-dots" aria-label="ten of ten trials succeeded" role="img">
-          <span class="s7-dot"></span><span class="s7-dot"></span><span class="s7-dot"></span><span class="s7-dot"></span><span class="s7-dot"></span><span class="s7-dot"></span><span class="s7-dot"></span><span class="s7-dot"></span><span class="s7-dot"></span><span class="s7-dot"></span>
+
+        <div class="s7-cards">
+          <div class="card s7-card-1">
+            <span class="tag">recovery</span>
+            <p style="margin-top: 0.5em">
+              When an actor fails, <strong>another actor</strong> - not a
+              central controller - picks up its task: spotted on the bus in
+              <strong>9.24 s</strong>, re-allocated in <strong>20.28 s</strong>,
+              recovered in <strong>all 10 of 10 fault-injection runs</strong>.
+            </p>
+            <div
+              class="s7-dots"
+              aria-label="ten of ten trials succeeded"
+              role="img"
+            >
+              <span class="s7-dot"></span><span class="s7-dot"></span
+              ><span class="s7-dot"></span><span class="s7-dot"></span
+              ><span class="s7-dot"></span><span class="s7-dot"></span
+              ><span class="s7-dot"></span><span class="s7-dot"></span
+              ><span class="s7-dot"></span><span class="s7-dot"></span>
+            </div>
+          </div>
+          <div class="card cyan s7-card-2">
+            <span class="tag cyan">allocation</span>
+            <p style="margin-top: 0.5em">
+              In simulation, the bid score (skills, distance, workload) picks a
+              <strong>near-optimal</strong> actor for each task.
+            </p>
+          </div>
+          <div class="card amber s7-card-3">
+            <span class="tag amber">the open edge</span>
+            <p style="margin-top: 0.5em">
+              A package <strong>mid-carry</strong> is lost when its actor
+              crashes - the takeover actor has nothing to pick up. A small fix,
+              not architectural. <em>(see future work)</em>
+            </p>
+          </div>
         </div>
       </div>
-      <div class="card cyan s7-card-2">
-        <span class="tag cyan">allocation</span>
-        <p style="margin-top: 0.5em">
-          In simulation, the bid score (skills, distance, workload) picks a
-          <strong>near-optimal</strong> actor for each task.
-        </p>
-      </div>
-      <div class="card amber s7-card-3">
-        <span class="tag amber">the open edge</span>
-        <p style="margin-top: 0.5em">
-          One known gap: after a hard crash the failed actor's
-          <strong>station / path lock</strong> is never released, so the actor
-          taking over waits on it. A small lock-release fix - not an
-          architectural gap. <em>(see future work)</em>
-        </p>
-      </div>
-    </div>
-  </div>
 
-  <div class="slide-number">07<span class="of"> / 10</span></div>
-</section>
-
+      <div class="slide-number">07<span class="of"> / 10</span></div>
+    </section>
 
     <!-- ============ SLIDE 8 - FUTURE WORK ============ -->
     <section class="slide" id="s8">
-  <header class="chrome">
-    <span class="dot r"></span><span class="dot y"></span
-    ><span class="dot g"></span>
-    <span class="path">~/Inter-Act/08-future</span>
-    <span class="branch"></span>
-  </header>
+      <header class="chrome">
+        <span class="dot r"></span><span class="dot y"></span
+        ><span class="dot g"></span>
+        <span class="path">~/Inter-Act/08-future</span>
+        <span class="branch"></span>
+      </header>
 
-  <div class="slide-content">
-    <p class="eyebrow reveal">Future work</p>
-    <h2 class="section-title reveal">
-      Where INTER<span style="color: var(--green)">.</span>act is heading
-    </h2>
+      <div class="slide-content">
+        <p class="eyebrow reveal">Future work</p>
+        <h2 class="section-title reveal">
+          Where INTER<span style="color: var(--green)">.</span>act is heading
+        </h2>
 
-    <div class="s8-timeline reveal">
-      <div class="s8-spine"></div>
+        <div class="s8-timeline reveal">
+          <div class="s8-spine"></div>
 
-      <div class="s8-node s8-node--1 s8-above">
-        <div class="s8-card">
-          <div class="s8-when">&#9656; close the gap</div>
-          <h3>Complete the recovery</h3>
-          <ul>
-            <li>Release locks on heartbeat loss so re-allocated actors <strong>finish delivery</strong>.</li>
-            <li>Faults recover end to end, not just re-allocation.</li>
-          </ul>
+          <div class="s8-node s8-node--1 s8-above">
+            <div class="s8-card">
+              <div class="s8-when">&#9656; close the gap</div>
+              <h3>Complete the recovery</h3>
+              <ul>
+                <li>
+                  Release locks on heartbeat loss so re-allocated actors
+                  <strong>finish delivery</strong>.
+                </li>
+                <li>Faults recover end to end, not just re-allocation.</li>
+              </ul>
+            </div>
+            <div class="s8-stem"></div>
+            <div class="s8-dot"></div>
+          </div>
+
+          <div class="s8-node s8-node--2 s8-below">
+            <div class="s8-dot"></div>
+            <div class="s8-stem"></div>
+            <div class="s8-card">
+              <div class="s8-when">&#9656; truly contested</div>
+              <h3>Beyond single-bidder</h3>
+              <ul>
+                <li>
+                  Move past the single eligible bidder toward genuinely
+                  distributed allocation.
+                </li>
+                <li>More actors, real competition on the bus.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="s8-node s8-node--3 s8-above">
+            <div class="s8-card">
+              <div class="s8-when">&#9656; UI &middot; build it</div>
+              <h3>Visual builder</h3>
+              <ul>
+                <li>
+                  Parallel routes and per-actor parameters authored from the
+                  canvas.
+                </li>
+              </ul>
+            </div>
+            <div class="s8-stem"></div>
+            <div class="s8-dot"></div>
+          </div>
+
+          <div class="s8-node s8-node--4 s8-below">
+            <div class="s8-dot"></div>
+            <div class="s8-stem"></div>
+            <div class="s8-card">
+              <div class="s8-when">&#9656; beyond the warehouse</div>
+              <h3>Any multi-agent system</h3>
+              <ul>
+                <li>
+                  The warehouse is one scenario - the coordination foundation is
+                  <strong>domain-agnostic</strong>.
+                </li>
+                <li>
+                  Drone displays (one drone drops out), underwater cleaning
+                  fleets, defence and search-and-rescue swarms.
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="s8-stem"></div>
-        <div class="s8-dot"></div>
       </div>
 
-      <div class="s8-node s8-node--2 s8-below">
-        <div class="s8-dot"></div>
-        <div class="s8-stem"></div>
-        <div class="s8-card">
-          <div class="s8-when">&#9656; truly contested</div>
-          <h3>Beyond single-bidder</h3>
-          <ul>
-            <li>Move past the single eligible bidder toward genuinely distributed allocation.</li>
-            <li>More actors, real competition on the bus.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="s8-node s8-node--3 s8-above">
-        <div class="s8-card">
-          <div class="s8-when">&#9656; UI &middot; build it</div>
-          <h3>Visual builder</h3>
-          <ul>
-            <li>Parallel routes and per-actor parameters authored from the canvas.</li>
-          </ul>
-        </div>
-        <div class="s8-stem"></div>
-        <div class="s8-dot"></div>
-      </div>
-
-      <div class="s8-node s8-node--4 s8-below">
-        <div class="s8-dot"></div>
-        <div class="s8-stem"></div>
-        <div class="s8-card">
-          <div class="s8-when">&#9656; beyond the warehouse</div>
-          <h3>Any multi-agent system</h3>
-          <ul>
-            <li>The warehouse is one scenario - the coordination foundation is <strong>domain-agnostic</strong>.</li>
-            <li>Drone displays (one drone drops out), underwater cleaning fleets, defence and search-and-rescue swarms.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="slide-number">08<span class="of"> / 10</span></div>
-</section>
+      <div class="slide-number">08<span class="of"> / 10</span></div>
+    </section>
 
     <!-- ============ SLIDE 9 - CONCLUSION ============ -->
     <section class="slide" id="s9">
-  <header class="chrome">
-    <span class="dot r"></span><span class="dot y"></span
-    ><span class="dot g"></span>
-    <span class="path">~/Inter-Act/09-conclusion</span>
-    <span class="branch"></span>
-  </header>
+      <header class="chrome">
+        <span class="dot r"></span><span class="dot y"></span
+        ><span class="dot g"></span>
+        <span class="path">~/Inter-Act/09-conclusion</span>
+        <span class="branch"></span>
+      </header>
 
-  <div class="slide-content" id="s9-content">
-    <p class="eyebrow reveal">Conclusion</p>
+      <div class="slide-content" id="s9-content">
+        <p class="eyebrow reveal">Conclusion</p>
 
-    <div class="s9-hero reveal" aria-label="Main conclusion statement">
-      <p class="s9-hero-line">A working foundation for</p>
-      <p class="s9-hero-line s9-hero-accent">decentralized coordination.</p>
-    </div>
+        <div class="s9-hero reveal" aria-label="Main conclusion statement">
+          <p class="s9-hero-line">A working foundation for</p>
+          <p class="s9-hero-line s9-hero-accent">decentralized coordination.</p>
+        </div>
 
-    <div class="s9-sub reveal" role="list" aria-label="Supporting points">
-      <div class="s9-point" role="listitem">
-        <span class="s9-point-tag">today</span>
-        <span class="s9-point-text">Centralized intent, decentralized execution - running live, not a mock-up.</span>
+        <div class="s9-sub reveal" role="list" aria-label="Supporting points">
+          <div class="s9-point" role="listitem">
+            <span class="s9-point-tag">today</span>
+            <span class="s9-point-text"
+              >The user sets one goal; execution is decentralized - running
+              live, not a mock-up.</span
+            >
+          </div>
+          <div class="s9-divider" aria-hidden="true"></div>
+          <div class="s9-point" role="listitem">
+            <span class="s9-point-tag s9-point-tag--cyan">proven</span>
+            <span class="s9-point-text"
+              >Another actor recovers a lost task on the running system; the LLM
+              stays advisory.</span
+            >
+          </div>
+          <div class="s9-divider" aria-hidden="true"></div>
+          <div class="s9-point" role="listitem">
+            <span class="s9-point-tag s9-point-tag--amber">next</span>
+            <span class="s9-point-text"
+              >Foundation is solid; one open edge is a known lock-release
+              fix.</span
+            >
+          </div>
+        </div>
       </div>
-      <div class="s9-divider" aria-hidden="true"></div>
-      <div class="s9-point" role="listitem">
-        <span class="s9-point-tag s9-point-tag--cyan">proven</span>
-        <span class="s9-point-text">Another actor recovers a lost task on the running system; the LLM stays advisory.</span>
-      </div>
-      <div class="s9-divider" aria-hidden="true"></div>
-      <div class="s9-point" role="listitem">
-        <span class="s9-point-tag s9-point-tag--amber">next</span>
-        <span class="s9-point-text">Foundation is solid; one open edge is a known lock-release fix.</span>
-      </div>
-    </div>
-  </div>
 
-  <div class="slide-number">09<span class="of"> / 10</span></div>
-</section>
+      <div class="slide-number">09<span class="of"> / 10</span></div>
+    </section>
 
     <!-- ============ SLIDE 10 - THANK YOU ============ -->
     <section class="slide thanks-slide">
@@ -2698,13 +3473,29 @@
               const inner = box.querySelector(".arch-lightbox-inner");
               if (svg && inner) {
                 inner.innerHTML = "";
+                const panel = document.createElement("div");
+                panel.style.display = "flex";
+                panel.style.flexDirection = "column";
+                panel.style.alignItems = "center";
+                panel.style.background = "white";
+                panel.style.borderRadius = "6px";
+                panel.style.padding = "0.8rem 0.8rem 0.5rem";
+                panel.style.maxHeight = "96vh";
                 const clone = svg.cloneNode(true);
                 clone.removeAttribute("class");
-                clone.style.width = "98vw";
-                clone.style.maxHeight = "94vh";
+                clone.style.width = "96vw";
+                clone.style.maxHeight = "88vh";
                 clone.style.background = "white";
-                clone.style.borderRadius = "4px";
-                inner.appendChild(clone);
+                panel.appendChild(clone);
+                const legend = trigger.querySelector(".arch-legend");
+                if (legend) {
+                  const lClone = legend.cloneNode(true);
+                  lClone.style.marginTop = "0.5rem";
+                  lClone.style.background = "transparent";
+                  inner.appendChild(lClone) && null;
+                  panel.appendChild(lClone);
+                }
+                inner.appendChild(panel);
               }
             }
             box.classList.add("open");
@@ -2732,55 +3523,71 @@
           }
         });
       })();
-    
-/* ---- Slide 7: count-up + dot fill, keyed off .visible from Combined ---- */
-(function () {
-  var s7 = document.getElementById("built-slide-fix");
-  if (!s7) return;
-  var countEl = s7.querySelector(".s7-count");
-  var dots = Array.prototype.slice.call(s7.querySelectorAll(".s7-dot"));
-  var target = 9.24;
-  var played = false;
-  function runCountUp() {
-    if (played) return;
-    played = true;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      if (countEl) countEl.textContent = target.toFixed(2);
-      dots.forEach(function (d) { d.style.background = "var(--green)"; });
-      return;
-    }
-    var duration = 1000;
-    var start = null;
-    setTimeout(function () {
-      function step(ts) {
-        if (!start) start = ts;
-        var progress = Math.min((ts - start) / duration, 1);
-        var eased = 1 - Math.pow(1 - progress, 3);
-        var value = eased * target;
-        if (countEl) countEl.textContent = value.toFixed(2);
-        if (progress < 1) requestAnimationFrame(step);
-        else if (countEl) countEl.textContent = target.toFixed(2);
-      }
-      requestAnimationFrame(step);
-    }, 200);
-    dots.forEach(function (d, i) {
-      setTimeout(function () {
-        d.style.background = "var(--green)";
-        d.style.boxShadow = "0 0 0 2px rgba(45,164,78,0.18)";
-      }, 400 + i * 80);
-    });
-  }
-  var mo = new MutationObserver(function (mutations) {
-    mutations.forEach(function (m) {
-      if (m.type === "attributes" && m.attributeName === "class" && s7.classList.contains("visible")) {
-        runCountUp();
-      }
-    });
-  });
-  mo.observe(s7, { attributes: true });
-  if (s7.classList.contains("visible")) runCountUp();
-})();
 
-</script>
+      /* ---- Slide 7: count-up + dot fill, keyed off .visible from Combined ---- */
+      (function () {
+        var s7 = document.getElementById("built-slide-fix");
+        if (!s7) return;
+        var countEls = Array.prototype.slice.call(
+          s7.querySelectorAll(".s7-count"),
+        );
+        var dots = Array.prototype.slice.call(s7.querySelectorAll(".s7-dot"));
+        var played = false;
+        function animateEl(el) {
+          var target = parseFloat(el.getAttribute("data-target")) || 0;
+          var duration = 1000;
+          var start = null;
+          function step(ts) {
+            if (!start) start = ts;
+            var progress = Math.min((ts - start) / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = (eased * target).toFixed(1);
+            if (progress < 1) requestAnimationFrame(step);
+            else el.textContent = target.toFixed(1);
+          }
+          requestAnimationFrame(step);
+        }
+        function runCountUp() {
+          if (played) return;
+          played = true;
+          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            countEls.forEach(function (el) {
+              el.textContent = (
+                parseFloat(el.getAttribute("data-target")) || 0
+              ).toFixed(1);
+            });
+            dots.forEach(function (d) {
+              d.style.background = "var(--green)";
+            });
+            return;
+          }
+          setTimeout(function () {
+            countEls.forEach(animateEl);
+          }, 200);
+          dots.forEach(function (d, i) {
+            setTimeout(
+              function () {
+                d.style.background = "var(--green)";
+                d.style.boxShadow = "0 0 0 2px rgba(45,164,78,0.18)";
+              },
+              400 + i * 80,
+            );
+          });
+        }
+        var mo = new MutationObserver(function (mutations) {
+          mutations.forEach(function (m) {
+            if (
+              m.type === "attributes" &&
+              m.attributeName === "class" &&
+              s7.classList.contains("visible")
+            ) {
+              runCountUp();
+            }
+          });
+        });
+        mo.observe(s7, { attributes: true });
+        if (s7.classList.contains("visible")) runCountUp();
+      })();
+    </script>
   </body>
 </html>
