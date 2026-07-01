@@ -2647,7 +2647,7 @@
         >
           <svg
             id="s6-svg"
-            viewBox="0 0 920 320"
+            viewBox="-188 0 1108 320"
             xmlns="http://www.w3.org/2000/svg"
             role="img"
             aria-label="Contract-net: announce task, three AGV bids, announcer claims winner."
@@ -2701,6 +2701,106 @@
                 </feMerge>
               </filter>
             </defs>
+
+            <!-- AGV capability key: why AGV-2 wins isn't arbitrary - each AGV has a fixed
+                 weight/colour band, aligned to each AGV's own bid row -->
+            <g class="s6-cap-key" aria-hidden="true">
+              <rect
+                x="-172"
+                y="52"
+                width="168"
+                height="56"
+                rx="8"
+                fill="#fafbfc"
+                stroke="#c9d1d9"
+                stroke-width="1.4"
+              />
+              <text
+                x="-88"
+                y="74"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="14"
+                font-weight="700"
+                fill="#3a3f45"
+              >
+                AGV-1 &#8804; 20 kg
+              </text>
+              <text
+                x="-88"
+                y="94"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="12.5"
+                fill="#7a8087"
+              >
+                blue packages only
+              </text>
+
+              <rect
+                x="-172"
+                y="132"
+                width="168"
+                height="56"
+                rx="8"
+                fill="#fafbfc"
+                stroke="#c9d1d9"
+                stroke-width="1.4"
+              />
+              <text
+                x="-88"
+                y="154"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="14"
+                font-weight="700"
+                fill="#3a3f45"
+              >
+                AGV-2 &#8804; 50 kg
+              </text>
+              <text
+                x="-88"
+                y="174"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="12.5"
+                fill="#7a8087"
+              >
+                green packages only
+              </text>
+
+              <rect
+                x="-172"
+                y="212"
+                width="168"
+                height="56"
+                rx="8"
+                fill="#fafbfc"
+                stroke="#c9d1d9"
+                stroke-width="1.4"
+              />
+              <text
+                x="-88"
+                y="234"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="14"
+                font-weight="700"
+                fill="#3a3f45"
+              >
+                AGV-3 &#8804; 80 kg
+              </text>
+              <text
+                x="-88"
+                y="254"
+                text-anchor="middle"
+                font-family="'JetBrains Mono',monospace"
+                font-size="12.5"
+                fill="#7a8087"
+              >
+                yellow packages only
+              </text>
+            </g>
 
             <rect
               class="s6-announce"

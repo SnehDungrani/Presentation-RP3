@@ -1726,3 +1726,42 @@ body.combined .slide {
     color: var(--text-secondary);
     line-height: 1.5;
 }
+
+/* ===========================================
+   PRINT / PDF EXPORT
+   one .slide per printed page, no nav chrome
+   =========================================== */
+@media print {
+    @page {
+        size: 1280px 720px;
+        margin: 0;
+    }
+
+    .nav-dots,
+    .progress-bar,
+    .lightbox,
+    .arch-lightbox {
+        display: none !important;
+    }
+
+    body.combined {
+        overflow: visible !important;
+    }
+
+    .slide {
+        width: 1280px;
+        height: 720px;
+        page-break-after: always;
+        break-after: page;
+        overflow: hidden;
+    }
+
+    .slide:last-of-type {
+        page-break-after: auto;
+        break-after: auto;
+    }
+
+    * {
+        animation: none !important;
+    }
+}
